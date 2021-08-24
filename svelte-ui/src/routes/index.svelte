@@ -21,7 +21,6 @@
   };
 
   export let data: { slug: Slug; title: string; body: any }[] = [];
-  console.log(data);
 </script>
 
 <h1>Home page</h1>

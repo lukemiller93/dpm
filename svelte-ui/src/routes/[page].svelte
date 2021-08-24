@@ -2,28 +2,33 @@
   export async function load({ page, fetch }) {
     // As with the server route, we have access to params.slug here
     const res = await fetch(`api/pages/${page.params.page}`);
-    const pageData = await res.json();
+    const {pageData} = await res.json()
+
+    console.log({ res})
     if (res.ok) {
-      return {
-        props: {
-          pageData,
-        },
-      };
-    }
 
     return {
-      status: res.status,
-      error: new Error(`Could not load api/pages/${page.params.page}`),
+      props: {
+        pageData
+      }
     };
+    }
+
   }
 </script>
 
 <script lang="ts">
-  export let pageData;
+  import BlockContent from "@movingbrands/svelte-portable-text";
+  import type { SanityPage } from "src/global";
+
+
+  export let pageData: SanityPage ;
 </script>
 
 <svelte:head>
-  <!-- <title>{pageData.title}</title> -->
+<title>{pageData.title}</title>
+
 </svelte:head>
-<h1>new page</h1>
+<h1>{pageData.title}</h1>
+<BlockContent blocks={pageData.body} />
 <pre>{JSON.stringify(pageData, null, 2)}</pre>
