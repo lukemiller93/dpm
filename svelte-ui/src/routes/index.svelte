@@ -1,7 +1,8 @@
 <script context="module" lang="ts">
   import { client } from "$lib/components/SanityClient";
   export async function load({ page, fetch, session, context }) {
-    const query = "*[_type == 'page']{_id, slug, title, body}";
+    const query =
+      "*[_type == 'page' && slug.current == '/']{_id, slug, title, body}";
 
     const res = await client.fetch(query);
 
@@ -15,11 +16,7 @@
 
 <script lang="ts">
   import BlockContent from "@movingbrands/svelte-portable-text";
-  type Slug = {
-    _type: string;
-    current: string;
-  };
-
+  import type { Slug } from "src/global";
   export let data: { slug: Slug; title: string; body: any }[] = [];
 </script>
 
