@@ -1,6 +1,5 @@
 <script context="module" lang="ts">
   export async function load({ page, fetch }) {
-    console.log(page);
     // As with the server route, we have access to params.slug here
     const res = await fetch(`api/pages/${page.params.page}`);
     const { pageData } = await res.json();

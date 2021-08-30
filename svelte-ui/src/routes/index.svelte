@@ -20,9 +20,10 @@
   export let data: { slug: Slug; title: string; body: any }[] = [];
 </script>
 
-<h1>Home page</h1>
+<svelte:head>
+  <title>{data[0]?.title}</title>
+</svelte:head>
 {#each data as item}
-  <code>{item?.title}</code>
   {#if item?.body}
     <BlockContent blocks={item.body} />
   {/if}
