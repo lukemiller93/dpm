@@ -21,9 +21,12 @@
     "@sanity/default-login": "^2.15.0",
     "@sanity/desk-tool": "^2.15.2",
     "@sanity/vision": "^2.15.0",
+    "lodash.startcase": "^4.4.0",
     "prop-types": "^15.7",
     "react": "^17.0",
-    "react-dom": "^17.0"
+    "react-dom": "^17.0",
+    "react-icons": "^4.2.0",
+    "sanity-plugin-color-list": "^2.0.2"
   },
   "devDependencies": {}
 }

@@ -1,48 +1,36 @@
 
 export default {
+  type: "document",
   name: "page",
   title: "Page",
-  type: "document",
   fields: [
     {
       name: "title",
-      title: "Title",
       type: "string",
+      title: "Title",
     },
     {
       name: "slug",
-      title: "Slug",
       type: "slug",
       options: {
-        source: "title",
-        maxLength: 96,
+        maxLength: 50,
+        source: (doc) => `/${doc.title}`,
       },
     },
     {
-      name: "mainImage",
-      title: "Main image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
+      name: "navMenu",
+      type: "reference",
+      title: "Navigation menu",
+      // weak: true, // uncomment if you want to be able to delete navigation even though pages refer to it
+      to: [{ type: "navigationMenu" }],
+      description: "Which nav menu should be shown if any",
     },
     {
-      name: "body",
-      title: "Body",
-      type: "blockContent",
+      name: "content",
+      type: "array",
+      title: "Page Content",
+      description: "Add, edit, and reorder sections",
+      of: [{ type: "hero" }, { type: "bodySection" }, { type: "gridContent" }, {type: 'uiComponentRef'}],
     },
   ],
-
-  preview: {
-    select: {
-      title: "title",
-      media: "mainImage",
-    },
-    prepare(selection) {
-      const { author } = selection;
-      return Object.assign({}, selection, {
-        subtitle: author && `by ${author}`,
-      });
-    },
-  },
 };
