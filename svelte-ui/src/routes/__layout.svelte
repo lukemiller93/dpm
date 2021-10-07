@@ -21,7 +21,6 @@
 </script>
 
 <script lang="ts">
-import DpmLogo from "$lib/components/DpmLogo.svelte";
 import { normalizePath } from "$lib/utils/normalizePath";
 import "@fontsource/inter/variable-full.css";
 import "@fontsource/nunito/400.css";
@@ -30,12 +29,11 @@ import "@fontsource/nunito/400.css";
 </script>
 
 <header>
-  <div class="logo-wrapper">
     <a href="/">
-      <DpmLogo />
+      <!-- <DpmLogo /> -->
+      <img src="dpm_wordmark.svg" alt=""/>
     </a>
-    <h1><span>Dauntless Pursuit</span> Media</h1>
-  </div>
+
   <ul class="navigation-items">
     {#each navItems as {sitePageRoute: {slug, title, _id}}}
       <li class="nav-item">
@@ -74,23 +72,8 @@ import "@fontsource/nunito/400.css";
   .nav-item {
     margin-right: 2rem;
   }
-  .logo-wrapper {
-    display: flex;
-    align-items: center;
-  }
-
-  .logo-wrapper h1 {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    font-weight: 900;
-  }
-
-  .logo-wrapper h1 span {
-    letter-spacing: -1px;
-  }
-  .logo-wrapper a {
-    width: 6rem;
-    display: inline-block;
+ a {
+   width: 18rem;
+    /* display: inline-block; */
   }
 </style>
