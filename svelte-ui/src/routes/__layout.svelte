@@ -1,11 +1,15 @@
 <script lang="ts" context="module">
   export async function load({ fetch }) {
-    const res = await fetch("./api/navigation/");
+    const res = await fetch("./api/navigation.json");
+
     if (res.ok) {
-      const { navItems } = await res.json();
+      // const data = await res.json()
+      // console.log(data)
+      const data = await res.json();
+
       return {
         props: {
-          navItems,
+          navItems: data[0]?.items
         },
       };
     }
@@ -17,15 +21,12 @@
 </script>
 
 <script lang="ts">
-  import "@fontsource/inter/variable-full.css";
-  import "@fontsource/nunito/400.css";
-  import DpmLogo from "$lib/components/DpmLogo.svelte";
-  import { normalizePath } from "$lib/utils/normalizePath";
+import DpmLogo from "$lib/components/DpmLogo.svelte";
+import { normalizePath } from "$lib/utils/normalizePath";
+import "@fontsource/inter/variable-full.css";
+import "@fontsource/nunito/400.css";
 
-  import type { Slug } from "src/global";
-
-  export let navItems: { slug: Slug; title: string }[] = [];
-  console.log(navItems);
+  export let navItems = [];
 </script>
 
 <header>
@@ -36,9 +37,9 @@
     <h1><span>Dauntless Pursuit</span> Media</h1>
   </div>
   <ul class="navigation-items">
-    {#each navItems as navItem}
+    {#each navItems as {sitePageRoute: {slug, title, _id}}}
       <li class="nav-item">
-        <a href={normalizePath(navItem?.slug?.current)}>{navItem.title}</a>
+        <a href={normalizePath(slug?.current)}>{title}</a>
       </li>
     {/each}
   </ul>

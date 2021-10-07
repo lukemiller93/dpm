@@ -1,30 +1,33 @@
 <script context="module" lang="ts">
-  import { client } from "$lib/components/SanityClient";
-  export async function load({ page, fetch, session, context }) {
-    const query =
-      "*[_type == 'page' && slug.current == '/']{_id, slug, title, body}";
 
-    const res = await client.fetch(query);
+  export async function load({ page, fetch }) {
+    // As with the server route, we have access to params.slug here
+    const res = await fetch(`api/pages.json`);
+    const { pageData } = await res.json();
 
-    return {
-      props: {
-        data: res,
-      },
-    };
+    if (res.ok) {
+      return {
+        props: {
+          pageData,
+        },
+      };
+    }
   }
 </script>
 
 <script lang="ts">
   import BlockContent from "@movingbrands/svelte-portable-text";
-  import type { Slug } from "src/global";
-  export let data: { slug: Slug; title: string; body: any }[] = [];
+  import type { SanityPage } from "src/global";
+  export let pageData: SanityPage[] = [];
+  console.log(pageData)
+  $: blockContent = pageData[0]?.content[0]?.contentRaw
 </script>
 
 <svelte:head>
-  <title>{data[0]?.title}</title>
+  <title>{pageData[0]?.title} - Dauntless Pursuit Media</title>
 </svelte:head>
-{#each data as item}
-  {#if item?.body}
-    <BlockContent blocks={item.body} />
-  {/if}
+{#each pageData as item}
+  <h1>{item?.title}</h1>
+    <BlockContent blocks={blockContent} />
+
 {/each}

@@ -14,7 +14,7 @@ export default {
       name: "name",
       title: 'Render Component',
       options: {
-        list: [{ title: "Event List", value: 'eventList' }, {title: 'Contact Form', value: 'contactForm'}, {title: 'Booking Form', value: 'bookingForm'},{title: 'Truck Schedule', value: 'truckSchedule'}],
+        list: [{ title: "Request a Proposal", value: 'proposalIntake' }, {title: 'Contact Form', value: 'contactForm'}, {title: 'Testimonial List', value: 'testimonialList'},{title: 'Recent Projects', value: 'recentProjects'}],
         layout: 'radio',
         direction: 'horizontal'
       },
