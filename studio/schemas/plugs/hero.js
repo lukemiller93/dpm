@@ -5,11 +5,11 @@ export default {
   icon: BsCardHeading,
   title: 'Hero',
   fields: [
-    // {
-    //   name: 'label',
-    //   type: 'string',
-    //   description: 'an optional description of the block'
-    // },
+    {
+      name: 'headLine',
+      type: 'blockContent',
+      description: 'The heading in the hero'
+    },
     {
       name: 'heading',
       type: 'simpleBlockContent',

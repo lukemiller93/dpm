@@ -1,0 +1,7 @@
+overwrite: true
+schema: "https://sd6anpfo.api.sanity.io/v1/graphql/production/default"
+generates:
+  src/lib/generated-graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-document-nodes"
