@@ -16,7 +16,6 @@
 
 <script lang="ts">
   import AllModules from "$lib/components/AllModules.svelte";
-  import BlockContent from "@movingbrands/svelte-portable-text";
   import type { SanityPage } from "src/global";
   export let pageData: SanityPage[] = [];
   console.log(pageData[0].content);
@@ -30,7 +29,6 @@
   <!-- <h1>{item?.title}</h1> -->
   {#each item?.content as block}
     <AllModules data={block} blockType={block?.__typename} />
-    <!-- <pre>{JSON.stringify(block, null, 2)}</pre> -->
   {/each}
-  <BlockContent blocks={item?.content} />
+  <!-- <BlockContent blocks={item?.content} /> -->
 {/each}

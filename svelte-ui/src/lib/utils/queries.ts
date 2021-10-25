@@ -29,7 +29,7 @@ const HeroFragment = gql`
     _key
     _type
     __typename
-    headlineRaw
+    headLineRaw
     headingRaw
     illustration {
       ${IllustrationFrag}

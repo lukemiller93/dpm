@@ -351,6 +351,7 @@ export type Hero = {
   _type?: Maybe<Scalars['String']>;
   cta?: Maybe<LinkCreator>;
   headingRaw?: Maybe<Scalars['JSON']>;
+  headLineRaw?:Maybe<Scalars['JSON']>;
   illustration?: Maybe<Illustration>;
 };
 

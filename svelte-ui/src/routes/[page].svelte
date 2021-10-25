@@ -15,7 +15,7 @@
 </script>
 
 <script lang="ts">
-  import BlockContent from "@movingbrands/svelte-portable-text";
+  // import BlockContent from "@movingbrands/svelte-portable-text";
   import type { SanityPage } from "src/global";
   export let pageData: SanityPage[];
 
