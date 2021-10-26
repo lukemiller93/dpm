@@ -1,15 +1,12 @@
 <script lang="ts">
   import BlockContent from "@portabletext/svelte";
+  import CallToAction from "./CallToAction.svelte";
   export let content;
 
   const blockSerializers = {
-    // types: {
-    //   block: (node) => {
-    //     if (node.style === "h1") {
-    //       return <h1>{node}</h1>;
-    //     }
-    //   },
-    // },
+    types: {
+      linkCreator: CallToAction
+    },
   };
 </script>
 

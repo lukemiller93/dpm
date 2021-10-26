@@ -1,18 +1,16 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
-
   import type { LinkCreator } from "$lib/generated-graphql";
 
   export let props: LinkCreator;
 
-  const { sitePageRoute, title, kind, backgroundColor, link, route } = props;
+  // const {  title, kind, backgroundColor, link, route } = props;
 </script>
 
-{#if sitePageRoute}
+{#if props?.sitePageRoute}
   <a
-    class={`${kind} bg--${backgroundColor.colors.title}`}
+    class={`${props?.kind} bg--${props?.backgroundColor.colors.title}`}
     sveltekit:prefetch
-    href={sitePageRoute?.slug?.current}>{title}</a
+    href={`/${props?.sitePageRoute?.slug?.current}`}>{props?.title}</a
   >
 {/if}
 

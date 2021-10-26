@@ -3,6 +3,7 @@ import { gql } from "graphql-request";
 const IllustrationFrag = gql`
   ...on Illustration {
       _key
+      _type
       image {
         _key
         alt
