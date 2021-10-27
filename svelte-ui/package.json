@@ -2,7 +2,7 @@
   "name": "dauntless-pursuit-media",
   "version": "0.0.1",
   "scripts": {
-    "dev": "env-cmd svelte-kit dev ",
+    "dev": "svelte-kit dev ",
     "build": "svelte-kit build",
     "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
@@ -33,7 +33,7 @@
     "@fontsource/nunito": "^4.5.0",
     "@sanity/client": "^2.21.3",
     "@sanity/image-url": "^0.140.22",
-    "env-cmd": "^10.1.0",
+    "dotenv": "^10.0.0",
     "graphql": "^15.6.1",
     "graphql-request": "^3.6.1"
   }

@@ -39,7 +39,7 @@
 <style>
   .hero {
     position: relative;
-    min-height:60vh;
+    min-height: 60vh;
     display: grid;
     background: whitesmoke;
     place-items: center;
@@ -61,7 +61,7 @@
 
   .custom-shape-divider-bottom-1635193655 {
     position: absolute;
-    bottom: 0;
+    bottom: -1px;
     left: 0;
     width: 100%;
     overflow: hidden;

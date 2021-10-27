@@ -1,30 +1,27 @@
 <script lang="ts">
-import type { LinkCreator } from "$lib/generated-graphql";
-import type { BlockProps } from "@portabletext/svelte";
-import CallToAction from "./CallToAction.svelte";
-  export let portableText: BlockProps<LinkCreator>
+  import { sanityClient } from "$lib/sanityClient";
 
-  console.log(portableText)
+  import { onMount } from "svelte";
+  import CallToAction from "./CallToAction.svelte";
 
-  let linkData = portableText?.block
+  export let portableText;
 
-//   onMount(async () => {
-//   const query=  gql`query GET_PAGE_SLUG(id: String!) {
-// 	Page(id:$id) {
-//     _id
-//     slug{
-//       current
-//     }
-//   }
-// }`
-//   const res = await client.request(query, {id: portableText?.block?.sitePageRoute?._ref})
-//   console.log(res)
-//   // linkData = {...linkData, sitePageRoute: {
-//   //   ...
-//   // }}
-//   })
+  let linkData = portableText?.block;
+  let linkObj;
+  onMount(async () => {
+    const params = { id: linkData.sitePageRoute._ref };
+
+    const query = "*[_id == $id ]{title, slug,_id}";
+    const res = await sanityClient.fetch(query, params).then((data) => {
+      const oldObj = linkData;
+      oldObj.sitePageRoute = data[0];
+      linkObj = { ...oldObj };
+      return oldObj;
+    });
+    console.log(res);
+  });
 </script>
 
-{#if portableText.block?.kind === 'button'}
-  <CallToAction props={portableText?.block}/>
+{#if linkData?.kind === "button"}
+  <CallToAction props={linkObj} />
 {/if}

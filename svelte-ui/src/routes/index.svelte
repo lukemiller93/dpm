@@ -18,8 +18,6 @@
   import AllModules from "$lib/components/AllModules.svelte";
   import type { SanityPage } from "src/global";
   export let pageData: SanityPage[] = [];
-  console.log(pageData[0].content);
-  $: blockContent = pageData[0]?.content[0]?.contentRaw;
 </script>
 
 <svelte:head>

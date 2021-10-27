@@ -36,3 +36,13 @@ export interface Route extends SanityDocument {
   includeInSitemap: boolean,
   disallowRobots: boolean
 }
+
+interface ImportMetaEnv extends Readonly<Record<string, string>> {
+  readonly VITE_GRAPHQL_ENDPOINT: string;
+  readonly VITE_SANITY_READ_TOKEN: string;
+  // more env variables...
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
