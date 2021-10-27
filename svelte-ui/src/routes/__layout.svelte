@@ -48,6 +48,10 @@
   :root {
     --button-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
   }
+  :global(.container) {
+    margin: 0 auto;
+    width: clamp(90vw, 96vw, 1680px);
+  }
   :global(html) {
     font-size: 112.5%; /*18px*/
   }

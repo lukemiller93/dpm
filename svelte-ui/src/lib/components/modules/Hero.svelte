@@ -39,7 +39,7 @@
 <style>
   .hero {
     position: relative;
-    min-height: 40vh;
+    min-height:60vh;
     display: grid;
     background: whitesmoke;
     place-items: center;

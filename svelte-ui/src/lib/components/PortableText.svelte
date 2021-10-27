@@ -1,11 +1,11 @@
 <script lang="ts">
   import BlockContent from "@portabletext/svelte";
-  import CallToAction from "./CallToAction.svelte";
+  import LinkCreator from "./LinkCreator.svelte";
   export let content;
 
   const blockSerializers = {
     types: {
-      linkCreator: CallToAction
+      linkCreator: LinkCreator
     },
   };
 </script>
