@@ -18,7 +18,6 @@
       linkObj = { ...oldObj };
       return oldObj;
     });
-    console.log(res);
   });
 </script>
 
