@@ -1,6 +1,5 @@
 import { client } from '$lib/graphql-client';
 import { FILTERED_PAGE_QUERY } from '$lib/utils/queries';
-import { gql } from 'graphql-request';
 
 export async function get(req) {
 

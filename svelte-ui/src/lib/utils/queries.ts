@@ -11,7 +11,6 @@ const IllustrationFrag = gql`
         asset {
           url
           assetId
-          url
         }
       }
   }
@@ -97,6 +96,40 @@ export const FILTERED_PAGE_QUERY = gql`
           contentRaw
           _key
         }
+      }
+    }
+  }
+`;
+
+export const FILTERED_PROJECTS_QUERY = gql`
+  query FILTERED_PROJECTS_QUERY {
+    allProject(sort: { publishedAt: DESC }, where: { _: { is_draft: false } }) {
+      _id
+      mainImage {
+        _key
+        _type
+        alt
+        asset {
+          url
+          assetId
+        }
+      }
+      slug {
+        current
+      }
+      title
+      author {
+        name
+      }
+      categories {
+        title
+        description
+        icon {
+          asset {
+            _id
+          }
+        }
+        description
       }
     }
   }

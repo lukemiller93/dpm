@@ -1,4 +1,5 @@
 <script lang="ts">
-  export let componentData
+  export let blockData;
 </script>
-<pre>{JSON.stringify(componentData, null, 2)}</pre>
+
+<pre>{JSON.stringify(blockData, null, 2)}</pre>
