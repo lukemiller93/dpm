@@ -33,7 +33,6 @@
       />
     </svg>
   </div>
-  <!-- <pre>{JSON.stringify(blockData, null, 2)}</pre> -->
 </section>
 
 <style>

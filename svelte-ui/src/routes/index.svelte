@@ -16,8 +16,8 @@
 
 <script lang="ts">
   import AllModules from "$lib/components/AllModules.svelte";
-  import type { SanityPage } from "src/global";
-  export let pageData: SanityPage[] = [];
+  import type { Page } from "$lib/generated-graphql";
+  export let pageData: Page[] = [];
 </script>
 
 <svelte:head>
@@ -28,5 +28,4 @@
   {#each item?.content as block}
     <AllModules data={block} blockType={block?.__typename} />
   {/each}
-  <!-- <BlockContent blocks={item?.content} /> -->
 {/each}

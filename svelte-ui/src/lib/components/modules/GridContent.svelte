@@ -8,7 +8,7 @@
   const { columns } = blockData;
 </script>
 
-<section>
+<section class="container grid-container">
   {#each columns as column, index (index)}
     <div class="single-column">
       {#if column._type === "illustration"}
@@ -20,5 +20,16 @@
       {/if}
     </div>
   {/each}
-  <!-- <pre>{JSON.stringify(blockData, null, 2)}</pre> -->
 </section>
+
+<style>
+  .grid-container {
+    display: grid;
+    gap: 10rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  .grid-container:not(:last-of-type) {
+    margin: 40vh auto;
+  }
+</style>

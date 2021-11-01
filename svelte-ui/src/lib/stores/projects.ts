@@ -10,7 +10,7 @@ const projects  = readable<{allProject:Project[]}>({allProject: []}, (set) => {
 // check if we're on the client
   if(browser) {
     // set cache life in seconds
-    const cacheLife = 5
+    const cacheLife = 500
     // get cached data from localStorage
     const cachedData = JSON.parse(localStorage.getItem("projects"))
     let expired
@@ -20,7 +20,6 @@ const projects  = readable<{allProject:Project[]}>({allProject: []}, (set) => {
     }
     // if cached data available and not expired, return the cache from localStorage
     if(cachedData && !expired) {
-      console.log(cachedData)
       set(cachedData)
     } else {
       // fetch data from api, then save to localStorage

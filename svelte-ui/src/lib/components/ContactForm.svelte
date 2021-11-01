@@ -1,6 +1,8 @@
 <script lang="ts">
-  export let componentData
+  export let blockData;
 </script>
 
-<h1>contact form</h1>
-<pre>{JSON.stringify(componentData, null, 2)}</pre>
+<section class="container">
+  <h1>contact form</h1>
+  <pre>{JSON.stringify(blockData, null, 2)}</pre>
+</section>

@@ -4,11 +4,10 @@
   import ProjectCard from "./ProjectCard.svelte";
 </script>
 
-<section class="recent-projects">
+<section class="recent-projects container">
   {#await $projects then { allProject }}
     {#each allProject as project (project._id)}
       <ProjectCard cardData={project} />
     {/each}
-    <!-- <pre>{JSON.stringify(allProject, null, 2)}</pre> -->
   {/await}
 </section>

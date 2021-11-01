@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Project } from "$lib/generated-graphql";
+  import { normalizePath } from "$lib/utils/normalizePath";
 
   import { urlFor } from "$lib/utils/urlFor";
 
@@ -13,5 +14,7 @@
     <img src={urlFor(mainImage).width(600).url()} alt={mainImage.alt} />
   {/if}
   <h4>{title}</h4>
-  <a href={`/portfolio/${slug.current}`} sveltekit:prefetch>Case Study</a>
+  <a href={normalizePath(`/portfolio/${slug.current}`)} sveltekit:prefetch>
+    Case Study
+  </a>
 </article>

@@ -29,18 +29,19 @@
 </script>
 
 <header>
-  <a href="/">
-    <!-- <DpmLogo /> -->
-    <img src="dpm_wordmark.svg" alt="" />
-  </a>
-
-  <ul class="navigation-items">
-    {#each navItems as { sitePageRoute: { slug, title, _id } }}
-      <li class="nav-item">
-        <a sveltekit:prefetch href={normalizePath(slug?.current)}>{title}</a>
-      </li>
-    {/each}
-  </ul>
+  <div class="wrapper container">
+    <a href="/">
+      <!-- <DpmLogo /> -->
+      <img style="max-width: 400px" src="dpm_wordmark.svg" alt="" />
+    </a>
+    <ul class="navigation-items">
+      {#each navItems as { sitePageRoute: { slug, title, _id } } (_id)}
+        <li class="nav-item">
+          <a href={normalizePath(slug?.current)}>{title}</a>
+        </li>
+      {/each}
+    </ul>
+  </div>
 </header>
 <slot />
 
@@ -50,7 +51,7 @@
   }
   :global(.container) {
     margin: 0 auto;
-    width: clamp(90vw, 96vw, 1680px);
+    width: clamp(300px, 96vw, 1680px);
   }
   :global(html) {
     font-size: 112.5%; /*18px*/
@@ -102,7 +103,7 @@
   .text_small {
     font-size: 0.833rem;
   }
-  header {
+  .wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;

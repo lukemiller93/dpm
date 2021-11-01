@@ -1,3 +1,4 @@
+
 import { gql } from "graphql-request";
 
 const IllustrationFrag = gql`
@@ -104,6 +105,40 @@ export const FILTERED_PAGE_QUERY = gql`
 export const FILTERED_PROJECTS_QUERY = gql`
   query FILTERED_PROJECTS_QUERY {
     allProject(sort: { publishedAt: DESC }, where: { _: { is_draft: false } }) {
+      _id
+      mainImage {
+        _key
+        _type
+        alt
+        asset {
+          url
+          assetId
+        }
+      }
+      slug {
+        current
+      }
+      title
+      author {
+        name
+      }
+      categories {
+        title
+        description
+        icon {
+          asset {
+            _id
+          }
+        }
+        description
+      }
+    }
+  }
+`;
+
+export const SINGLE_PROJECT_QUERY = gql`
+  query SINGLE_PROJECT_QUERY($slug: String!) {
+    pageData: allProject(where: { slug: { current: { eq: $slug } } }) {
       _id
       mainImage {
         _key
