@@ -5,7 +5,7 @@
 
   const blockSerializers = {
     types: {
-      linkCreator: LinkCreator
+      linkCreator: LinkCreator,
     },
   };
 </script>

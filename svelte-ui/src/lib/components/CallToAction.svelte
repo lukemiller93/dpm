@@ -15,6 +15,10 @@
 {/if}
 
 <style>
+  a {
+    text-align: center;
+    justify-self: center;
+  }
   a:last-child {
     margin-top: 2rem;
   }

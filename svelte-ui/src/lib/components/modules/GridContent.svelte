@@ -1,21 +1,33 @@
 <script lang="ts">
-  import type { GridContent } from "$lib/generated-graphql";
+  import type {
+    GridContent,
+    IllustrationOrSingleColumnOrUiComponentRef,
+    SingleColumn,
+  } from "$lib/generated-graphql";
+  import { generateImage } from "$lib/utils/generateImage";
   import { urlFor } from "$lib/utils/urlFor";
+  import AllModules from "../AllModules.svelte";
+  import Image from "../Image.svelte";
   import PortableText from "../PortableText.svelte";
   import UiComponents from "./UIComponents.svelte";
-  export let blockData: GridContent;
+  export let blockData;
 
-  const { columns } = blockData;
+  const { columns }: { columns: IllustrationOrSingleColumnOrUiComponentRef[] } =
+    blockData;
 </script>
 
 <section class="container grid-container">
   {#each columns as column, index (index)}
-    <div class="single-column">
-      {#if column._type === "illustration"}
-        <img src={urlFor(column?.image).width(500).url()} alt="" />
-      {:else if column._type === "singleColumn"}
+    <div
+      class={`single-column ${
+        column._type === "illustration" ? "is-illustration" : ""
+      }`}
+    >
+      {#if "image" in column && column._type === "illustration"}
+        <Image {...generateImage(column?.image)} alt={column?.image?.alt} />
+      {:else if column._type === "singleColumn" && "contentRaw" in column}
         <PortableText content={column.contentRaw} />
-      {:else}
+      {:else if "name" in column && column._type === "uiComponentRef"}
         <UiComponents blockData={column.name} />
       {/if}
     </div>
@@ -25,11 +37,24 @@
 <style>
   .grid-container {
     display: grid;
-    gap: 10rem;
+    gap: 10vw;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin: 30vh auto;
   }
 
-  .grid-container:not(:last-of-type) {
-    margin: 40vh auto;
+  .single-column:not(.is-illustration) {
+    place-self: start;
+    display: grid;
+  }
+
+  .single-column :global(h2),
+  .single-column :global(h3),
+  .single-column :global(h4),
+  .single-column :global(h5),
+  .single-column :global(h6) {
+    margin-top: 0;
+  }
+  .is-illustration {
+    align-self: center;
   }
 </style>

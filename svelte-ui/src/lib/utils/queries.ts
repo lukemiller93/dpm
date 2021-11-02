@@ -12,7 +12,58 @@ const IllustrationFrag = gql`
         asset {
           url
           assetId
+          _createdAt
+          _id
+          _rev
+          _type
+          _updatedAt
+          description
+          altText
+          extension
+          label
+          metadata {
+            _type
+            dimensions {
+              _type
+              _key
+              aspectRatio
+              height
+              width
+          }
+            hasAlpha
+            isOpaque
+            lqip
+          }
+          mimeType
+          originalFilename
+          path
+          sha1hash
+          size
+          source {
+            _key
+            id
+            name
+            url
+          }
+          title
         }
+        crop {
+          _key
+          _type
+          bottom
+          left
+          right
+          top
+        }
+        hotspot {
+          _key
+          _type
+          height
+          width
+          x
+          y
+        }
+
       }
   }
 `;

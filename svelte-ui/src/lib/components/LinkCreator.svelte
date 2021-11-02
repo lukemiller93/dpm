@@ -24,3 +24,9 @@
 {#if linkData?.kind === "button"}
   <CallToAction props={linkObj} />
 {/if}
+
+<style>
+  /* a {
+    display: grid;
+  } */
+</style>
