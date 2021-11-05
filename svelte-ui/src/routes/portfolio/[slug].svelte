@@ -5,7 +5,6 @@
    */
   export async function load({ page, fetch }) {
     // As with the server route, we have access to params.slug here
-    console.log(page.params.slug);
     const res = await fetch(`../api/projects/${page.params.slug}`);
     const { pageData } = await res.json();
     if (res.ok) {

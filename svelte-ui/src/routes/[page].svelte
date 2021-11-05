@@ -19,7 +19,6 @@
   import type { Page } from "$lib/generated-graphql";
 
   export let pageData: Page[] = [];
-  console.log(pageData);
 </script>
 
 <svelte:head>

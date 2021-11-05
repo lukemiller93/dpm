@@ -3,7 +3,6 @@
   import PortableText from "../PortableText.svelte";
 
   export let blockData: BodySection;
-  console.log(blockData.contentRaw);
   const onlyOneEl = blockData?.contentRaw?.length === 1;
 </script>
 
@@ -15,7 +14,11 @@
   .body-section {
     display: grid;
   }
-  .body-section:not(.onlyOneEl) {
+  .body-section:not(.onlyOneEl, :first-of-type) {
     margin: 20vh auto;
+  }
+
+  .body-section:first-of-type {
+    padding-top: var(--padding-lg);
   }
 </style>

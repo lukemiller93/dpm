@@ -39,7 +39,12 @@
     display: grid;
     gap: 10vw;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    margin: 30vh auto;
+    margin-bottom: 20vh;
+    margin-top: 0;
+  }
+
+  .grid-container:not(:first-of-type) {
+    margin: 20vh auto;
   }
 
   .single-column:not(.is-illustration) {

@@ -13,8 +13,38 @@
   {#if mainImage}
     <img src={urlFor(mainImage).width(600).url()} alt={mainImage.alt} />
   {/if}
-  <h4>{title}</h4>
-  <a href={normalizePath(`/portfolio/${slug.current}`)} sveltekit:prefetch>
-    Case Study
-  </a>
+  <div class="content">
+    <h4>
+      {title}
+    </h4>
+    <a href={normalizePath(`/portfolio/${slug.current}`)} sveltekit:prefetch>
+      Case Study
+    </a>
+  </div>
 </article>
+
+<style>
+  .project-card {
+    background-color: var(--light-gray);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--button-shadow);
+    overflow: hidden;
+  }
+
+  .content {
+    padding: var(--padding-sm);
+  }
+
+  img {
+    /* border-top-left-radius: var(--border-radius-md);
+    border-top-right-radius: var(--border-radius-md); */
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+  }
+
+  h4 {
+    margin: 0;
+    margin-bottom: 2rem;
+  }
+</style>

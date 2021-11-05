@@ -48,6 +48,13 @@
 <style>
   :root {
     --button-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+    --light-gray: #eee;
+    --light-grey: #eee;
+    --padding-sm: 2rem;
+    --padding-md: calc(var(--padding-sm) * 1.5);
+    --padding-lg: calc(var(--padding-sm) * 2);
+    --border-radius-sm: 4px;
+    --border-radius-md: calc(var(--border-radius-sm) * 2);
   }
   :global(.container) {
     margin: 0 auto;
