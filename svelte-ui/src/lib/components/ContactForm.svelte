@@ -13,10 +13,10 @@
       validators: [Validators.required, Validators.minLength(4)],
     },
     email: {
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.isEmail],
     },
     phone: {
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.minLength(10)],
     },
     message: {
       validators: [Validators.required, Validators.minLength(10)],
@@ -25,23 +25,34 @@
 
   function onSubmit(e) {
     if (e?.detail?.valid) {
-      console.log(e.detail.data);
+      console.log(e.detail);
       setTimeout(() => formEl.reset(), 1000);
     } else {
       console.log("Invalid form");
+      console.log(e?.detail);
     }
   }
 </script>
 
 <section class="container">
-  <!-- <pre>{JSON.stringify(blockData, null, 2)}</pre>
-
-  </pre> -->
-  <Form {form} on:submit={onSubmit} bind:this={formEl}>
-    <div slot="form">
+  <Form
+    buttonText="Send Message"
+    {form}
+    on:submit={onSubmit}
+    bind:this={formEl}
+  >
+    <div class="form-inputs" slot="form">
       <Input label="Name" name="name" />
       <Input label="Email" name="email" type="email" />
       <Input label="Phone" name="phone" type="tel" />
+      <Input label="Message" name="message" type="textarea" />
     </div>
   </Form>
 </section>
+
+<style>
+  .form-inputs {
+    display: grid;
+    gap: 2rem;
+  }
+</style>

@@ -1,7 +1,5 @@
 <script lang="ts">
   import { setContext } from "svelte";
-  // form logic
-  import { Validators } from "./Validators";
   import type { ValidatorFn, ValidatorResult } from "./Validators";
   import { createEventDispatcher } from "svelte";
   import { writable } from "svelte/store";
@@ -64,31 +62,70 @@
 
   export function reset() {
     formEl.reset();
+    errors.set({});
   }
+  let isDisabled = true;
 
   setContext("form", { errors, onBlur });
 </script>
 
-<form on:submit|preventDefault={onSubmit} bind:this={formEl}>
+<form
+  on:submit|preventDefault={onSubmit}
+  on:reset|preventDefault={reset}
+  bind:this={formEl}
+>
   <h2>{title}</h2>
   <slot name="form" />
-  <!-- <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" value="" on:blur={onBlur} />
-    {#if errors?.name?.required?.error}
-      <small class="error-msg">Name is required</small>
-    {/if}
-  </div>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email" value="" on:blur={onBlur} />
-    {#if errors?.email?.required?.error}
-      <small class="error-msg">Email is required</small>
-    {/if}
-  </div> -->
-  <!-- <pre>{JSON.stringify($errors, null, 2)}</pre> -->
-  <div class="submit">
+  <div class="buttons">
     <button type="submit">{buttonText}</button>
     <button type="reset">Reset</button>
   </div>
 </form>
+
+<style>
+  form {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 4px;
+    max-width: 600px;
+    margin: 0 auto;
+    display: grid;
+    border-radius: var(--border-radius-sm);
+  }
+  form:focus-within {
+    box-shadow: var(--bs);
+    background: black;
+    color: white;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .buttons {
+    padding: var(--padding-sm) 0;
+    display: flex;
+    justify-content: end;
+  }
+
+  button {
+    border-radius: var(--border-radius-sm);
+    border: none;
+    box-shadow: var(--button-shadow);
+    margin-right: 1rem;
+    cursor: pointer;
+    padding: 0.5rem calc(var(--padding-sm) / 2);
+    font-family: var(--font-stack-body);
+  }
+
+  [type="submit"] {
+    background-color: black;
+    color: white;
+  }
+
+  @media screen and (min-width: 600px) {
+    form {
+      padding: var(--padding-sm);
+    }
+  }
+</style>

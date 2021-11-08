@@ -48,6 +48,7 @@
 <style>
   :root {
     --button-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+    --bs: 0px 4px 8px rgba(0, 0, 0, 0.125);
     --light-gray: #eee;
     --light-grey: #eee;
     --padding-sm: 2rem;
@@ -55,6 +56,10 @@
     --padding-lg: calc(var(--padding-sm) * 2);
     --border-radius-sm: 4px;
     --border-radius-md: calc(var(--border-radius-sm) * 2);
+    --font-size-default: 1rem;
+    --font-stack-body: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+      sans-serif;
   }
   :global(.container) {
     margin: 0 auto;
@@ -67,6 +72,7 @@
   :global(body) {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     background: white;
     font-family: "Nunito", sans-serif;
     font-weight: 400;

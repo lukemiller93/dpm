@@ -15,7 +15,7 @@ export default {
       },
       title: "Columns",
       of: [{ type: "singleColumn" }, {type: 'illustration'}, {type: 'uiComponentRef'}],
-      validation: Rule => Rule.required().min(2, 'To use the Grid Content block, you must have at least 2 columns').max(4, 'You can not have more than 4 columns in this layout')
+      validation: Rule => Rule.required().min(2, 'To use the Grid Content block, you must have at least 2 columns').max(6, 'You can not have more than 6 columns in this layout')
     },
   ],
   preview: {
