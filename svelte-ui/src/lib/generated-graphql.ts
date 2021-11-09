@@ -332,7 +332,7 @@ export type GridContent = {
   __typename?: 'GridContent';
   _key?: Maybe<Scalars['String']>;
   _type?: Maybe<Scalars['String']>;
-  columns?: Maybe<Array<Maybe<IllustrationOrSingleColumnOrUiComponentRef>>>;
+  columns?: Maybe<Array<Maybe<IllustrationOrServiceOrSingleColumnOrUiComponentRef>>>;
 };
 
 export type GridContentFilter = {
@@ -350,8 +350,8 @@ export type Hero = {
   _key?: Maybe<Scalars['String']>;
   _type?: Maybe<Scalars['String']>;
   cta?: Maybe<LinkCreator>;
+  headLineRaw?: Maybe<Scalars['JSON']>;
   headingRaw?: Maybe<Scalars['JSON']>;
-  headLineRaw?:Maybe<Scalars['JSON']>;
   illustration?: Maybe<Illustration>;
 };
 
@@ -393,7 +393,7 @@ export type IllustrationFilter = {
   image?: Maybe<MainImageFilter>;
 };
 
-export type IllustrationOrSingleColumnOrUiComponentRef = Illustration | SingleColumn | UiComponentRef;
+export type IllustrationOrServiceOrSingleColumnOrUiComponentRef = Illustration | Service | SingleColumn | UiComponentRef;
 
 export type IllustrationSorting = {
   _key?: Maybe<SortOrder>;
@@ -779,6 +779,7 @@ export type RootQuery = {
   Route?: Maybe<Route>;
   SanityFileAsset?: Maybe<SanityFileAsset>;
   SanityImageAsset?: Maybe<SanityImageAsset>;
+  Service?: Maybe<Service>;
   SiteSettings?: Maybe<SiteSettings>;
   allAuthor: Array<Author>;
   allCategory: Array<Category>;
@@ -790,6 +791,7 @@ export type RootQuery = {
   allRoute: Array<Route>;
   allSanityFileAsset: Array<SanityFileAsset>;
   allSanityImageAsset: Array<SanityImageAsset>;
+  allService: Array<Service>;
   allSiteSettings: Array<SiteSettings>;
 };
 
@@ -840,6 +842,11 @@ export type RootQuerySanityFileAssetArgs = {
 
 
 export type RootQuerySanityImageAssetArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type RootQueryServiceArgs = {
   id: Scalars['ID'];
 };
 
@@ -926,6 +933,14 @@ export type RootQueryAllSanityImageAssetArgs = {
   offset?: Maybe<Scalars['Int']>;
   sort?: Maybe<Array<SanityImageAssetSorting>>;
   where?: Maybe<SanityImageAssetFilter>;
+};
+
+
+export type RootQueryAllServiceArgs = {
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  sort?: Maybe<Array<ServiceSorting>>;
+  where?: Maybe<ServiceFilter>;
 };
 
 
@@ -1356,6 +1371,45 @@ export type Sanity_DocumentFilter = {
   is_draft?: Maybe<Scalars['Boolean']>;
   /** All documents referencing the given document ID. */
   references?: Maybe<Scalars['ID']>;
+};
+
+export type Service = Document & {
+  __typename?: 'Service';
+  /** Date the document was created */
+  _createdAt?: Maybe<Scalars['DateTime']>;
+  /** Document ID */
+  _id?: Maybe<Scalars['ID']>;
+  _key?: Maybe<Scalars['String']>;
+  /** Current document revision */
+  _rev?: Maybe<Scalars['String']>;
+  /** Document type */
+  _type?: Maybe<Scalars['String']>;
+  /** Date the document was last modified */
+  _updatedAt?: Maybe<Scalars['DateTime']>;
+  descriptionRaw?: Maybe<Scalars['JSON']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type ServiceFilter = {
+  /** Apply filters on document level */
+  _?: Maybe<Sanity_DocumentFilter>;
+  _createdAt?: Maybe<DatetimeFilter>;
+  _id?: Maybe<IdFilter>;
+  _key?: Maybe<StringFilter>;
+  _rev?: Maybe<StringFilter>;
+  _type?: Maybe<StringFilter>;
+  _updatedAt?: Maybe<DatetimeFilter>;
+  title?: Maybe<StringFilter>;
+};
+
+export type ServiceSorting = {
+  _createdAt?: Maybe<SortOrder>;
+  _id?: Maybe<SortOrder>;
+  _key?: Maybe<SortOrder>;
+  _rev?: Maybe<SortOrder>;
+  _type?: Maybe<SortOrder>;
+  _updatedAt?: Maybe<SortOrder>;
+  title?: Maybe<SortOrder>;
 };
 
 export type SingleColumn = {

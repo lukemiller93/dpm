@@ -14,7 +14,7 @@ export default {
         editModal: "fullscreen",
       },
       title: "Columns",
-      of: [{ type: "singleColumn" }, {type: 'illustration'}, {type: 'uiComponentRef'}],
+      of: [{ type: "singleColumn" }, {type: 'illustration'}, {type: 'uiComponentRef'}, {type: 'reference', to: [{type: "service"}]}],
       validation: Rule => Rule.required().min(2, 'To use the Grid Content block, you must have at least 2 columns').max(6, 'You can not have more than 6 columns in this layout')
     },
   ],

@@ -9,6 +9,7 @@ import page from "./documents/page";
 import post from "./documents/post";
 import project from "./documents/project";
 import route from "./documents/route";
+import service from "./documents/service";
 import siteSettings from "./documents/siteSettings";
 import blockContent from "./objects/blockContent";
 import bodyPortableText from "./objects/bodyPortableText";
@@ -45,6 +46,7 @@ export default createSchema({
       navMenu,
       location,
       route,
+      service,
       linkCreator,
       bodyPortableText,
       simpleBlockContent,

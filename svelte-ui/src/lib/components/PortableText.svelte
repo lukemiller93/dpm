@@ -3,6 +3,7 @@
   import LinkCreator from "./LinkCreator.svelte";
   export let content;
 
+
   const blockSerializers = {
     types: {
       linkCreator: LinkCreator,

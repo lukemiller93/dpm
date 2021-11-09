@@ -76,6 +76,18 @@ const UiComponentRefFrag = gql`
   }
 `
 
+ const ServiceFrag = gql`
+  ...on Service {
+     _key
+  _type
+  _id
+  _createdAt
+  title
+  descriptionRaw
+  }
+
+ `
+
 const HeroFragment = gql`
   ...on Hero {
     _key
@@ -129,6 +141,7 @@ const GridContentFragment = gql`
         contentRaw
       }
       ${UiComponentRefFrag}
+      ${ServiceFrag}
     }
   }
 `;

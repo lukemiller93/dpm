@@ -1,26 +1,27 @@
 <script lang="ts">
   import type {
-    GridContent,
-    IllustrationOrSingleColumnOrUiComponentRef,
-    SingleColumn,
+  IllustrationOrServiceOrSingleColumnOrUiComponentRef
   } from "$lib/generated-graphql";
   import { generateImage } from "$lib/utils/generateImage";
-  import { urlFor } from "$lib/utils/urlFor";
-  import AllModules from "../AllModules.svelte";
   import Image from "../Image.svelte";
   import PortableText from "../PortableText.svelte";
+  import ServiceCard from "../ServiceCard.svelte";
   import UiComponents from "./UIComponents.svelte";
   export let blockData;
 
-  const { columns }: { columns: IllustrationOrSingleColumnOrUiComponentRef[] } =
+  const { columns }: { columns: IllustrationOrServiceOrSingleColumnOrUiComponentRef[] } =
     blockData;
+
+    const serviceGrid = columns.some(v => v._type === 'service')
+
+    console.log(serviceGrid)
 </script>
 
-<section class="container grid-container">
+<section class:serviceGrid class="container grid-container">
   {#each columns as column, index (index)}
     <div
       class={`single-column ${
-        column._type === "illustration" ? "is-illustration" : ""
+        column._type === "illustration" ? "is-illustration" : column._type === 'service' ? "service-card-col": ""
       }`}
     >
       {#if "image" in column && column._type === "illustration"}
@@ -29,6 +30,8 @@
         <PortableText content={column.contentRaw} />
       {:else if "name" in column && column._type === "uiComponentRef"}
         <UiComponents blockData={column.name} />
+        {:else if column._type === 'service' && "descriptionRaw" in column}
+        <ServiceCard service={column} />
       {/if}
     </div>
   {/each}
@@ -37,21 +40,33 @@
 <style>
   .grid-container {
     display: grid;
-    gap: 10vw;
+    gap: 5vw;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     margin-bottom: 20vh;
     margin-top: 0;
   }
 
+
+
   .grid-container:not(:first-of-type) {
     margin: 20vh auto;
   }
-
-  .single-column:not(.is-illustration) {
-    place-self: start;
-    display: grid;
+  .grid-container.serviceGrid {
+    margin-top: 10vh ;
+    grid-template-columns: repeat(auto-fit, minmax(max-content, 1fr) );
   }
 
+  .single-column:not(.is-illustration, .service-card-col) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .service-card-col {
+    display: grid;
+    align-items: stretch;
+    align-self: stretch;
+  }
   .single-column :global(h2),
   .single-column :global(h3),
   .single-column :global(h4),

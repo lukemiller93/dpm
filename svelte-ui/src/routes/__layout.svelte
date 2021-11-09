@@ -3,8 +3,6 @@
     const res = await fetch("./api/navigation.json");
 
     if (res.ok) {
-      // const data = await res.json()
-      // console.log(data)
       const data = await res.json();
 
       return {

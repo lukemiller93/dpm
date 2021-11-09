@@ -12,7 +12,7 @@ export async function get(req) {
   }
 
   const {pageData} = await client.request(SINGLE_PROJECT_QUERY, variables)
-  console.log(pageData)
+
   if(!pageData[0]?._id) {
     return {
       status: 404,
