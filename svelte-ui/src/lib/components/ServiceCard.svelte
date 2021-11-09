@@ -1,25 +1,22 @@
 <script lang="ts">
-import type { Service } from "$lib/generated-graphql";
-import PortableText from "./PortableText.svelte";
+  import type { Service } from "$lib/generated-graphql";
+  import PortableText from "./PortableText.svelte";
 
-
-  export let service: Service
-  console.log(encodeURI(service.title))
+  export let service: Service;
 </script>
 
 <!-- <a href={`/proposal-request?service=${encodeURI(service.title)}`}> -->
-  <article class="service-card">
-    <header>
-      <h4>{service?.title}</h4>
-    </header>
-    <section class="content">
-      <PortableText content={service?.descriptionRaw} />
-    </section>
-  </article>
+<article class="service-card">
+  <header>
+    <h4>{service?.title}</h4>
+  </header>
+  <section class="content">
+    <PortableText content={service?.descriptionRaw} />
+  </section>
+</article>
+
 <!-- </a> -->
-
 <style>
-
   .service-card {
     border-radius: var(--border-radius-sm);
     background-color: #fff;
@@ -27,8 +24,9 @@ import PortableText from "./PortableText.svelte";
     justify-self: stretch;
   }
 
-  .content, h4 {
-    padding: calc(var(--padding-sm) / 1.5);
+  .content,
+  h4 {
+    padding: calc(var(--spacing-sm) / 1.5);
   }
 
   h4 {
@@ -44,7 +42,7 @@ import PortableText from "./PortableText.svelte";
   }
 
   .service-card:hover {
-    box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
     transform: scale3d(1.01);
   }
 </style>

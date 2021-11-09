@@ -49,11 +49,17 @@
     --bs: 0px 4px 8px rgba(0, 0, 0, 0.125);
     --light-gray: #eee;
     --light-grey: #eee;
-    --padding-sm: 2rem;
-    --padding-md: calc(var(--padding-sm) * 1.5);
-    --padding-lg: calc(var(--padding-sm) * 2);
+    --spacing-sm: 2rem;
+    --spacing-md: calc(var(--spacing-sm) * 1.5);
+    --spacing-lg: calc(var(--spacing-sm) * 2);
+
     --border-radius-sm: 4px;
     --border-radius-md: calc(var(--border-radius-sm) * 2);
+    --cards-grid: repeat(auto-fill, minmax(clamp(300px, 400px, 450px), 1fr));
+    --grid-gap-sm: var(--spacing-sm);
+    --grid-gap-md: 5vh;
+    --grid-gap-lg: 10vh;
+    --grid-gap-xl: 20vh;
     --font-size-default: 1rem;
     --font-stack-body: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI",
       Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
@@ -61,10 +67,15 @@
   }
   :global(.container) {
     margin: 0 auto;
-    width: clamp(300px, 96vw, 1680px);
+    width: 96vw;
+    max-width: 1680px;
   }
   :global(html) {
     font-size: 112.5%; /*18px*/
+  }
+
+  :global(*) {
+    box-sizing: border-box;
   }
 
   :global(body) {
@@ -111,7 +122,7 @@
   }
 
   :global(small),
-  .text_small {
+  :global(.text-small) {
     font-size: 0.833rem;
   }
   .wrapper {

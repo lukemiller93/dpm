@@ -22,7 +22,7 @@
   .image-wrapper {
     position: relative;
     overflow: hidden;
-    border-radius: 4px;
+    /* border-radius: 4px; */
     /* box-shadow: var(--button-shadow); */
   }
 

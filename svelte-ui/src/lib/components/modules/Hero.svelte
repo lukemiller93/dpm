@@ -9,9 +9,7 @@
 </script>
 
 <section class="hero">
-  <!-- <img src={urlFor(blockData.illustration.image).url()} alt="logo" /> -->
   <div class="content">
-    <!-- <PortableText content={headLineRaw} /> -->
     <h1>What You Need. <br /> Nothing you don't.</h1>
 
     <PortableText content={headingRaw} />

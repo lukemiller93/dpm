@@ -14,13 +14,19 @@
 
 <style>
   .recent-projects {
-    padding: var(--padding-lg) 0;
+    padding: 0 1vw;
     display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(clamp(300px, 400px, 450px), 1fr)
-    );
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--grid-gap-xl);
+    gap: var(--grid-gap-sm);
+    grid-template-columns: var(--cards-grid);
     place-items: center;
+  }
+
+  @media screen and (min-width: 576px) {
+    .recent-projects {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 </style>

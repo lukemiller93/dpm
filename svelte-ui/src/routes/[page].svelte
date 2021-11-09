@@ -15,12 +15,11 @@
 </script>
 
 <script lang="ts">
-import { page } from "$app/stores";
-import AllModules from "$lib/components/AllModules.svelte";
-import PortfolioList from "$lib/components/PortfolioList.svelte";
-import type { Page } from "$lib/generated-graphql";
+  import { page } from "$app/stores";
+  import AllModules from "$lib/components/AllModules.svelte";
+  import PortfolioList from "$lib/components/PortfolioList.svelte";
+  import type { Page } from "$lib/generated-graphql";
   export let pageData: Page[] = [];
-  console.log($page.path)
 </script>
 
 <svelte:head>
@@ -31,6 +30,6 @@ import type { Page } from "$lib/generated-graphql";
     <AllModules data={block} blockType={block?.__typename} />
   {/each}
 {/each}
-{#if $page.path === '/portfolio'}
+{#if $page.path === "/portfolio"}
   <PortfolioList />
 {/if}

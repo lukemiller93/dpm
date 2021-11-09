@@ -103,7 +103,7 @@
   }
 
   .buttons {
-    padding: var(--padding-sm) 0;
+    padding: var(--spacing-sm) 0;
     display: flex;
     justify-content: end;
   }
@@ -114,7 +114,7 @@
     box-shadow: var(--button-shadow);
     margin-right: 1rem;
     cursor: pointer;
-    padding: 0.5rem calc(var(--padding-sm) / 2);
+    padding: 0.5rem calc(var(--spacing-sm) / 2);
     font-family: var(--font-stack-body);
   }
 
@@ -123,9 +123,9 @@
     color: white;
   }
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 576px) {
     form {
-      padding: var(--padding-sm);
+      padding: var(--spacing-sm);
     }
   }
 </style>

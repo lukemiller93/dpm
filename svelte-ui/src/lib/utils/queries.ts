@@ -1,69 +1,73 @@
-
 import { gql } from "graphql-request";
+
+const MainImageFrag = gql`
+  ...on MainImage {
+    _key
+    alt
+    objectFit
+    asset {
+      url
+      assetId
+      _createdAt
+      _id
+      _rev
+      _type
+      _updatedAt
+      description
+      altText
+      extension
+      label
+      metadata {
+        _type
+        dimensions {
+          _type
+          _key
+          aspectRatio
+          height
+          width
+      }
+        hasAlpha
+        isOpaque
+        lqip
+      }
+      mimeType
+      originalFilename
+      path
+      sha1hash
+      size
+      # source {
+      #   _key
+      #   id
+      #   name
+      #   url
+      # }
+      title
+    }
+    crop {
+      _key
+      _type
+      bottom
+      left
+      right
+      top
+    }
+    hotspot {
+      _key
+      _type
+      height
+      width
+      x
+      y
+    }
+  }
+`;
 
 const IllustrationFrag = gql`
   ...on Illustration {
       _key
       _type
       image {
-        _key
-        alt
-        objectFit
-        asset {
-          url
-          assetId
-          _createdAt
-          _id
-          _rev
-          _type
-          _updatedAt
-          description
-          altText
-          extension
-          label
-          metadata {
-            _type
-            dimensions {
-              _type
-              _key
-              aspectRatio
-              height
-              width
-          }
-            hasAlpha
-            isOpaque
-            lqip
-          }
-          mimeType
-          originalFilename
-          path
-          sha1hash
-          size
-          source {
-            _key
-            id
-            name
-            url
-          }
-          title
-        }
-        crop {
-          _key
-          _type
-          bottom
-          left
-          right
-          top
-        }
-        hotspot {
-          _key
-          _type
-          height
-          width
-          x
-          y
-        }
-
+        ${MainImageFrag}
       }
   }
 `;
@@ -74,9 +78,9 @@ const UiComponentRefFrag = gql`
     _type
     name
   }
-`
+`;
 
- const ServiceFrag = gql`
+const ServiceFrag = gql`
   ...on Service {
      _key
   _type
@@ -86,7 +90,7 @@ const UiComponentRefFrag = gql`
   descriptionRaw
   }
 
- `
+ `;
 
 const HeroFragment = gql`
   ...on Hero {
@@ -146,7 +150,6 @@ const GridContentFragment = gql`
   }
 `;
 
-
 export const FILTERED_PAGE_QUERY = gql`
   query FILTERED_PAGE_QUERY($slug: String!) {
     pageData: allPage(where: { slug: { current: { eq: $slug } } }) {
@@ -190,8 +193,12 @@ export const FILTERED_PROJECTS_QUERY = gql`
         title
         description
         icon {
+          _type
+          __typename
           asset {
             _id
+            __typename
+            _type
           }
         }
         description
@@ -205,13 +212,7 @@ export const SINGLE_PROJECT_QUERY = gql`
     pageData: allProject(where: { slug: { current: { eq: $slug } } }) {
       _id
       mainImage {
-        _key
-        _type
-        alt
-        asset {
-          url
-          assetId
-        }
+        ${MainImageFrag}
       }
       slug {
         current
@@ -228,7 +229,14 @@ export const SINGLE_PROJECT_QUERY = gql`
             _id
           }
         }
-        description
+      }
+      bodyRaw
+      projectGallery {
+        gallery {
+          image {
+           ${MainImageFrag}
+          }
+        }
       }
     }
   }

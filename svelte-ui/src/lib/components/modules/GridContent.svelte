@@ -1,27 +1,30 @@
 <script lang="ts">
-  import type {
-  IllustrationOrServiceOrSingleColumnOrUiComponentRef
-  } from "$lib/generated-graphql";
+  import type { IllustrationOrServiceOrSingleColumnOrUiComponentRef } from "$lib/generated-graphql";
   import { generateImage } from "$lib/utils/generateImage";
   import Image from "../Image.svelte";
   import PortableText from "../PortableText.svelte";
   import ServiceCard from "../ServiceCard.svelte";
   import UiComponents from "./UIComponents.svelte";
   export let blockData;
+  console.log(blockData);
 
-  const { columns }: { columns: IllustrationOrServiceOrSingleColumnOrUiComponentRef[] } =
+  const {
+    columns,
+  }: { columns: IllustrationOrServiceOrSingleColumnOrUiComponentRef[] } =
     blockData;
 
-    const serviceGrid = columns.some(v => v._type === 'service')
-
-    console.log(serviceGrid)
+  const serviceGrid = columns.some((v) => v._type === "service");
 </script>
 
 <section class:serviceGrid class="container grid-container">
   {#each columns as column, index (index)}
     <div
       class={`single-column ${
-        column._type === "illustration" ? "is-illustration" : column._type === 'service' ? "service-card-col": ""
+        column._type === "illustration"
+          ? "is-illustration"
+          : column._type === "service"
+          ? "service-card-col"
+          : ""
       }`}
     >
       {#if "image" in column && column._type === "illustration"}
@@ -30,7 +33,7 @@
         <PortableText content={column.contentRaw} />
       {:else if "name" in column && column._type === "uiComponentRef"}
         <UiComponents blockData={column.name} />
-        {:else if column._type === 'service' && "descriptionRaw" in column}
+      {:else if column._type === "service" && "descriptionRaw" in column}
         <ServiceCard service={column} />
       {/if}
     </div>
@@ -40,20 +43,29 @@
 <style>
   .grid-container {
     display: grid;
-    gap: 5vw;
+    gap: var(--grid-gap-lg);
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    margin-bottom: 20vh;
+    margin-bottom: var(--grid-gap-xl);
     margin-top: 0;
+    padding: 1vw;
   }
-
-
 
   .grid-container:not(:first-of-type) {
-    margin: 20vh auto;
+    margin: var(--grid-gap-xl) auto;
   }
   .grid-container.serviceGrid {
-    margin-top: 10vh ;
-    grid-template-columns: repeat(auto-fit, minmax(max-content, 1fr) );
+    padding: 1vw;
+    margin-top: 0;
+    margin-top: var(--grid-gap-md);
+    margin-bottom: var(--grid-gap-xl);
+    grid-template-columns: var(--cards-grid);
+    gap: var(--grid-gap-sm);
+  }
+
+  @media screen and (min-width: 576px) {
+    .grid-container.serviceGrid {
+      padding: 0;
+    }
   }
 
   .single-column:not(.is-illustration, .service-card-col) {

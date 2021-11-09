@@ -18,10 +18,55 @@
 </script>
 
 <script lang="ts">
+  import { page } from "$app/stores";
+  import Image from "$lib/components/Image.svelte";
+  import PortableText from "$lib/components/PortableText.svelte";
   import type { Project } from "$lib/generated-graphql";
-
-  export let pageData: Project;
+  import { generateImage } from "$lib/utils/generateImage";
+  import { afterUpdate } from "svelte";
+  import kebabCase from "just-kebab-case";
+  export let pageData: Project[];
+  let updatedData: Project[] = pageData;
+  afterUpdate(() => {
+    updatedData = pageData;
+  });
+  console.log(updatedData);
 </script>
 
-<h1>this is the portfolio page for</h1>
-<pre>{JSON.stringify(pageData, null, 2)}</pre>
+{#each updatedData as page}
+  <header>
+    <Image {...generateImage(page.mainImage)} alt={page.mainImage.alt} />
+    <div class="overlay">
+      <h1>{page.title}</h1>
+    </div>
+  </header>
+  <section class="container">
+    <article class="project-body">
+      <PortableText content={page.bodyRaw} />
+    </article>
+    <aside class="project-meta">
+      <h4>Project Tags</h4>
+      {#each page.categories as category (category.title)}
+        <div class="tag">
+          <a href={`/category/${kebabCase(category.title)}`} class="text-small">
+            {category.title}
+          </a>
+        </div>
+      {/each}
+    </aside>
+  </section>
+  <!-- <pre>{JSON.stringify(page, null, 2)}</pre> -->
+{/each}
+
+<style>
+  .tag {
+    display: flex;
+    height: 2ch;
+    margin: 1rem auto;
+    /* align-items: center; */
+  }
+
+  .tag {
+    margin-right: 0.25rem;
+  }
+</style>

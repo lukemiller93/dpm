@@ -19,6 +19,6 @@
   }
 
   .body-section:first-of-type {
-    padding-top: var(--padding-lg);
+    padding-top: var(--spacing-lg);
   }
 </style>

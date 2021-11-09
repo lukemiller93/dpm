@@ -4,9 +4,9 @@ import { urlFor } from './urlFor'
 export function generateImage(image: MainImage) {
   // aspectRatio (to prevent jank)
   let aspectRatio
-  if(image.crop) {
+  if(image?.crop) {
     // priority: set aspectRatio to content editor's crop settings
-    aspectRatio = getCropFactor(image.crop) * image?.asset?.metadata?.dimensions?.aspectRatio
+    aspectRatio = getCropFactor(image?.crop) * image?.asset?.metadata?.dimensions?.aspectRatio
   } else {
     // else, just set aspectRatio equal to the original image's
     aspectRatio = image?.asset?.metadata?.dimensions?.aspectRatio
