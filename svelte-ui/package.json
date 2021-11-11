@@ -37,6 +37,7 @@
     "graphql": "^15.6.1",
     "graphql-request": "^3.6.1",
     "just-kebab-case": "^4.0.0",
-    "lazysizes": "^5.3.2"
+    "lazysizes": "^5.3.2",
+    "svelte-modals": "^1.0.4"
   }
 }

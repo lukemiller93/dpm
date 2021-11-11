@@ -9,9 +9,9 @@ const config = {
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
     vite: {
-      // optimizeDeps: {
-      //   include: ['@sanity/block-content-to-hyperscript/internals']
-      // }
+      optimizeDeps: {
+       exclude: ['svelte-modals']
+      }
     }
 	}
 };

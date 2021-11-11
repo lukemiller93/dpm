@@ -6,7 +6,6 @@
   import ServiceCard from "../ServiceCard.svelte";
   import UiComponents from "./UIComponents.svelte";
   export let blockData;
-  console.log(blockData);
 
   const {
     columns,

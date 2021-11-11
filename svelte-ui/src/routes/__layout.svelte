@@ -22,6 +22,8 @@
   import { normalizePath } from "$lib/utils/normalizePath";
   import "@fontsource/inter/variable-full.css";
   import "@fontsource/nunito/400.css";
+  import { Modals, closeModal } from "svelte-modals";
+  import { fade } from "svelte/transition";
 
   export let navItems = [];
 </script>
@@ -42,6 +44,9 @@
   </div>
 </header>
 <slot />
+<Modals>
+  <div slot="backdrop" class="backdrop" transition:fade on:click={closeModal} />
+</Modals>
 
 <style>
   :root {
@@ -145,5 +150,13 @@
   a {
     width: 18rem;
     /* display: inline-block; */
+  }
+  .backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
   }
 </style>

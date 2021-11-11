@@ -16,6 +16,7 @@
 
 <script lang="ts">
   import AllModules from "$lib/components/AllModules.svelte";
+
   import type { Page } from "$lib/generated-graphql";
   export let pageData: Page[] = [];
 </script>

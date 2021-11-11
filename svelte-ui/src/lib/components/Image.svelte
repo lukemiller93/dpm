@@ -22,6 +22,7 @@
   .image-wrapper {
     position: relative;
     overflow: hidden;
+    grid-area: 1/2;
     /* border-radius: 4px; */
     /* box-shadow: var(--button-shadow); */
   }
