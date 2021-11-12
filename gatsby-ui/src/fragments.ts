@@ -1,17 +1,22 @@
 import { graphql } from "gatsby";
 
 export const fragments = graphql`
+  fragment SanityMainImage on SanityMainImage {
+    alt
+    asset {
+      gatsbyImageData(
+        fit: FILLMAX
+        formats: AUTO
+        layout: FULL_WIDTH
+        outputPixelDensities: 1.5
+        placeholder: BLURRED
+      )
+    }
+  }
+
   fragment SanityIllustration on SanityIllustration {
     image {
-        asset {
-        gatsbyImageData(
-          fit: FILLMAX
-          formats: AUTO
-          layout: FULL_WIDTH
-          outputPixelDensities: 1.5
-          placeholder: BLURRED
-        )
-      }
+      ...SanityMainImage
     }
   }
 
@@ -49,6 +54,43 @@ export const fragments = graphql`
     }
   }
 
+  fragment SanityUiComponentRef on SanityUiComponentRef {
+    _key
+    _type
+    name
+  }
+
+  fragment SanityService on SanityService {
+    _id
+    id
+    _rawDescription(resolveReferences: { maxDepth: 10 })
+    title
+  }
+
+  fragment SanitySingleColumn on SanitySingleColumn {
+    _key
+    _type
+    _rawContent(resolveReferences: { maxDepth: 10 })
+  }
+
+  fragment SanityGridContent on SanityGridContent {
+    _key
+    __typename
+    columns {
+      __typename
+      ...SanityIllustration
+      ...SanityService
+      ...SanitySingleColumn
+      ...SanityUiComponentRef
+    }
+  }
+
+  fragment SanityBodySection on SanityBodySection {
+    _key
+    _type
+    _rawContent(resolveReferences: { maxDepth: 10 })
+  }
+
   fragment SinglePageTemplate on SanityPage {
     _id
     title
@@ -58,6 +100,47 @@ export const fragments = graphql`
     content {
       __typename
       ...SanityHero
+      ...SanityUiComponentRef
+      ...SanityGridContent
+      ...SanityBodySection
+    }
+  }
+
+  # Project Queries
+  fragment SharedProjectFields on SanityProject {
+    _id
+    mainImage {
+      ...SanityMainImage
+    }
+    slug {
+      current
+    }
+    title
+    author {
+      name
+    }
+    categories {
+      title
+      description
+      icon {
+        asset {
+          _id
+        }
+      }
+    }
+  }
+
+
+
+  fragment SanityProjectTemplate on SanityProject {
+    ...SharedProjectFields
+    _rawBody(resolveReferences: { maxDepth: 10 })
+    projectGallery {
+      gallery {
+        image {
+          ...SanityMainImage
+        }
+      }
     }
   }
 `;
