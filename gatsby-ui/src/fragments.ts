@@ -2,6 +2,7 @@ import { graphql } from "gatsby";
 
 export const fragments = graphql`
   fragment SanityMainImage on SanityMainImage {
+    _key
     alt
     asset {
       gatsbyImageData(
@@ -15,6 +16,7 @@ export const fragments = graphql`
   }
 
   fragment SanityIllustration on SanityIllustration {
+    _key
     image {
       ...SanityMainImage
     }
@@ -61,6 +63,7 @@ export const fragments = graphql`
   }
 
   fragment SanityService on SanityService {
+    _key
     _id
     id
     _rawDescription(resolveReferences: { maxDepth: 10 })
@@ -92,6 +95,7 @@ export const fragments = graphql`
   }
 
   fragment SinglePageTemplate on SanityPage {
+    _key
     _id
     title
     slug {

@@ -10,12 +10,15 @@ require("dotenv").config({
 //   },
 // });
 module.exports = {
+  jsxRuntime: "automatic",
+
   siteMetadata: {
     siteUrl: "https://www.dauntlesspursuitmedia.com",
     title: "Dauntless Pursuit Media",
     author: "@lqm_19",
   },
   plugins: [
+    `gatsby-plugin-loadable-components-ssr`,
     `gatsby-plugin-graphql-codegen`,
     {
       resolve: "gatsby-source-sanity",
