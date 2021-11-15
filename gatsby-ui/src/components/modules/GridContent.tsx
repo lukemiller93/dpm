@@ -20,7 +20,6 @@ export default function GridContent({
       className={`container grid-container ${serviceGrid ?? "service-grid"}`}
     >
       {columns.map((col, index) => {
-        console.log(col._type)
         return (
           <div key={col._key + index} className={`single-column ${col._type}`}>
             {col._type === "singleColumn" && "_rawContent" in col && (
