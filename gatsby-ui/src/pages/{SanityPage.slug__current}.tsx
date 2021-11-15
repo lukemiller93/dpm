@@ -1,4 +1,5 @@
 import { graphql, PageProps, StaticQueryDocument } from "gatsby";
+import React from 'react'
 import type { SinglePageQuery } from "../../graphql-types";
 import loadable from "@loadable/component";
 const SanityPage: React.FC<PageProps<SinglePageQuery>> = ({
@@ -8,8 +9,6 @@ const SanityPage: React.FC<PageProps<SinglePageQuery>> = ({
   const { sanityPage } = data;
   return (
     <div>
-      Sanity Page
-      {/* <pre>{JSON.stringify(sanityPage, null, 2)}</pre> */}
       {sanityPage?.content?.map((element) => {
         const typename = element?.__typename.replace("Sanity", "");
         const Component = loadable(() => import(`../components/modules/${typename}`));
