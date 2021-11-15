@@ -1,8 +1,20 @@
+import { ReactElement } from "react"
 import PortableText from "react-portable-text"
+import { SanityLinkCreator } from "../../graphql-types"
+import CallToAction from "./CallToAction"
 
-const BlockContent = ({block}: {block: [any]}) => {
+
+const serializers = {
+  linkCreator: (props: SanityLinkCreator) : ReactElement<SanityLinkCreator> => {
   return (
-    <PortableText content={block} />
+    <CallToAction cta={props}  />
+  )}
+}
+
+
+const BlockContent = ({block}: {block: [object]}) => {
+  return (
+    <PortableText serializers={serializers} content={block} />
   )
 }
 

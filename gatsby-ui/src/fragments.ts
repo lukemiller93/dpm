@@ -17,6 +17,7 @@ export const fragments = graphql`
 
   fragment SanityIllustration on SanityIllustration {
     _key
+    _type
     image {
       ...SanityMainImage
     }
@@ -24,6 +25,7 @@ export const fragments = graphql`
 
   fragment SanityHero on SanityHero {
     _key
+    _type
     __typename
     _rawHeading(resolveReferences: { maxDepth: 10 })
     _rawHeadLine(resolveReferences: { maxDepth: 10 })
@@ -64,6 +66,7 @@ export const fragments = graphql`
 
   fragment SanityService on SanityService {
     _key
+    _type
     _id
     id
     _rawDescription(resolveReferences: { maxDepth: 10 })
@@ -73,7 +76,7 @@ export const fragments = graphql`
   fragment SanitySingleColumn on SanitySingleColumn {
     _key
     _type
-    _rawContent(resolveReferences: { maxDepth: 10 })
+    _rawContent(resolveReferences: { maxDepth: 5 })
   }
 
   fragment SanityGridContent on SanityGridContent {
