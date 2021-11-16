@@ -1,10 +1,11 @@
-import styled from "@emotion/styled";
-import { SanityHero } from "../../../graphql-types";
-import CallToAction from "../CallToAction";
-import BlockContent from "../PortableText";
+import styled from '@emotion/styled';
+import { ReactElement } from 'react';
+import { SanityHero } from '../../../graphql-types';
+import CallToAction from '../CallToAction';
+import BlockContent from '../PortableText';
 
 const HeroStyles = styled.section`
-  .hero {
+  &.hero {
     position: relative;
     min-height: 60vh;
     display: grid;
@@ -53,7 +54,7 @@ const HeroStyles = styled.section`
   }
 `;
 
-export default function Hero({ props }: { props: SanityHero }) {
+export default function Hero({ props }: { props: SanityHero }): ReactElement {
   return (
     <HeroStyles className="hero">
       <div className="content">

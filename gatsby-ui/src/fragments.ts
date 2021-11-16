@@ -1,4 +1,4 @@
-import { graphql } from "gatsby";
+import { graphql } from 'gatsby';
 
 export const fragments = graphql`
   fragment SanityMainImage on SanityMainImage {
@@ -42,6 +42,7 @@ export const fragments = graphql`
           value
         }
       }
+      title
       sitePageRoute {
         __typename
         ... on SanityPage {
@@ -136,8 +137,6 @@ export const fragments = graphql`
       }
     }
   }
-
-
 
   fragment SanityProjectTemplate on SanityProject {
     ...SharedProjectFields

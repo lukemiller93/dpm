@@ -5,6 +5,7 @@ import CallToAction from './CallToAction';
 
 const serializers = {
   linkCreator: (props: SanityLinkCreator): ReactElement<SanityLinkCreator> => (
+    // console.log(props);
     <CallToAction cta={props} />
   ),
 };
