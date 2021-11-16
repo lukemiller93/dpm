@@ -1,8 +1,8 @@
-import { gql, request } from "graphql-request";
-import { useQuery } from "react-query";
+import { gql, request } from 'graphql-request';
+import { useQuery } from 'react-query';
 
-export const usePosts = () => {
-  return useQuery("projects", async () => {
+export const usePosts = () =>
+  useQuery('projects', async () => {
     const data = await request(
       process.env.GATSBY_GRAPHQL_ENDPOINT,
       gql`
@@ -47,4 +47,3 @@ export const usePosts = () => {
       `
     );
   });
-};
