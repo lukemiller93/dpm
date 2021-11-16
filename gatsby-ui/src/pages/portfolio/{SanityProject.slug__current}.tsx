@@ -6,7 +6,6 @@ const SanityProject: React.FC<PageProps<SingleProjectQuery>> = ({
   data,
   location,
 }) => {
-  console.log(data.sanityProject?.content);
 
   return (
     <div>

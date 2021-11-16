@@ -15,7 +15,6 @@ export default function Input({
   register,
   errors,
 }: FormInput) {
-  console.log(errors);
   return (
     <div className={`form-group ${className && className}`}>
       <label htmlFor={name}>{labelText}</label>

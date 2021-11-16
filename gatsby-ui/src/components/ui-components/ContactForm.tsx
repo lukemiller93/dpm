@@ -1,20 +1,20 @@
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import styled from "@emotion/styled";
-import Input from "../forms/Input";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import styled from '@emotion/styled';
+import Input from '../forms/Input';
 
 const schema = yup.object({
   name: yup
     .string()
     .required(`We like to know who we're talking to. 🙂`)
     .min(3),
-  email: yup.string().email().required("Please enter a valid email."),
+  email: yup.string().email().required('Please enter a valid email.'),
   phone: yup
     .string()
-    .min(10, "Please enter a valid U.S. phone number.")
+    .min(10, 'Please enter a valid U.S. phone number.')
     .max(10),
-  message: yup.string().required("Message not long enough.").min(15),
+  message: yup.string().required('Message not long enough.').min(15),
 });
 
 type FormData = {
@@ -60,7 +60,7 @@ const FormStyles = styled.form`
     font-family: var(--font-stack-body);
   }
 
-  [type="submit"] {
+  [type='submit'] {
     background-color: black;
     color: white;
   }
