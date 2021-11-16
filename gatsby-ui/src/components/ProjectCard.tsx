@@ -54,7 +54,7 @@ export default function ProjectCard({
     <ProjectCardStyles>
       {mainImage && (
         <img
-          src={urlFor(mainImage).width(600).url()}
+          src={urlFor(mainImage).width(600).url() || ''}
           alt={mainImage?.alt || ''}
         />
       )}

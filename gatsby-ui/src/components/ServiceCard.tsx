@@ -1,11 +1,19 @@
-import { SanityService } from "../../graphql-types"
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { ReactElement } from 'react';
+import { SanityService } from '../../graphql-types';
+import BlockContent from './PortableText';
 
-function ServiceCard({service}: {service: SanityService}) {
+function ServiceCard({ service }: { service: SanityService }): ReactElement {
   return (
-    <div>
-      <pre>{JSON.stringify(service, null, 2)}</pre>
-    </div>
-  )
+    <article className="service-card">
+      <header>
+        <h4>{service?.title}</h4>
+      </header>
+      <section className="content">
+        <BlockContent block={service?._rawDescription} />
+      </section>
+    </article>
+  );
 }
 
-export default ServiceCard
+export default ServiceCard;
