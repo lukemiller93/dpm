@@ -1669,6 +1669,109 @@ export type ImageSharpResize = {
   originalName?: Maybe<Scalars['String']>;
 };
 
+export type StaticImage = Node & {
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  sourceInstanceName?: Maybe<Scalars['String']>;
+  relativePath?: Maybe<Scalars['String']>;
+  extension?: Maybe<Scalars['String']>;
+  prettySize?: Maybe<Scalars['String']>;
+  modifiedTime?: Maybe<Scalars['Date']>;
+  accessTime?: Maybe<Scalars['Date']>;
+  changeTime?: Maybe<Scalars['Date']>;
+  birthTime?: Maybe<Scalars['Date']>;
+  root?: Maybe<Scalars['String']>;
+  dir?: Maybe<Scalars['String']>;
+  base?: Maybe<Scalars['String']>;
+  ext?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  absolutePath?: Maybe<Scalars['String']>;
+  relativeDirectory?: Maybe<Scalars['String']>;
+  dev?: Maybe<Scalars['Int']>;
+  mode?: Maybe<Scalars['Int']>;
+  nlink?: Maybe<Scalars['Int']>;
+  uid?: Maybe<Scalars['Int']>;
+  rdev?: Maybe<Scalars['Int']>;
+  blksize?: Maybe<Scalars['Int']>;
+  ino?: Maybe<Scalars['Int']>;
+  size?: Maybe<Scalars['Int']>;
+  blocks?: Maybe<Scalars['Int']>;
+  atimeMs?: Maybe<Scalars['Float']>;
+  mtimeMs?: Maybe<Scalars['Float']>;
+  ctimeMs?: Maybe<Scalars['Float']>;
+  birthtimeMs?: Maybe<Scalars['Float']>;
+  atime?: Maybe<Scalars['Date']>;
+  mtime?: Maybe<Scalars['Date']>;
+  ctime?: Maybe<Scalars['Date']>;
+  birthtime?: Maybe<Scalars['Date']>;
+};
+
+
+export type StaticImageModifiedTimeArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StaticImageAccessTimeArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StaticImageChangeTimeArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StaticImageBirthTimeArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StaticImageAtimeArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StaticImageMtimeArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StaticImageCtimeArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StaticImageBirthtimeArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
   file?: Maybe<File>;
   allFile: FileConnection;
@@ -1708,6 +1811,8 @@ export type Query = {
   allSanitySiteSettings: SanitySiteSettingsConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
+  staticImage?: Maybe<StaticImage>;
+  allStaticImage: StaticImageConnection;
 };
 
 
@@ -2279,6 +2384,54 @@ export type QueryImageSharpArgs = {
 export type QueryAllImageSharpArgs = {
   filter?: Maybe<ImageSharpFilterInput>;
   sort?: Maybe<ImageSharpSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryStaticImageArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  sourceInstanceName?: Maybe<StringQueryOperatorInput>;
+  relativePath?: Maybe<StringQueryOperatorInput>;
+  extension?: Maybe<StringQueryOperatorInput>;
+  prettySize?: Maybe<StringQueryOperatorInput>;
+  modifiedTime?: Maybe<DateQueryOperatorInput>;
+  accessTime?: Maybe<DateQueryOperatorInput>;
+  changeTime?: Maybe<DateQueryOperatorInput>;
+  birthTime?: Maybe<DateQueryOperatorInput>;
+  root?: Maybe<StringQueryOperatorInput>;
+  dir?: Maybe<StringQueryOperatorInput>;
+  base?: Maybe<StringQueryOperatorInput>;
+  ext?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  absolutePath?: Maybe<StringQueryOperatorInput>;
+  relativeDirectory?: Maybe<StringQueryOperatorInput>;
+  dev?: Maybe<IntQueryOperatorInput>;
+  mode?: Maybe<IntQueryOperatorInput>;
+  nlink?: Maybe<IntQueryOperatorInput>;
+  uid?: Maybe<IntQueryOperatorInput>;
+  rdev?: Maybe<IntQueryOperatorInput>;
+  blksize?: Maybe<IntQueryOperatorInput>;
+  ino?: Maybe<IntQueryOperatorInput>;
+  size?: Maybe<IntQueryOperatorInput>;
+  blocks?: Maybe<IntQueryOperatorInput>;
+  atimeMs?: Maybe<FloatQueryOperatorInput>;
+  mtimeMs?: Maybe<FloatQueryOperatorInput>;
+  ctimeMs?: Maybe<FloatQueryOperatorInput>;
+  birthtimeMs?: Maybe<FloatQueryOperatorInput>;
+  atime?: Maybe<DateQueryOperatorInput>;
+  mtime?: Maybe<DateQueryOperatorInput>;
+  ctime?: Maybe<DateQueryOperatorInput>;
+  birthtime?: Maybe<DateQueryOperatorInput>;
+};
+
+
+export type QueryAllStaticImageArgs = {
+  filter?: Maybe<StaticImageFilterInput>;
+  sort?: Maybe<StaticImageSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -8096,11 +8249,266 @@ export type ImageSharpSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
-export type SanityMainImageFragment = { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { gatsbyImageData: any } | null | undefined };
+export type StaticImageConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StaticImageEdge>;
+  nodes: Array<StaticImage>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<StaticImageGroupConnection>;
+};
 
-export type SanityIllustrationFragment = { _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { gatsbyImageData: any } | null | undefined } | null | undefined };
 
-export type SanityHeroFragment = { __typename: 'SanityHero', _key?: string | null | undefined, _type?: string | null | undefined, _rawHeading?: any | null | undefined, _rawHeadLine?: any | null | undefined, illustration?: { _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { gatsbyImageData: any } | null | undefined } | null | undefined } | null | undefined, cta?: { route?: string | null | undefined, link?: string | null | undefined, kind?: string | null | undefined, title?: string | null | undefined, backgroundColor?: { colors?: { title?: string | null | undefined, value?: string | null | undefined } | null | undefined } | null | undefined, sitePageRoute?: { __typename: 'SanityPage', slug?: { current?: string | null | undefined } | null | undefined } | { __typename: 'SanityRoute', slug?: { current?: string | null | undefined } | null | undefined } | null | undefined } | null | undefined };
+export type StaticImageConnectionDistinctArgs = {
+  field: StaticImageFieldsEnum;
+};
+
+
+export type StaticImageConnectionMaxArgs = {
+  field: StaticImageFieldsEnum;
+};
+
+
+export type StaticImageConnectionMinArgs = {
+  field: StaticImageFieldsEnum;
+};
+
+
+export type StaticImageConnectionSumArgs = {
+  field: StaticImageFieldsEnum;
+};
+
+
+export type StaticImageConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: StaticImageFieldsEnum;
+};
+
+export type StaticImageEdge = {
+  next?: Maybe<StaticImage>;
+  node: StaticImage;
+  previous?: Maybe<StaticImage>;
+};
+
+export type StaticImageFieldsEnum =
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'sourceInstanceName'
+  | 'relativePath'
+  | 'extension'
+  | 'prettySize'
+  | 'modifiedTime'
+  | 'accessTime'
+  | 'changeTime'
+  | 'birthTime'
+  | 'root'
+  | 'dir'
+  | 'base'
+  | 'ext'
+  | 'name'
+  | 'absolutePath'
+  | 'relativeDirectory'
+  | 'dev'
+  | 'mode'
+  | 'nlink'
+  | 'uid'
+  | 'rdev'
+  | 'blksize'
+  | 'ino'
+  | 'size'
+  | 'blocks'
+  | 'atimeMs'
+  | 'mtimeMs'
+  | 'ctimeMs'
+  | 'birthtimeMs'
+  | 'atime'
+  | 'mtime'
+  | 'ctime'
+  | 'birthtime';
+
+export type StaticImageGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StaticImageEdge>;
+  nodes: Array<StaticImage>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<StaticImageGroupConnection>;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+
+export type StaticImageGroupConnectionDistinctArgs = {
+  field: StaticImageFieldsEnum;
+};
+
+
+export type StaticImageGroupConnectionMaxArgs = {
+  field: StaticImageFieldsEnum;
+};
+
+
+export type StaticImageGroupConnectionMinArgs = {
+  field: StaticImageFieldsEnum;
+};
+
+
+export type StaticImageGroupConnectionSumArgs = {
+  field: StaticImageFieldsEnum;
+};
+
+
+export type StaticImageGroupConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: StaticImageFieldsEnum;
+};
+
+export type StaticImageFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  sourceInstanceName?: Maybe<StringQueryOperatorInput>;
+  relativePath?: Maybe<StringQueryOperatorInput>;
+  extension?: Maybe<StringQueryOperatorInput>;
+  prettySize?: Maybe<StringQueryOperatorInput>;
+  modifiedTime?: Maybe<DateQueryOperatorInput>;
+  accessTime?: Maybe<DateQueryOperatorInput>;
+  changeTime?: Maybe<DateQueryOperatorInput>;
+  birthTime?: Maybe<DateQueryOperatorInput>;
+  root?: Maybe<StringQueryOperatorInput>;
+  dir?: Maybe<StringQueryOperatorInput>;
+  base?: Maybe<StringQueryOperatorInput>;
+  ext?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  absolutePath?: Maybe<StringQueryOperatorInput>;
+  relativeDirectory?: Maybe<StringQueryOperatorInput>;
+  dev?: Maybe<IntQueryOperatorInput>;
+  mode?: Maybe<IntQueryOperatorInput>;
+  nlink?: Maybe<IntQueryOperatorInput>;
+  uid?: Maybe<IntQueryOperatorInput>;
+  rdev?: Maybe<IntQueryOperatorInput>;
+  blksize?: Maybe<IntQueryOperatorInput>;
+  ino?: Maybe<IntQueryOperatorInput>;
+  size?: Maybe<IntQueryOperatorInput>;
+  blocks?: Maybe<IntQueryOperatorInput>;
+  atimeMs?: Maybe<FloatQueryOperatorInput>;
+  mtimeMs?: Maybe<FloatQueryOperatorInput>;
+  ctimeMs?: Maybe<FloatQueryOperatorInput>;
+  birthtimeMs?: Maybe<FloatQueryOperatorInput>;
+  atime?: Maybe<DateQueryOperatorInput>;
+  mtime?: Maybe<DateQueryOperatorInput>;
+  ctime?: Maybe<DateQueryOperatorInput>;
+  birthtime?: Maybe<DateQueryOperatorInput>;
+};
+
+export type StaticImageSortInput = {
+  fields?: Maybe<Array<Maybe<StaticImageFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type Nav_ItemsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Nav_ItemsQuery = { allSanityRoute: { nodes: Array<{ id: string, slug?: { current?: string | null | undefined } | null | undefined, page?: { title?: string | null | undefined } | null | undefined }> } };
+
+export type SanityMainImageFragment = { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined };
+
+export type SanityIllustrationFragment = { _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined } | null | undefined };
+
+export type SanityHeroFragment = { __typename: 'SanityHero', _key?: string | null | undefined, _type?: string | null | undefined, _rawHeading?: any | null | undefined, _rawHeadLine?: any | null | undefined, illustration?: { _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined } | null | undefined } | null | undefined, cta?: { route?: string | null | undefined, link?: string | null | undefined, kind?: string | null | undefined, title?: string | null | undefined, backgroundColor?: { colors?: { title?: string | null | undefined, value?: string | null | undefined } | null | undefined } | null | undefined, sitePageRoute?: { __typename: 'SanityPage', slug?: { current?: string | null | undefined } | null | undefined } | { __typename: 'SanityRoute', slug?: { current?: string | null | undefined } | null | undefined } | null | undefined } | null | undefined };
 
 export type SanityUiComponentRefFragment = { _key?: string | null | undefined, _type?: string | null | undefined, name?: string | null | undefined };
 
@@ -8108,29 +8516,29 @@ export type SanityServiceFragment = { _key?: string | null | undefined, _type?: 
 
 export type SanitySingleColumnFragment = { _key?: string | null | undefined, _type?: string | null | undefined, _rawContent?: any | null | undefined };
 
-export type SanityGridContentFragment = { __typename: 'SanityGridContent', _key?: string | null | undefined, columns?: Array<{ __typename: 'SanityIllustration', _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { gatsbyImageData: any } | null | undefined } | null | undefined } | { __typename: 'SanityService', _key?: string | null | undefined, _type?: string | null | undefined, _id?: string | null | undefined, id: string, _rawDescription?: any | null | undefined, title?: string | null | undefined } | { __typename: 'SanitySingleColumn', _key?: string | null | undefined, _type?: string | null | undefined, _rawContent?: any | null | undefined } | { __typename: 'SanityUiComponentRef', _key?: string | null | undefined, _type?: string | null | undefined, name?: string | null | undefined } | null | undefined> | null | undefined };
+export type SanityGridContentFragment = { __typename: 'SanityGridContent', _key?: string | null | undefined, columns?: Array<{ __typename: 'SanityIllustration', _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined } | null | undefined } | { __typename: 'SanityService', _key?: string | null | undefined, _type?: string | null | undefined, _id?: string | null | undefined, id: string, _rawDescription?: any | null | undefined, title?: string | null | undefined } | { __typename: 'SanitySingleColumn', _key?: string | null | undefined, _type?: string | null | undefined, _rawContent?: any | null | undefined } | { __typename: 'SanityUiComponentRef', _key?: string | null | undefined, _type?: string | null | undefined, name?: string | null | undefined } | null | undefined> | null | undefined };
 
 export type SanityBodySectionFragment = { _key?: string | null | undefined, _type?: string | null | undefined, _rawContent?: any | null | undefined };
 
-export type SinglePageTemplateFragment = { _key?: string | null | undefined, _id?: string | null | undefined, title?: string | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, content?: Array<{ __typename: 'SanityBodySection', _key?: string | null | undefined, _type?: string | null | undefined, _rawContent?: any | null | undefined } | { __typename: 'SanityGridContent', _key?: string | null | undefined, columns?: Array<{ __typename: 'SanityIllustration', _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { gatsbyImageData: any } | null | undefined } | null | undefined } | { __typename: 'SanityService', _key?: string | null | undefined, _type?: string | null | undefined, _id?: string | null | undefined, id: string, _rawDescription?: any | null | undefined, title?: string | null | undefined } | { __typename: 'SanitySingleColumn', _key?: string | null | undefined, _type?: string | null | undefined, _rawContent?: any | null | undefined } | { __typename: 'SanityUiComponentRef', _key?: string | null | undefined, _type?: string | null | undefined, name?: string | null | undefined } | null | undefined> | null | undefined } | { __typename: 'SanityHero', _key?: string | null | undefined, _type?: string | null | undefined, _rawHeading?: any | null | undefined, _rawHeadLine?: any | null | undefined, illustration?: { _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { gatsbyImageData: any } | null | undefined } | null | undefined } | null | undefined, cta?: { route?: string | null | undefined, link?: string | null | undefined, kind?: string | null | undefined, title?: string | null | undefined, backgroundColor?: { colors?: { title?: string | null | undefined, value?: string | null | undefined } | null | undefined } | null | undefined, sitePageRoute?: { __typename: 'SanityPage', slug?: { current?: string | null | undefined } | null | undefined } | { __typename: 'SanityRoute', slug?: { current?: string | null | undefined } | null | undefined } | null | undefined } | null | undefined } | { __typename: 'SanityUiComponentRef', _key?: string | null | undefined, _type?: string | null | undefined, name?: string | null | undefined } | null | undefined> | null | undefined };
+export type SinglePageTemplateFragment = { _key?: string | null | undefined, _id?: string | null | undefined, title?: string | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, content?: Array<{ __typename: 'SanityBodySection', _key?: string | null | undefined, _type?: string | null | undefined, _rawContent?: any | null | undefined } | { __typename: 'SanityGridContent', _key?: string | null | undefined, columns?: Array<{ __typename: 'SanityIllustration', _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined } | null | undefined } | { __typename: 'SanityService', _key?: string | null | undefined, _type?: string | null | undefined, _id?: string | null | undefined, id: string, _rawDescription?: any | null | undefined, title?: string | null | undefined } | { __typename: 'SanitySingleColumn', _key?: string | null | undefined, _type?: string | null | undefined, _rawContent?: any | null | undefined } | { __typename: 'SanityUiComponentRef', _key?: string | null | undefined, _type?: string | null | undefined, name?: string | null | undefined } | null | undefined> | null | undefined } | { __typename: 'SanityHero', _key?: string | null | undefined, _type?: string | null | undefined, _rawHeading?: any | null | undefined, _rawHeadLine?: any | null | undefined, illustration?: { _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined } | null | undefined } | null | undefined, cta?: { route?: string | null | undefined, link?: string | null | undefined, kind?: string | null | undefined, title?: string | null | undefined, backgroundColor?: { colors?: { title?: string | null | undefined, value?: string | null | undefined } | null | undefined } | null | undefined, sitePageRoute?: { __typename: 'SanityPage', slug?: { current?: string | null | undefined } | null | undefined } | { __typename: 'SanityRoute', slug?: { current?: string | null | undefined } | null | undefined } | null | undefined } | null | undefined } | { __typename: 'SanityUiComponentRef', _key?: string | null | undefined, _type?: string | null | undefined, name?: string | null | undefined } | null | undefined> | null | undefined };
 
-export type SharedProjectFieldsFragment = { _id?: string | null | undefined, title?: string | null | undefined, mainImage?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { gatsbyImageData: any } | null | undefined } | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, author?: { name?: string | null | undefined } | null | undefined, categories?: Array<{ title?: string | null | undefined, description?: string | null | undefined, icon?: { asset?: { _id?: string | null | undefined } | null | undefined } | null | undefined } | null | undefined> | null | undefined };
+export type SharedProjectFieldsFragment = { _id?: string | null | undefined, title?: string | null | undefined, mainImage?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined } | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, author?: { name?: string | null | undefined } | null | undefined, categories?: Array<{ title?: string | null | undefined, description?: string | null | undefined, icon?: { asset?: { _id?: string | null | undefined } | null | undefined } | null | undefined } | null | undefined> | null | undefined };
 
-export type SanityProjectTemplateFragment = { _rawBody?: any | null | undefined, _id?: string | null | undefined, title?: string | null | undefined, projectGallery?: { gallery?: Array<{ image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { gatsbyImageData: any } | null | undefined } | null | undefined } | null | undefined> | null | undefined } | null | undefined, mainImage?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { gatsbyImageData: any } | null | undefined } | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, author?: { name?: string | null | undefined } | null | undefined, categories?: Array<{ title?: string | null | undefined, description?: string | null | undefined, icon?: { asset?: { _id?: string | null | undefined } | null | undefined } | null | undefined } | null | undefined> | null | undefined };
+export type SanityProjectTemplateFragment = { _rawBody?: any | null | undefined, _id?: string | null | undefined, title?: string | null | undefined, projectGallery?: { gallery?: Array<{ _key?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined } | null | undefined } | null | undefined> | null | undefined } | null | undefined, mainImage?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined } | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, author?: { name?: string | null | undefined } | null | undefined, categories?: Array<{ title?: string | null | undefined, description?: string | null | undefined, icon?: { asset?: { _id?: string | null | undefined } | null | undefined } | null | undefined } | null | undefined> | null | undefined };
 
 export type SingleProjectQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type SingleProjectQuery = { sanityProject?: { title?: string | null | undefined, _rawBody?: any | null | undefined, _id?: string | null | undefined, projectGallery?: { gallery?: Array<{ image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { gatsbyImageData: any } | null | undefined } | null | undefined } | null | undefined> | null | undefined } | null | undefined, mainImage?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { gatsbyImageData: any } | null | undefined } | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, author?: { name?: string | null | undefined } | null | undefined, categories?: Array<{ title?: string | null | undefined, description?: string | null | undefined, icon?: { asset?: { _id?: string | null | undefined } | null | undefined } | null | undefined } | null | undefined> | null | undefined } | null | undefined };
+export type SingleProjectQuery = { sanityProject?: { title?: string | null | undefined, _rawBody?: any | null | undefined, _id?: string | null | undefined, projectGallery?: { gallery?: Array<{ _key?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined } | null | undefined } | null | undefined> | null | undefined } | null | undefined, mainImage?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined } | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, author?: { name?: string | null | undefined } | null | undefined, categories?: Array<{ title?: string | null | undefined, description?: string | null | undefined, icon?: { asset?: { _id?: string | null | undefined } | null | undefined } | null | undefined } | null | undefined> | null | undefined } | null | undefined };
 
 export type SinglePageQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type SinglePageQuery = { sanityPage?: { title?: string | null | undefined, _key?: string | null | undefined, _id?: string | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, content?: Array<{ __typename: 'SanityBodySection', _key?: string | null | undefined, _type?: string | null | undefined, _rawContent?: any | null | undefined } | { __typename: 'SanityGridContent', _key?: string | null | undefined, columns?: Array<{ __typename: 'SanityIllustration', _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { gatsbyImageData: any } | null | undefined } | null | undefined } | { __typename: 'SanityService', _key?: string | null | undefined, _type?: string | null | undefined, _id?: string | null | undefined, id: string, _rawDescription?: any | null | undefined, title?: string | null | undefined } | { __typename: 'SanitySingleColumn', _key?: string | null | undefined, _type?: string | null | undefined, _rawContent?: any | null | undefined } | { __typename: 'SanityUiComponentRef', _key?: string | null | undefined, _type?: string | null | undefined, name?: string | null | undefined } | null | undefined> | null | undefined } | { __typename: 'SanityHero', _key?: string | null | undefined, _type?: string | null | undefined, _rawHeading?: any | null | undefined, _rawHeadLine?: any | null | undefined, illustration?: { _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { gatsbyImageData: any } | null | undefined } | null | undefined } | null | undefined, cta?: { route?: string | null | undefined, link?: string | null | undefined, kind?: string | null | undefined, title?: string | null | undefined, backgroundColor?: { colors?: { title?: string | null | undefined, value?: string | null | undefined } | null | undefined } | null | undefined, sitePageRoute?: { __typename: 'SanityPage', slug?: { current?: string | null | undefined } | null | undefined } | { __typename: 'SanityRoute', slug?: { current?: string | null | undefined } | null | undefined } | null | undefined } | null | undefined } | { __typename: 'SanityUiComponentRef', _key?: string | null | undefined, _type?: string | null | undefined, name?: string | null | undefined } | null | undefined> | null | undefined } | null | undefined };
+export type SinglePageQuery = { sanityPage?: { title?: string | null | undefined, _key?: string | null | undefined, _id?: string | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, content?: Array<{ __typename: 'SanityBodySection', _key?: string | null | undefined, _type?: string | null | undefined, _rawContent?: any | null | undefined } | { __typename: 'SanityGridContent', _key?: string | null | undefined, columns?: Array<{ __typename: 'SanityIllustration', _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined } | null | undefined } | { __typename: 'SanityService', _key?: string | null | undefined, _type?: string | null | undefined, _id?: string | null | undefined, id: string, _rawDescription?: any | null | undefined, title?: string | null | undefined } | { __typename: 'SanitySingleColumn', _key?: string | null | undefined, _type?: string | null | undefined, _rawContent?: any | null | undefined } | { __typename: 'SanityUiComponentRef', _key?: string | null | undefined, _type?: string | null | undefined, name?: string | null | undefined } | null | undefined> | null | undefined } | { __typename: 'SanityHero', _key?: string | null | undefined, _type?: string | null | undefined, _rawHeading?: any | null | undefined, _rawHeadLine?: any | null | undefined, illustration?: { _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined } | null | undefined } | null | undefined, cta?: { route?: string | null | undefined, link?: string | null | undefined, kind?: string | null | undefined, title?: string | null | undefined, backgroundColor?: { colors?: { title?: string | null | undefined, value?: string | null | undefined } | null | undefined } | null | undefined, sitePageRoute?: { __typename: 'SanityPage', slug?: { current?: string | null | undefined } | null | undefined } | { __typename: 'SanityRoute', slug?: { current?: string | null | undefined } | null | undefined } | null | undefined } | null | undefined } | { __typename: 'SanityUiComponentRef', _key?: string | null | undefined, _type?: string | null | undefined, name?: string | null | undefined } | null | undefined> | null | undefined } | null | undefined };
 
 export type GatsbyImageSharpFixedFragment = { base64?: string | null | undefined, width: number, height: number, src: string, srcSet: string };
 

@@ -1,5 +1,6 @@
 import React, { ReactChildren, ReactElement } from 'react';
 import { css, Global } from '@emotion/react';
+import Header from './Header';
 
 export default function Layout({
   children,
@@ -125,6 +126,7 @@ export default function Layout({
           }
         `}
       />
+      <Header />
       <main>{children}</main>
     </>
   );

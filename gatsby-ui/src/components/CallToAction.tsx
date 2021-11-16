@@ -28,7 +28,6 @@ export default function CallToAction({
 }: {
   cta: SanityLinkCreator;
 }): ReactElement | null {
-  console.log(cta);
   if (cta?.sitePageRoute) {
     return (
       <UniversalLinkStyles

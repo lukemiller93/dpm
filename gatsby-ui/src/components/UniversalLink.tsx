@@ -22,7 +22,7 @@ export const UniversalLink = (props: any): ReactElement => {
   }
 
   return (
-    <a href={to} {...others}>
+    <a href={to} {...others} target="_BLANK" rel="noopener noreferrer">
       {children}
     </a>
   );

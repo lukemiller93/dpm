@@ -130,27 +130,7 @@
   :global(.text-small) {
     font-size: 0.833rem;
   }
-  .wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  ul {
-    flex-wrap: wrap;
-    flex: 1;
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    list-style: none;
-  }
 
-  .nav-item {
-    margin-right: 2rem;
-  }
-  a {
-    width: 18rem;
-    /* display: inline-block; */
-  }
   .backdrop {
     position: fixed;
     top: 0;

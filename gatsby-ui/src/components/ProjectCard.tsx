@@ -2,7 +2,6 @@
 import styled from '@emotion/styled';
 import { ReactElement } from 'react';
 import { SanityProject } from '../../graphql-types';
-import { normalizePath } from '../utils/normalizePath';
 import { urlFor } from '../utils/urlFor';
 
 const ProjectCardStyles = styled.section`
@@ -61,7 +60,7 @@ export default function ProjectCard({
       <div className="content">
         <h4>{title}</h4>
         <footer style={{ display: 'flex', justifyContent: 'end' }}>
-          <a href={normalizePath(`/portfolio/${slug?.current}`)}>Case Study</a>
+          <a href={`/portfolio/${slug?.current}`}>Case Study</a>
         </footer>
       </div>
     </ProjectCardStyles>

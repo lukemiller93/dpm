@@ -5,6 +5,7 @@ export const fragments = graphql`
     _key
     alt
     asset {
+      _id
       gatsbyImageData(
         fit: FILLMAX
         formats: AUTO
@@ -143,6 +144,7 @@ export const fragments = graphql`
     _rawBody(resolveReferences: { maxDepth: 10 })
     projectGallery {
       gallery {
+        _key
         image {
           ...SanityMainImage
         }
