@@ -1,7 +1,11 @@
+import React from 'react';
 import { QueryClient, QueryClientProvider } from "react-query";
-
 export const wrapRootElement = ({ element }) => {
-  <QueryClientProvider client={new QueryClient()}>
-    {element}
-  </QueryClientProvider>;
+const queryClient = new QueryClient()
+  return (
+    <QueryClientProvider client={queryClient}>
+      {element}
+
+    </QueryClientProvider>
+  )
 };

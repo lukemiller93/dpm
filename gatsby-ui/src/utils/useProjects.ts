@@ -1,10 +1,11 @@
-import { gql, request } from "graphql-request";
+import { gql } from "graphql-request";
 import { useQuery } from "react-query";
+import { SanityProject } from "../../graphql-types";
+import { client } from "./graphql-client";
 
-export const usePosts = () => {
-  return useQuery("projects", async () => {
-    const data = await request(
-      process.env.GATSBY_GRAPHQL_ENDPOINT,
+export const useProjects = () => {
+  return useQuery<SanityProject[]>("projects", async () => {
+    const {allProject} = await client.request(
       gql`
         query FILTERED_PROJECTS_QUERY {
           allProject(
@@ -46,5 +47,6 @@ export const usePosts = () => {
         }
       `
     );
+    return allProject
   });
 };
