@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 import { ReactElement } from 'react';
-import { SanityRoute } from '../../graphql-types';
+import { Nav_ItemsQuery, SanityRoute } from '../../graphql-types';
 import { UniversalLink } from './UniversalLink';
 
 const HeaderStyles = styled.header`
@@ -34,22 +34,21 @@ const HeaderStyles = styled.header`
   }
 `;
 export default function Header(): ReactElement {
-  const { allSanityRoute }: { allSanityRoute: { nodes: SanityRoute[] } } =
-    useStaticQuery(graphql`
-      query NAV_ITEMS {
-        allSanityRoute(sort: { fields: page____createdAt, order: ASC }) {
-          nodes {
-            slug {
-              current
-            }
-            page {
-              title
-            }
-            id
+  const { allSanityRoute } = useStaticQuery<Nav_ItemsQuery>(graphql`
+    query NAV_ITEMS {
+      allSanityRoute(sort: { fields: page____createdAt, order: ASC }) {
+        nodes {
+          slug {
+            current
           }
+          page {
+            title
+          }
+          id
         }
       }
-    `);
+    }
+  `);
   return (
     <HeaderStyles>
       <div className="container wrapper">

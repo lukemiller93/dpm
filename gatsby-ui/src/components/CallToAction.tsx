@@ -18,7 +18,10 @@ const UniversalLinkStyles = styled(UniversalLink)`
     text-decoration: none;
     box-shadow: var(--button-shadow);
   }
-
+  &.btn--sm {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+  }
   &.bg--black {
     background-color: var(--black, black);
   }

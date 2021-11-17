@@ -78,7 +78,7 @@ export const fragments = graphql`
   fragment SanitySingleColumn on SanitySingleColumn {
     _key
     _type
-    _rawContent(resolveReferences: { maxDepth: 5 })
+    _rawContent(resolveReferences: { maxDepth: 10 })
   }
 
   fragment SanityGridContent on SanityGridContent {

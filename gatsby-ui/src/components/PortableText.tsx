@@ -2,11 +2,19 @@ import { ReactElement } from 'react';
 import PortableText from 'react-portable-text';
 import { SanityLinkCreator } from '../../graphql-types';
 import CallToAction from './CallToAction';
+import { UniversalLink } from './UniversalLink';
 
 const serializers = {
   linkCreator: (props: SanityLinkCreator): ReactElement<SanityLinkCreator> => (
-    // console.log(props);
     <CallToAction cta={props} />
+  ),
+  link: (props) => (
+    <UniversalLink to={props?.href}>{props?.children}</UniversalLink>
+  ),
+  internalLink: (props) => (
+    <UniversalLink to={`/${props?.reference?.slug?.current}`}>
+      {props?.children}
+    </UniversalLink>
   ),
 };
 

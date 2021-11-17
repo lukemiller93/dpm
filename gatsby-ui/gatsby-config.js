@@ -26,6 +26,7 @@ module.exports = {
         projectId: "sd6anpfo",
         dataset: "production",
         token: process.env.SANITY_TOKEN,
+        watchMode: true
       },
     },
     "gatsby-plugin-emotion",
