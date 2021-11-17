@@ -8,6 +8,7 @@ interface FormInput {
   type: string;
   register?: () => void;
   errors?: any;
+  description?: string;
 }
 
 const InputStyles = styled.div`
@@ -26,6 +27,10 @@ const InputStyles = styled.div`
     border-radius: var(--border-radius-sm);
     background-color: #fff;
     box-shadow: var(--bs);
+  }
+
+  .description {
+    margin-bottom: var(--spacing-xs);
   }
 
   label {
@@ -49,10 +54,12 @@ export default function Input({
   type,
   register,
   errors,
+  description,
 }: FormInput): ReactElement {
   return (
     <InputStyles className={`form-group ${className && className}`}>
       <label htmlFor={name}>{labelText}</label>
+      {description && <small className="description">{description}</small>}
       {type !== 'textarea' ? (
         <input type={type} {...register(name)} />
       ) : (

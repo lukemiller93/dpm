@@ -14,7 +14,7 @@ const HeaderStyles = styled.header`
   }
 
   .gatsby-image-wrapper {
-    max-width: 400px;
+    max-width: 200px;
   }
   ul {
     flex-wrap: wrap;
