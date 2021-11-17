@@ -12,11 +12,17 @@ export default {
       description: "This is for adding a reference to specific UI components.",
       type: "string",
       name: "name",
-      title: 'Render Component',
+      title: "Render Component",
       options: {
-        list: [{ title: "Request a Proposal", value: 'proposalIntake' }, {title: 'Contact Form', value: 'contactForm'}, {title: 'Testimonial List', value: 'testimonialList'},{title: 'Recent Projects', value: 'recentProjects'}],
-        layout: 'radio',
-        direction: 'horizontal'
+        list: [
+          { title: "Request a Proposal", value: "proposalIntake" },
+          { title: "Contact Form", value: "contactForm" },
+          { title: "Testimonial List", value: "testimonialList" },
+          { title: "Recent Projects", value: "recentProjects" },
+          { title: "Project List", value: "projectList" },
+        ],
+        layout: "radio",
+        direction: "horizontal",
       },
     },
   ],
@@ -25,11 +31,12 @@ export default {
       title: "name",
     },
     prepare({ title }) {
-      const media = title === 'eventList'|| 'uiComponentRef' ? MdEvent : GrContact
+      const media =
+        title === "eventList" || "uiComponentRef" ? MdEvent : GrContact;
 
       return {
         title: _startCase(title),
-        media
+        media,
       };
     },
   },
