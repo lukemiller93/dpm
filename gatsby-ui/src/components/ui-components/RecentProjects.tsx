@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { ReactElement } from 'react';
 import { useProjects } from '../../utils/useProjects';
 import ProjectCard from '../ProjectCard';
 
@@ -16,7 +17,7 @@ const RecentProjectsStyles = styled.section`
     padding-right: 0;
   }
 `;
-export default function RecentProjects() {
+export default function RecentProjects(): ReactElement {
   const { isLoading, isError, data, error } = useProjects();
 
   if (isLoading) return <p>Loading projects...</p>;

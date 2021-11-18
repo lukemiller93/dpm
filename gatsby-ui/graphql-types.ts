@@ -8102,6 +8102,11 @@ export type Nav_ItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type Nav_ItemsQuery = { allSanityRoute: { nodes: Array<{ id: string, slug?: { current?: string | null | undefined } | null | undefined, page?: { title?: string | null | undefined } | null | undefined }> } };
 
+export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CategoriesQuery = { allSanityCategory: { totalCount: number, nodes: Array<{ title?: string | null | undefined, _id?: string | null | undefined, icon?: { asset?: { id: string, gatsbyImageData: any } | null | undefined } | null | undefined }> } };
+
 export type SanityMainImageFragment = { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined };
 
 export type SanityIllustrationFragment = { _key?: string | null | undefined, _type?: string | null | undefined, image?: { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined } | null | undefined };
