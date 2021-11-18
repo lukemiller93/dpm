@@ -24,11 +24,11 @@ type FormData = {
   message: string;
 };
 
-const FormStyles = styled.form`
+export const FormStyles = styled.form`
   display: grid;
   gap: 2rem;
   box-sizing: border-box;
-  width: 100%;
+  /* width: 100%; */
   padding: 4px;
   max-width: 600px;
   margin: 0 auto;
@@ -38,6 +38,7 @@ const FormStyles = styled.form`
     box-shadow: var(--bs);
     background: black;
     color: white;
+    padding: var(--spacing-xs);
   }
 
   h2 {
@@ -45,9 +46,8 @@ const FormStyles = styled.form`
   }
 
   .buttons {
-    padding: var(--spacing-sm) 0;
-    display: flex;
-    justify-content: end;
+    justify-self: end;
+    align-self: end;
   }
 
   button {

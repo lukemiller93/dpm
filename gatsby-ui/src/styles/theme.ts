@@ -25,6 +25,8 @@ export const theme = css`
     --spacing-md: calc(var(--spacing-sm) * 1.5);
     --spacing-lg: calc(var(--spacing-sm) * 2);
 
+    --max-width: 1680px;
+
     --border-radius-sm: 4px;
     --border-radius-md: calc(var(--border-radius-sm) * 2);
     --cards-grid: repeat(auto-fill, minmax(clamp(300px, 400px, 450px), 1fr));
@@ -39,7 +41,7 @@ export const theme = css`
   }
   .container {
     margin: 0 auto;
-    width: 96vw;
+    width: 90vw;
     max-width: 1680px;
   }
   html {
