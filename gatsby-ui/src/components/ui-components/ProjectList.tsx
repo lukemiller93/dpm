@@ -1,27 +1,29 @@
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
-import { GatsbyImage } from 'gatsby-plugin-image';
 import { ReactElement } from 'react';
 import { CategoriesQuery } from '../../../graphql-types';
+import { device } from '../../styles/theme';
 import { useProjects } from '../../utils/useProjects';
 import ProjectCard from '../ProjectCard';
+import Tag from '../Tag';
 
 const ProjectListStyles = styled.section`
+  margin-top: var(--grid-gap-md);
   .tag-list {
+    margin: var(--grid-gap-sm) auto;
     display: flex;
     gap: var(--spacing-xs);
     flex-wrap: wrap;
-    > span {
-      display: flex;
-      align-items: center;
-      gap: calc(var(--spacing-xs) / 2);
-    }
+    justify-content: space-around;
   }
   .project-listings {
     display: grid;
     gap: var(--spacing-md);
-    grid-template-columns: 1fr 1fr 1fr;
     margin: var(--spacing-md) auto;
+
+    @media screen and ${device.md} {
+      grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+    }
   }
 `;
 
@@ -43,7 +45,7 @@ export default function ProjectList(): ReactElement {
                 formats: AUTO
                 layout: FIXED
                 placeholder: DOMINANT_COLOR
-                height: 20
+                height: 40
               )
             }
           }
@@ -52,17 +54,13 @@ export default function ProjectList(): ReactElement {
       }
     }
   `);
-  console.log(nodes);
   if (isLoading) return <p>Loading projects...</p>;
   if (isError) return <span>Error: {error?.message}</span>;
   return (
     <ProjectListStyles className="container">
       <div className="tag-list">
         {nodes?.map((tag) => (
-          <span key={tag?._id}>
-            <GatsbyImage image={tag?.icon?.asset?.gatsbyImageData} alt="" />
-            {tag?.title}
-          </span>
+          <Tag key={tag?._id} {...tag} />
         ))}
       </div>
       <div className="project-listings">
