@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { CategoriesQuery } from '../../../graphql-types';
 import { device } from '../../styles/theme';
 import { useProjects } from '../../utils/useProjects';
@@ -15,6 +15,11 @@ const ProjectListStyles = styled.section`
     gap: var(--spacing-xs);
     flex-wrap: wrap;
     justify-content: space-around;
+
+    h5 {
+      flex-basis: 100%;
+      margin: 0;
+    }
   }
   .project-listings {
     display: grid;
@@ -29,7 +34,6 @@ const ProjectListStyles = styled.section`
 
 export default function ProjectList(): ReactElement {
   const { data, isError, error, isLoading } = useProjects();
-
   const {
     allSanityCategory: { nodes },
   } = useStaticQuery<CategoriesQuery>(graphql`
@@ -45,7 +49,7 @@ export default function ProjectList(): ReactElement {
                 formats: AUTO
                 layout: FIXED
                 placeholder: DOMINANT_COLOR
-                height: 40
+                height: 32
               )
             }
           }
@@ -54,19 +58,31 @@ export default function ProjectList(): ReactElement {
       }
     }
   `);
+  const [filterString, setFilterString] = useState('');
+  // const toggleFilter = (string: string) => {
+  //   const filteredList = data?.filter(({ categories }) =>
+  //     categories?.some((v) => v?.title === string)
+  //   );
+  // };
   if (isLoading) return <p>Loading projects...</p>;
   if (isError) return <span>Error: {error?.message}</span>;
+  console.log(data);
   return (
     <ProjectListStyles className="container">
       <div className="tag-list">
+        <h5>Filter projects by:</h5>
         {nodes?.map((tag) => (
-          <Tag key={tag?._id} {...tag} />
+          <Tag toggleFilter={setFilterString} key={tag?._id} tag={tag} />
         ))}
       </div>
       <div className="project-listings">
-        {data?.map((project) => (
-          <ProjectCard key={project?._id} cardData={project} />
-        ))}
+        {data
+          ?.filter(({ categories }) =>
+            categories?.some((v) => v.title === filterString)
+          )
+          .map((project) => (
+            <ProjectCard key={project?._id} cardData={project} />
+          ))}
       </div>
     </ProjectListStyles>
   );

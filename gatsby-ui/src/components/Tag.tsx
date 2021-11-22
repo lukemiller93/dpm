@@ -30,22 +30,22 @@ const TagStyles = styled.button`
     }
   }
 `;
-export default function Tag({
-  _id,
-  title,
-  icon,
-}: SanityCategory): ReactElement {
+
+type TagProps = {
+  tag: SanityCategory;
+  toggleFilter: (string: string) => void;
+};
+
+export default function Tag({ tag, toggleFilter }: TagProps): ReactElement {
+  const { id, title, icon } = tag;
   return (
     <TagStyles
       onClick={(e) => {
-        console.log(e.target.value);
+        e.preventDefault();
+        toggleFilter(title);
       }}
     >
-      <GatsbyImage
-        imgStyle={{ boxShadow: `var(--bs)` }}
-        image={icon?.asset?.gatsbyImageData}
-        alt={title || ''}
-      />
+      <GatsbyImage image={icon?.asset?.gatsbyImageData} alt={title || ''} />
       <span className="title">{title}</span>
     </TagStyles>
   );
