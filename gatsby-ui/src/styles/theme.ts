@@ -29,6 +29,8 @@ export const theme = css`
 
     --border-radius-sm: 4px;
     --border-radius-md: calc(var(--border-radius-sm) * 2);
+    --border-radius-lg: calc(var(--border-radius-md) * 2);
+
     --cards-grid: repeat(auto-fill, minmax(clamp(300px, 400px, 450px), 1fr));
     --grid-gap-sm: var(--spacing-sm);
     --grid-gap-md: 5vh;

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import { ReactElement, useState } from 'react';
+import type { WindowLocation } from '@reach/router';
 import { CategoriesQuery } from '../../../graphql-types';
 import { device } from '../../styles/theme';
 import { useProject } from '../../utils/useProject';
@@ -17,9 +18,41 @@ const ProjectListStyles = styled.section`
     flex-wrap: wrap;
     justify-content: space-around;
 
-    h5 {
+    header {
       flex-basis: 100%;
-      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      h5 {
+        margin: 0;
+      }
+
+      button {
+        padding-right: var(--spacing-xs);
+        position: relative;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: calc(var(--spacing-xs) / 1.5);
+        padding: calc(var(--spacing-xs) / 3) var(--spacing-xs);
+        cursor: pointer;
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--button-shadow);
+        transition: all 200ms ease;
+        background: var(--color-accent, gray);
+        color: var(--white, white);
+        &:hover {
+          background: var(--bg-danger, darkred);
+        }
+        &::after {
+          position: relative;
+          top: -1px;
+          /* position: absolute;
+          bottom: 0;
+          right: (var(--spacing-xs) / 4); */
+          content: 'x';
+        }
+      }
     }
   }
   .project-listings {
@@ -32,7 +65,8 @@ const ProjectListStyles = styled.section`
     }
   }
 `;
-function FilteredProjects(refId: string) {
+
+function FilteredProjects({ refId }: { refId: string }) {
   const { data, isError, error, isLoading } = useProject(refId);
 
   if (isLoading) return <p>Loading...</p>;
@@ -46,7 +80,15 @@ function FilteredProjects(refId: string) {
   );
 }
 
-export default function ProjectList(): ReactElement {
+export default function ProjectList({
+  location,
+}: {
+  location: {
+    state: {
+      filter: string;
+    };
+  };
+}): ReactElement {
   const { data, isError, error, isLoading } = useProjects();
 
   const {
@@ -77,30 +119,46 @@ export default function ProjectList(): ReactElement {
       }
     }
   `);
-  const [refId, setRefId] = useState<string | undefined>('');
+  const [refId, setRefId] = useState<string | undefined>(
+    location?.state?.filter || ''
+  );
+
+  const currentTag =
+    nodes?.filter(({ _id }) => _id === refId).map(({ title }) => title) || '';
 
   if (isLoading) return <p>Loading projects...</p>;
   if (isError) return <span>Error: {error?.message}</span>;
-  console.log(refId);
   return (
     <ProjectListStyles className="container">
       <div className="tag-list">
-        <h5>Filter projects by:</h5>
+        <header className="">
+          <h5>Filter projects by:</h5>
+          {currentTag.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setRefId('')}
+              className="current-filter"
+            >
+              {currentTag}
+            </button>
+          )}
+        </header>
+
         {nodes
           ?.filter((v) => distinct.includes(v?.title))
           .map((tag) => (
             <Tag setRefId={setRefId} key={tag?._id} tag={tag} />
           ))}
       </div>
-      <div className="project-listings">
-        {refId.length > 0 ? (
-          <FilteredProjects refId={refId} />
-        ) : (
-          data?.map((project) => (
+      {refId?.length > 0 ? (
+        <FilteredProjects refId={refId} />
+      ) : (
+        <div className="project-listings">
+          {data?.map((project) => (
             <ProjectCard key={project?._id} cardData={project} />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </ProjectListStyles>
   );
 }

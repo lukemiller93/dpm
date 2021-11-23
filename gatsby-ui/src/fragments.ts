@@ -129,6 +129,7 @@ export const fragments = graphql`
       name
     }
     categories {
+      _id
       title
       description
       icon {

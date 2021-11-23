@@ -81,9 +81,6 @@ const ProjectBodyStyles = styled.section`
   }
 `;
 
-const ProjectGalleryStyles = styled.section`
-
-`;
 const SanityProject: React.FC<PageProps<SingleProjectQuery>> = ({
   data: { sanityProject },
 }: {
@@ -113,9 +110,8 @@ const SanityProject: React.FC<PageProps<SingleProjectQuery>> = ({
           {sanityProject?.categories?.map((category) => (
             <div className="tag" key={category?.title}>
               <UniversalLink
-                to={`/portfolio?filter=${encodeURIComponent(
-                  category?.title || ''
-                )}`}
+                to="/portfolio/"
+                state={{ filter: category?._id }}
                 className="text-small"
               >
                 {category?.title}
@@ -128,7 +124,6 @@ const SanityProject: React.FC<PageProps<SingleProjectQuery>> = ({
         <section className=" container">
           <h2>Project Screenshots</h2>
           <Lightbox gallery={sanityProject?.projectGallery?.gallery} />
-
         </section>
       )}
     </>

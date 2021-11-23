@@ -5,7 +5,7 @@ import pascalCase from 'just-pascal-case';
 import { SanityUiComponentRef } from '../../../graphql-types';
 
 const getUiComponent = (type, location) => {
-  console.log(location);
+
   const formattedType = pascalCase(type);
 
   const Component = loadable(() => import(`../ui-components/${formattedType}`));

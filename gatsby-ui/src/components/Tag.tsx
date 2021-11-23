@@ -37,7 +37,11 @@ type TagProps = {
   setRefId: (string: string) => void;
 };
 
-export default function Tag({ tag, setRefId }: TagProps): ReactElement {
+export default function Tag({
+  tag,
+  setRefId,
+  setActiveTag,
+}: TagProps): ReactElement {
   const { _id, title, icon } = tag;
   return (
     <TagStyles

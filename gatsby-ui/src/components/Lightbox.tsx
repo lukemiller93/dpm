@@ -41,7 +41,6 @@ export default function Lightbox({
   const [selectedImage, setSelectedImage] = useState('');
   const [lightboxVisible, setLightboxVisible] = useState(false);
   const { browserWidth } = useWindowSize();
-  console.log(device);
   return (
     <>
       <LightboxContainer>
