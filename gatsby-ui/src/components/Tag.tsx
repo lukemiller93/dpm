@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable react/destructuring-assignment */
 import styled from '@emotion/styled';
 import { GatsbyImage } from 'gatsby-plugin-image';
@@ -33,16 +34,16 @@ const TagStyles = styled.button`
 
 type TagProps = {
   tag: SanityCategory;
-  toggleFilter: (string: string) => void;
+  setRefId: (string: string) => void;
 };
 
-export default function Tag({ tag, toggleFilter }: TagProps): ReactElement {
-  const { id, title, icon } = tag;
+export default function Tag({ tag, setRefId }: TagProps): ReactElement {
+  const { _id, title, icon } = tag;
   return (
     <TagStyles
       onClick={(e) => {
         e.preventDefault();
-        toggleFilter(title);
+        setRefId(_id);
       }}
     >
       <GatsbyImage image={icon?.asset?.gatsbyImageData} alt={title || ''} />

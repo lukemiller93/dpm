@@ -8105,7 +8105,7 @@ export type Nav_ItemsQuery = { allSanityRoute: { nodes: Array<{ id: string, slug
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CategoriesQuery = { allSanityCategory: { totalCount: number, nodes: Array<{ title?: string | null | undefined, _id?: string | null | undefined, icon?: { asset?: { id: string, gatsbyImageData: any } | null | undefined } | null | undefined }> } };
+export type CategoriesQuery = { allSanityProject: { distinct: Array<string> }, allSanityCategory: { totalCount: number, nodes: Array<{ title?: string | null | undefined, _id?: string | null | undefined, icon?: { asset?: { id: string, gatsbyImageData: any } | null | undefined } | null | undefined }> } };
 
 export type SanityMainImageFragment = { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined };
 
