@@ -48,6 +48,7 @@ export const theme = css`
   }
   html {
     font-size: 112.5%; /*18px*/
+    scroll-behavior: smooth;
   }
 
   * {
@@ -62,7 +63,8 @@ export const theme = css`
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
     line-height: 1.75;
-    color: #000000;
+    color: #fff;
+    background-color: #1d1d1d;
   }
   h1,
   h2,
