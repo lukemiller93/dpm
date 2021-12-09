@@ -12,8 +12,10 @@ const schema = yup.object({
   email: yup.string().email().required('Please enter a valid email.'),
   phone: yup
     .string()
-    .min(10, 'Please enter a valid U.S. phone number.')
-    .max(10),
+    .matches(
+      /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+      'Please enter a valid U.S. phone number.'
+    ),
   message: yup.string().required('Message not long enough.').min(15),
 });
 
@@ -28,18 +30,11 @@ export const FormStyles = styled.form`
   display: grid;
   gap: 2rem;
   box-sizing: border-box;
-  /* width: 100%; */
+  width: 100%;
   padding: 4px;
   max-width: 600px;
   margin: 0 auto;
   border-radius: var(--border-radius-sm);
-
-  &:focus-within {
-    box-shadow: var(--bs);
-    background: black;
-    color: white;
-    padding: var(--spacing-xs);
-  }
 
   h2 {
     text-align: center;
@@ -60,9 +55,14 @@ export const FormStyles = styled.form`
     font-family: var(--font-stack-body);
   }
 
+  [disabled=''] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
   [type='submit'] {
-    background-color: black;
-    color: white;
+    background-color: var(--white, white);
+    color: var(--black, black);
   }
 
   @media screen and (min-width: 576px) {
@@ -75,18 +75,23 @@ export default function ContactForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    watch,
+
+    formState: { errors, isSubmitting, isValid },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
+    mode: 'onTouched',
   });
 
   const onSubmit = (data: FormData) => console.log(data);
+
   return (
     <FormStyles onSubmit={handleSubmit(onSubmit)}>
       <Input
         name="name"
         labelText="Name"
         type="text"
+        hasData={watch('name', false)}
         register={register}
         errors={errors?.name}
       />
@@ -96,6 +101,7 @@ export default function ContactForm() {
         type="email"
         register={register}
         errors={errors?.email}
+        hasData={watch('email', false)}
       />
       <Input
         name="phone"
@@ -103,6 +109,7 @@ export default function ContactForm() {
         type="tel"
         register={register}
         errors={errors?.phone}
+        hasData={watch('phone', false)}
       />
       <Input
         name="message"
@@ -110,9 +117,12 @@ export default function ContactForm() {
         type="textarea"
         register={register}
         errors={errors?.message}
+        hasData={watch('message', false)}
       />
       <div className="buttons">
-        <button type="submit">Send a Message</button>
+        <button disabled={!isValid || isSubmitting} type="submit">
+          Send a Message
+        </button>
       </div>
     </FormStyles>
   );

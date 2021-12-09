@@ -3,6 +3,7 @@ import { Global } from '@emotion/react';
 import Header from './Header';
 import { theme } from '../styles/theme';
 import ContactForm from './ui-components/ContactForm';
+import Footer from './Footer';
 
 export default function Layout({
   children,
@@ -14,12 +15,7 @@ export default function Layout({
       <Global styles={theme} />
       <Header />
       <main>{children}</main>
-      <footer
-        style={{ backgroundColor: `black`, minHeight: `100vh` }}
-        id="contact"
-      >
-        <ContactForm />
-      </footer>
+      <Footer />
     </>
   );
 }
