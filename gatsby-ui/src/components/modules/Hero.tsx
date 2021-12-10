@@ -9,7 +9,11 @@ const HeroStyles = styled.section`
     position: relative;
     min-height: 60vh;
     display: grid;
-    background: whitesmoke;
+    background-image: linear-gradient(
+      to bottom right,
+      var(--dpm-red),
+      var(--dpm-black)
+    );
     place-items: center;
     padding-bottom: 4rem;
   }
@@ -45,7 +49,7 @@ const HeroStyles = styled.section`
   }
 
   .custom-shape-divider-bottom-1635193655 .shape-fill {
-    fill: white;
+    fill: var(--light-gray);
   }
   @media (min-width: 576px) {
     .custom-shape-divider-bottom-1635193655 svg {

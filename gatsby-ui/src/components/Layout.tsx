@@ -1,21 +1,29 @@
-import React, { ReactChildren, ReactElement } from 'react';
+import React, { ReactChildren, ReactElement, useEffect } from 'react';
 import { Global } from '@emotion/react';
+import { useInView } from 'react-intersection-observer';
+import { PageProps, PageRendererProps } from 'gatsby';
 import Header from './Header';
 import { theme } from '../styles/theme';
 import ContactForm from './ui-components/ContactForm';
 import Footer from './Footer';
 
+interface LayoutProps extends PageRendererProps {
+  children: ReactChildren;
+}
+
 export default function Layout({
   children,
-}: {
-  children: ReactChildren;
-}): ReactElement {
+  location,
+}: LayoutProps): ReactElement {
+  const { ref, inView } = useInView({
+    threshold: 0.95,
+  });
   return (
     <>
       <Global styles={theme} />
-      <Header />
+      <Header isHomePage={location?.pathname === '/'} footerVisible={inView} />
       <main>{children}</main>
-      <Footer />
+      <Footer ref={ref} />
     </>
   );
 }

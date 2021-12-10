@@ -174,8 +174,6 @@ export default function Input({
     },
   };
 
-  console.log(!!errors);
-
   return (
     <InputStyles
       hasData={!!hasData}

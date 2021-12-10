@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { ReactElement } from 'react';
+import { forwardRef, ReactElement } from 'react';
 import ContactForm from './ui-components/ContactForm';
 
 const FooterStyles = styled.footer`
-  background-color: var(--black, black);
+  background-color: var(--dpm-black, black);
   min-height: 100vh;
   display: grid;
   align-content: center;
@@ -19,6 +19,12 @@ const FooterStyles = styled.footer`
   }
   form {
     grid-column: 2/6;
+
+    input,
+    textarea,
+    label {
+      background-color: var(--dpm-black, black);
+    }
   }
 
   .social-links {
@@ -57,34 +63,34 @@ const FooterStyles = styled.footer`
   }
 `;
 
-export default function Footer(): ReactElement {
-  return (
-    <FooterStyles id="contact">
-      <h3>Get In Touch</h3>
-      <ContactForm />
-      <div className="social-links">
-        <a
-          href="https://www.twitter.com/lqm_19"
-          rel="noopener noreferrer"
-          target="_BLANK"
-        >
-          Twitter
-        </a>
-        <a
-          href="https://www.linkedin.com/in/luke-miller-b4951b145/"
-          rel="noopener noreferrer"
-          target="_BLANK"
-        >
-          LinkedIn
-        </a>
-        <a
-          href="https://www.github.com/lukemiller93"
-          rel="noopener noreferrer"
-          target="_BLANK"
-        >
-          Github
-        </a>
-      </div>
-    </FooterStyles>
-  );
-}
+const Footer = forwardRef((props, ref) => (
+  <FooterStyles ref={ref} id="contact">
+    <h3>Get In Touch</h3>
+    <ContactForm />
+    <div className="social-links">
+      <a
+        href="https://www.twitter.com/lqm_19"
+        rel="noopener noreferrer"
+        target="_BLANK"
+      >
+        Twitter
+      </a>
+      <a
+        href="https://www.linkedin.com/in/luke-miller-b4951b145/"
+        rel="noopener noreferrer"
+        target="_BLANK"
+      >
+        LinkedIn
+      </a>
+      <a
+        href="https://www.github.com/lukemiller93"
+        rel="noopener noreferrer"
+        target="_BLANK"
+      >
+        Github
+      </a>
+    </div>
+  </FooterStyles>
+));
+
+export default Footer;

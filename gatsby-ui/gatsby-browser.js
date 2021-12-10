@@ -8,8 +8,12 @@ export const wrapRootElement = ({ element }) => {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <Layout>{element} </Layout>
+      {element}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };
+
+export const wrapPageElement = ({ element, props }) => (
+  <Layout {...props}>{element}</Layout>
+);

@@ -1,4 +1,4 @@
-export { wrapRootElement } from './gatsby-browser';
+export { wrapRootElement, wrapPageElement } from './gatsby-browser';
 
 export function onRenderBody({ setHeadComponents }) {
   setHeadComponents([
