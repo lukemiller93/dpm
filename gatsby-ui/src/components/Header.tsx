@@ -13,7 +13,7 @@ type HeaderStyleProps = {
   pastHero: boolean;
 };
 const HeaderStyles = styled.header<HeaderStyleProps>`
-  position: fixed;
+  position: ${({ isHomePage }) => (isHomePage ? `fixed` : `sticky`)};
   top: 0;
   left: 0;
   right: 0;
@@ -39,10 +39,11 @@ const HeaderStyles = styled.header<HeaderStyleProps>`
 
   .nav-item {
     margin-right: 2rem;
-    color: ${({ footerVisible, pastHero }) =>
+    color: ${({ footerVisible, pastHero, isHomePage }) =>
+      // eslint-disable-next-line no-nested-ternary
       footerVisible
         ? `var(--link-color)`
-        : pastHero
+        : pastHero || !isHomePage
         ? `var(--dpm-black)`
         : `var(--link-color)`};
 
@@ -115,7 +116,10 @@ export default function Header({
           <UniversalLink to="/">
             <StaticImage
               imgStyle={{
-                filter: footerVisible || inView ? `invert(1)` : `invert(0)`,
+                filter:
+                  footerVisible || (inView && isHomePage)
+                    ? `invert(1)`
+                    : `invert(0)`,
               }}
               alt="logo wordmark"
               src="../images/dpm_wordmark.svg"
