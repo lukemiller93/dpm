@@ -114,7 +114,9 @@ export default function Header({
         <div className="container wrapper">
           <UniversalLink to="/">
             <StaticImage
-              imgStyle={{ filter: footerVisible ? `invert(1)` : `invert(0)` }}
+              imgStyle={{
+                filter: footerVisible || inView ? `invert(1)` : `invert(0)`,
+              }}
               alt="logo wordmark"
               src="../images/dpm_wordmark.svg"
             />
