@@ -29,6 +29,7 @@ const HeroStyles = styled.section`
 
   h1 {
     text-align: center;
+    color: var(--white);
   }
 
   .custom-shape-divider-bottom-1635193655 {

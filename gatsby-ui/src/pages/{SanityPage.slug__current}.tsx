@@ -9,7 +9,7 @@ const SanityPage: React.FC<PageProps<SinglePageQuery>> = ({
 }) => {
   const { sanityPage } = data;
   return (
-    <div>
+    <>
       {sanityPage?.content?.map((element) => {
         const typename = element?.__typename.replace('Sanity', '');
         const Component = loadable(
@@ -23,7 +23,7 @@ const SanityPage: React.FC<PageProps<SinglePageQuery>> = ({
           />
         );
       })}
-    </div>
+    </>
   );
 };
 

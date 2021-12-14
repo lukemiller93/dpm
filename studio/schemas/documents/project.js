@@ -18,6 +18,11 @@ export default {
       },
     },
     {
+      name: 'excerpt',
+      title: 'Excerpt',
+      type: 'text',
+    },
+    {
       name: 'author',
       title: 'Author',
       type: 'reference',
@@ -44,6 +49,7 @@ export default {
       title: 'Published at',
       type: 'datetime',
     },
+
     {
       name: 'body',
       title: 'Body',

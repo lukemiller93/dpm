@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { ReactElement } from 'react';
-import { useProjects } from '../../utils/useProjects';
+import { useProjects } from '../../hooks/useProjects';
 import ProjectCard from '../ProjectCard';
 
 const RecentProjectsStyles = styled.section`
@@ -8,8 +8,7 @@ const RecentProjectsStyles = styled.section`
   display: grid;
   margin-top: var(--spacing-lg);
   margin-bottom: var(--grid-gap-xl);
-  gap: var(--grid-gap-sm);
-  grid-template-columns: var(--cards-grid);
+  gap: var(--grid-gap-lg);
   place-items: center;
 
   @media screen and (min-width: 576px) {
@@ -24,8 +23,12 @@ export default function RecentProjects(): ReactElement {
   if (isError) return <span>Error: {error?.message}</span>;
   return (
     <RecentProjectsStyles className="recent-projects container">
-      {data?.map((project) => (
-        <ProjectCard key={project._id} cardData={project} />
+      {data?.map((project, index) => (
+        <ProjectCard
+          key={project._id}
+          reversed={!!(index % 2)}
+          cardData={project}
+        />
       ))}
     </RecentProjectsStyles>
   );

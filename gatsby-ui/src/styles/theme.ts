@@ -18,6 +18,7 @@ export const theme = css`
   :root {
     /* Colors */
     --dpm-black: hsla(300, 11%, 4%, 1);
+    --dpm-black-semi: hsla(300, 11%, 4%, 0.45);
     --dpm-red: hsla(0, 100%, 32%, 1);
     --accent-color: hsla(39, 96%, 69%, 1);
     --link-color: hsla(39, 6%, 99%, 1);
@@ -74,7 +75,7 @@ export const theme = css`
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
     line-height: 1.75;
-    color: #fff;
+    color: var(--dpm-black);
     background-color: var(--light-gray);
   }
   h1,

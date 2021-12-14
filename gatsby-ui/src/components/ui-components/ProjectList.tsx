@@ -4,8 +4,8 @@ import { ReactElement, useState } from 'react';
 import type { WindowLocation } from '@reach/router';
 import { CategoriesQuery } from '../../../graphql-types';
 import { device } from '../../styles/theme';
-import { useProject } from '../../utils/useProject';
-import { useProjects } from '../../utils/useProjects';
+import { useProject } from '../../hooks/useProject';
+import { useProjects } from '../../hooks/useProjects';
 import ProjectCard from '../ProjectCard';
 import Tag from '../Tag';
 
@@ -57,12 +57,12 @@ const ProjectListStyles = styled.section`
   }
   .project-listings {
     display: grid;
-    gap: var(--spacing-md);
-    margin: var(--spacing-md) auto;
+    gap: var(--grid-gap-lg);
+    margin: var(--grid-gap-lg) auto;
 
-    @media screen and ${device.md} {
+    /* @media screen and ${device.md} {
       grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
-    }
+    } */
   }
 `;
 
@@ -130,7 +130,7 @@ export default function ProjectList({
   if (isError) return <span>Error: {error?.message}</span>;
   return (
     <ProjectListStyles className="container">
-      <div className="tag-list">
+      {/* <div className="tag-list">
         <header className="">
           <h5>Filter projects by:</h5>
           {currentTag.length > 0 && (
@@ -149,16 +149,20 @@ export default function ProjectList({
           .map((tag) => (
             <Tag setRefId={setRefId} key={tag?._id} tag={tag} />
           ))}
-      </div>
-      {refId?.length > 0 ? (
+      </div> */}
+      {/* {refId?.length > 0 ? (
         <FilteredProjects refId={refId} />
-      ) : (
-        <div className="project-listings">
-          {data?.map((project) => (
-            <ProjectCard key={project?._id} cardData={project} />
-          ))}
-        </div>
-      )}
+      ) : ( */}
+      <div className="project-listings">
+        {data?.map((project, index) => (
+          <ProjectCard
+            key={project?._id}
+            reversed={!!(index % 2)}
+            cardData={project}
+          />
+        ))}
+      </div>
+      {/* )} */}
     </ProjectListStyles>
   );
 }

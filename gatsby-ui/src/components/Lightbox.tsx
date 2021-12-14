@@ -4,7 +4,7 @@ import React, { ReactElement, useState } from 'react';
 import styled from '@emotion/styled';
 import { SanityIllustration } from '../../graphql-types';
 import '@reach/dialog/styles.css';
-import { useWindowSize } from '../utils/useWindowSize';
+import { useWindowSize } from '../hooks/useWindowSize';
 import { device } from '../styles/theme';
 
 const LightboxContainer = styled.div`

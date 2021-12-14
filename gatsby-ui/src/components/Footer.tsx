@@ -16,6 +16,7 @@ const FooterStyles = styled.footer`
     grid-column: 2/ 6;
     /* margin: auto; */
     justify-self: center;
+    color: var(--white);
   }
   form {
     grid-column: 2/6;

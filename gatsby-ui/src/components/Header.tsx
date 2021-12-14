@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 import React, { Fragment, ReactElement, useEffect } from 'react';
-import { navigate } from '@reach/router';
+import { navigate } from '@gatsbyjs/reach-router';
 import { useInView } from 'react-intersection-observer';
 import { Nav_ItemsQuery, SanityRoute } from '../../graphql-types';
 import { UniversalLink } from './UniversalLink';
@@ -139,13 +139,9 @@ export default function Header({
                 </UniversalLink>
               );
             })}
-            <a
-              href="#contact"
-              onClick={() => navigate('#contact')}
-              className="nav-item"
-            >
+            <UniversalLink to="#contact" hashLink className="nav-item">
               Contact
-            </a>
+            </UniversalLink>
           </ul>
         </div>
       </HeaderStyles>

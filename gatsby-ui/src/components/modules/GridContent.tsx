@@ -11,7 +11,7 @@ import UiComponent from './UiComponentRef';
 
 const GridContentStyles = styled.section`
   display: grid;
-  gap: var(--grid-gap-lg);
+  column-gap: var(--grid-gap-lg);
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   margin-bottom: var(--grid-gap-xl);
   margin-top: 0;
