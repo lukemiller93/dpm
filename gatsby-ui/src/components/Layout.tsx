@@ -21,7 +21,11 @@ export default function Layout({
   return (
     <>
       <Global styles={theme} />
-      <Header isHomePage={location?.pathname === '/'} footerVisible={inView} />
+      <Header
+        isHomePage={location?.pathname === '/'}
+        isProposalIntakePage={location?.pathname.includes('request-a-proposal')}
+        footerVisible={inView}
+      />
       <main>{children}</main>
       <Footer ref={ref} />
     </>

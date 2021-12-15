@@ -11,6 +11,7 @@ type HeaderStyleProps = {
   footerVisible: boolean;
   isHomePage: boolean;
   pastHero: boolean;
+  isProposalIntakePage: boolean;
 };
 const HeaderStyles = styled.header<HeaderStyleProps>`
   position: ${({ isHomePage }) => (isHomePage ? `fixed` : `sticky`)};
@@ -39,9 +40,9 @@ const HeaderStyles = styled.header<HeaderStyleProps>`
 
   .nav-item {
     margin-right: 2rem;
-    color: ${({ footerVisible, pastHero, isHomePage }) =>
+    color: ${({ footerVisible, pastHero, isHomePage, isProposalIntakePage }) =>
       // eslint-disable-next-line no-nested-ternary
-      footerVisible
+      footerVisible || isProposalIntakePage
         ? `var(--link-color)`
         : pastHero || !isHomePage
         ? `var(--dpm-black)`
@@ -80,9 +81,11 @@ const HeaderStyles = styled.header<HeaderStyleProps>`
 export default function Header({
   footerVisible,
   isHomePage,
+  isProposalIntakePage,
 }: {
   footerVisible: boolean;
   isHomePage: boolean;
+  isProposalIntakePage: boolean;
 }): ReactElement {
   const { allSanityRoute } = useStaticQuery<Nav_ItemsQuery>(graphql`
     query NAV_ITEMS {
@@ -108,6 +111,7 @@ export default function Header({
   return (
     <>
       <HeaderStyles
+        isProposalIntakePage={isProposalIntakePage}
         pastHero={!inView}
         isHomePage={isHomePage}
         footerVisible={footerVisible}
@@ -117,7 +121,9 @@ export default function Header({
             <StaticImage
               imgStyle={{
                 filter:
-                  footerVisible || (inView && isHomePage)
+                  footerVisible ||
+                  isProposalIntakePage ||
+                  (inView && isHomePage)
                     ? `invert(1)`
                     : `invert(0)`,
               }}

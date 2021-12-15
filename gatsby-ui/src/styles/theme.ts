@@ -179,4 +179,9 @@ export const theme = css`
       }
     }
   }
+
+  .proposal-intake {
+    background-color: var(--dpm-black);
+    color: var(--white);
+  }
 `;

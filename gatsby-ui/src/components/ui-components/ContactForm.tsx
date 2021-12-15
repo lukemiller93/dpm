@@ -1,8 +1,10 @@
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import styled from '@emotion/styled';
+import { navigate } from 'gatsby';
 import Input from '../forms/Input';
+import { encodeFormData } from '../../utils/encodeFormData';
 
 const schema = yup.object({
   name: yup
@@ -65,6 +67,22 @@ export const FormStyles = styled.form`
     color: var(--black, black);
   }
 
+  .hidden {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 0;
+    z-index: -1;
+    input {
+      width: 1px;
+      z-index: -1;
+      border: none;
+      background-color: transparent;
+    }
+  }
+
   @media screen and (min-width: 576px) {
     form {
       padding: var(--spacing-sm);
@@ -76,17 +94,37 @@ export default function ContactForm() {
     register,
     handleSubmit,
     watch,
-
+    reset,
     formState: { errors, isSubmitting, isValid },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
     mode: 'onTouched',
   });
 
-  const onSubmit = (data: FormData) => console.log(data);
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    // async
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encodeFormData({ 'form-name': 'contact-form', ...data })
+        .then(() => navigate('../../pages/thankYou', { replace: true }))
+        .catch((error) =>
+          alert(
+            `Oops... something went wrong. Please contact us with this error message: ${error}`
+          )
+        ),
+    });
+    reset();
+  };
 
   return (
-    <FormStyles onSubmit={handleSubmit(onSubmit)}>
+    <FormStyles
+      onSubmit={handleSubmit(onSubmit)}
+      name="contact-form"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      method="POST"
+    >
       <Input
         name="name"
         labelText="Name"
@@ -119,6 +157,11 @@ export default function ContactForm() {
         errors={errors?.message}
         hasData={watch('message', false)}
       />
+      <p className="hidden">
+        <label>
+          Don't fill this out if you're human: <input name="bot-field" />
+        </label>
+      </p>
       <div className="buttons">
         <button disabled={!isValid || isSubmitting} type="submit">
           Send a Message

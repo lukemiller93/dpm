@@ -2,6 +2,7 @@ import { graphql, PageProps, StaticQueryDocument } from 'gatsby';
 import React from 'react';
 import loadable from '@loadable/component';
 import type { SinglePageQuery } from '../../graphql-types';
+import SEO from '../components/SEO';
 
 const SanityPage: React.FC<PageProps<SinglePageQuery>> = ({
   data,
@@ -10,6 +11,7 @@ const SanityPage: React.FC<PageProps<SinglePageQuery>> = ({
   const { sanityPage } = data;
   return (
     <>
+      <SEO title={sanityPage?.title} location={location.pathname} />
       {sanityPage?.content?.map((element) => {
         const typename = element?.__typename.replace('Sanity', '');
         const Component = loadable(

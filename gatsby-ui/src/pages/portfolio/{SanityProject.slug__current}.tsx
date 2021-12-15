@@ -15,6 +15,7 @@ import Lightbox from '../../components/Lightbox';
 import ProjectCard from '../../components/ProjectCard';
 import { device } from '../../styles/theme';
 import PageUnderConstruction from '../../components/PageUnderConstruction';
+import SEO from '../../components/SEO';
 
 const ProjectIntroStyles = styled.header`
   display: grid;
@@ -107,27 +108,29 @@ const SanityProject: React.FC<PageProps<SingleProjectQuery>> = ({
     .map((b) => b.markDefs.map((m) => m.href))[0][0];
   console.log(liveSiteLink);
   return (
-    <section className="container">
-      <ProjectIntroStyles>
-        <h1>{sanityProject?.title}</h1>
-        <div className="intro-description">
-          <div className="tags">
-            {sanityProject?.categories?.map((tag) => (
-              <span className="tag" key={tag?._id}>
-                {tag?.title}
-              </span>
-            ))}
+    <>
+      <SEO />
+      <section className="container">
+        <ProjectIntroStyles>
+          <h1>{sanityProject?.title}</h1>
+          <div className="intro-description">
+            <div className="tags">
+              {sanityProject?.categories?.map((tag) => (
+                <span className="tag" key={tag?._id}>
+                  {tag?.title}
+                </span>
+              ))}
+            </div>
+            <p>{sanityProject?.excerpt}</p>
           </div>
-          <p>{sanityProject?.excerpt}</p>
-        </div>
-      </ProjectIntroStyles>
+        </ProjectIntroStyles>
 
-      <ProjectBodyStyles className="container">
-        <article className="project-body">
-          <PageUnderConstruction liveSite={liveSiteLink} />
-          {/* <BlockContent block={sanityProject?._rawBody} /> */}
-        </article>
-        {/* <aside className="project-meta">
+        <ProjectBodyStyles className="container">
+          <article className="project-body">
+            <PageUnderConstruction liveSite={liveSiteLink} />
+            {/* <BlockContent block={sanityProject?._rawBody} /> */}
+          </article>
+          {/* <aside className="project-meta">
           <h4>Project Tags</h4>
           {sanityProject?.categories?.map((category) => (
             <div className="tag" key={category?.title}>
@@ -141,14 +144,15 @@ const SanityProject: React.FC<PageProps<SingleProjectQuery>> = ({
             </div>
           ))}
         </aside> */}
-      </ProjectBodyStyles>
-      {/* {sanityProject?.projectGallery?.gallery?.length > 0 && (
+        </ProjectBodyStyles>
+        {/* {sanityProject?.projectGallery?.gallery?.length > 0 && (
         <section className=" container">
           <h2>Project Screenshots</h2>
           <Lightbox gallery={sanityProject?.projectGallery?.gallery} />
         </section>
       )} */}
-    </section>
+      </section>
+    </>
   );
 };
 

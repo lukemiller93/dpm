@@ -13,7 +13,7 @@ interface FormInput {
   type: string;
   register?: UseFormRegister<any>;
   hasData?: UseFormWatch<any>;
-  trigger: UseFormTrigger<any>;
+  trigger?: UseFormTrigger<any>;
   errors?: any;
   description?: string;
 }
@@ -27,7 +27,7 @@ const InputStyles = styled(motion.div)<FormInputStyleProps>`
   position: relative;
 
   label {
-    background-color: black;
+    background-color: var(--dpm-black);
     font-size: (var(--font-size-default) / 1.25);
     color: rgba(255, 255, 255, 0.25);
     font-weight: 600;
@@ -52,7 +52,7 @@ const InputStyles = styled(motion.div)<FormInputStyleProps>`
     font-size: (var(--font-size-default) / 1.25);
     font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
       Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: black;
+    background-color: var(--dpm-black);
     border: none;
     color: var(--white, white);
     outline: ${(props) =>
@@ -118,7 +118,8 @@ const InputStyles = styled(motion.div)<FormInputStyleProps>`
   }
 
   .description {
-    margin-bottom: var(--spacing-xs);
+    margin-top: var(--spacing-xs);
+    display: block;
   }
   .errors {
     color: tomato;
