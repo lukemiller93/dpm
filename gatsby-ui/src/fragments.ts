@@ -121,6 +121,7 @@ export const fragments = graphql`
     mainImage {
       ...SanityMainImage
     }
+    excerpt
     slug {
       current
     }

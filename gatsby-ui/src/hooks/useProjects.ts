@@ -3,8 +3,6 @@ import { useQuery, UseQueryResult } from 'react-query';
 import { SanityProject } from '../../graphql-types';
 import { client } from '../utils/graphql-client';
 
-
-
 export const useProjects: () => UseQueryResult<SanityProject[], unknown> = () =>
   useQuery('projects', async () => {
     const { allProject }: { allProject: SanityProject[] } =

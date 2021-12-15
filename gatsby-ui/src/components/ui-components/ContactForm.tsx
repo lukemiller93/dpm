@@ -61,7 +61,7 @@ export const FormStyles = styled.form`
   }
 
   [type='submit'] {
-    background-color: var(--white, white);
+    background-color: var(--accent-color);
     color: var(--black, black);
   }
 

@@ -105,38 +105,7 @@ const ProjectCardStyles = styled.article<ProjectCardStyleProps>`
     }
   }
 
-  /*
-  .content {
-    padding: var(--spacing-sm);
-  }
 
-  img {
-    width: 100%;
-    object-fit: cover;
-    aspect-ratio: 4/3;
-    filter: brightness(20%);
-    /* max-height: var(--grid-gap-xl);
-  }
-
-  h4 {
-    margin: 0;
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  footer {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  footer > a {
-    padding: 0.5rem 1rem;
-    border-radius: 1rem;
-    color: var(--white, white);
-    text-decoration: none;
-    box-shadow: var(--button-shadow);
-    background-color: var(--black, black);
-  } */
 `;
 interface ExtendedProjectType extends SanityProject {
   excerpt?: string;
