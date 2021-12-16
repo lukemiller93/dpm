@@ -2,17 +2,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React from 'react';
-import { graphql, PageProps, StaticQueryDocument } from 'gatsby';
+import {
+  graphql,
+  PageProps,
+  PageRendererProps,
+  StaticQueryDocument,
+} from 'gatsby';
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import styled from '@emotion/styled';
-import BlockContent from '../../components/PortableText';
-import { UniversalLink } from '../../components/UniversalLink';
 import {
   SanityProject as SanityProjectType,
   SingleProjectQuery,
 } from '../../../graphql-types';
-import Lightbox from '../../components/Lightbox';
-import ProjectCard from '../../components/ProjectCard';
 import { device } from '../../styles/theme';
 import PageUnderConstruction from '../../components/PageUnderConstruction';
 import SEO from '../../components/SEO';
@@ -94,12 +95,18 @@ const ProjectBodyStyles = styled.section`
     grid-template-columns: 3fr 1fr;
   } */
 `;
+// {
+//   data: { sanityProject },
+//   location: WindowLocation,
+// }: {
+//   data: { sanityProject: SanityProjectType };
+// }
 
-const SanityProject: React.FC<PageProps<SingleProjectQuery>> = ({
-  data: { sanityProject },
-}: {
-  data: { sanityProject: SanityProjectType };
-}) => {
+const SanityProject = (props: PageProps<SanityProjectType>) => {
+  const {
+    data: { sanityProject },
+    location,
+  } = props;
   const mainImage: IGatsbyImageData =
     sanityProject?.mainImage?.asset?.gatsbyImageData;
 
@@ -109,7 +116,7 @@ const SanityProject: React.FC<PageProps<SingleProjectQuery>> = ({
   console.log(liveSiteLink);
   return (
     <>
-      <SEO />
+      <SEO title={sanityProject?.title} location={location.pathname} />
       <section className="container">
         <ProjectIntroStyles>
           <h1>{sanityProject?.title}</h1>

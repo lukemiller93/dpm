@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { ReactElement } from 'react';
 import { useProjects } from '../../hooks/useProjects';
 import ProjectCard from '../ProjectCard';
+import ProjectCardSkeleton from '../ProjectCardSkeleton';
 
 const RecentProjectsStyles = styled.section`
   padding: 0 1vw;
@@ -19,7 +20,13 @@ const RecentProjectsStyles = styled.section`
 export default function RecentProjects(): ReactElement {
   const { isLoading, isError, data, error } = useProjects();
 
-  if (isLoading) return <p>Loading projects...</p>;
+  if (isLoading)
+    return (
+      <RecentProjectsStyles className="container">
+        <ProjectCardSkeleton reversed={false} />
+        <ProjectCardSkeleton reversed />
+      </RecentProjectsStyles>
+    );
   if (isError) return <span>Error: {error?.message}</span>;
   return (
     <RecentProjectsStyles className="recent-projects container">

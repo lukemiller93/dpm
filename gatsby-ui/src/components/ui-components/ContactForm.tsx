@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import styled from '@emotion/styled';
 import { navigate } from 'gatsby';
+import { useEffect } from 'react';
 import Input from '../forms/Input';
 import { encodeFormData } from '../../utils/encodeFormData';
 
@@ -65,6 +66,12 @@ export const FormStyles = styled.form`
   [type='submit'] {
     background-color: var(--accent-color);
     color: var(--black, black);
+
+    &:focus {
+      outline-style: solid;
+      outline-color: var(--accent-color);
+      outline-offset: 4px;
+    }
   }
 
   .hidden {
@@ -95,25 +102,39 @@ export default function ContactForm() {
     handleSubmit,
     watch,
     reset,
-    formState: { errors, isSubmitting, isValid },
+    formState: {
+      errors,
+      isSubmitting,
+      isValid,
+      isSubmitted,
+      isSubmitSuccessful,
+    },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
     mode: 'onTouched',
   });
+
+  useEffect(() => {
+    if (isSubmitted && isSubmitSuccessful && typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [isSubmitted, isSubmitSuccessful]);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // async
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: encodeFormData({ 'form-name': 'contact-form', ...data })
-        .then(() => navigate('../../pages/thankYou', { replace: true }))
-        .catch((error) =>
-          alert(
-            `Oops... something went wrong. Please contact us with this error message: ${error}`
-          )
-        ),
-    });
+      body: encodeFormData({ 'form-name': 'contact-form', ...data }),
+    })
+      .then(() => {
+        navigate('/thankYou/');
+      })
+      .catch((error) =>
+        alert(
+          `Oops... something went wrong. Please contact us with this error message: ${error}`
+        )
+      );
     reset();
   };
 
@@ -159,7 +180,8 @@ export default function ContactForm() {
       />
       <p className="hidden">
         <label>
-          Don't fill this out if you're human: <input name="bot-field" />
+          Don't fill this out if you're human:{' '}
+          <input tabIndex={-1} name="bot-field" />
         </label>
       </p>
       <div className="buttons">

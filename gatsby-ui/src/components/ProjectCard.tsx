@@ -7,14 +7,13 @@ import useAnimateIn from '../hooks/useAnimateIn';
 import useFadeIn from '../hooks/useFadeIn';
 import { device } from '../styles/theme';
 import { urlFor } from '../utils/urlFor';
-import BlockContent from './PortableText';
 import { UniversalLink } from './UniversalLink';
 
 type ProjectCardStyleProps = {
   reversed: boolean;
 };
 
-const ProjectCardStyles = styled.article<ProjectCardStyleProps>`
+export const ProjectCardStyles = styled.article<ProjectCardStyleProps>`
   /* background-color: var(--light-gray); */
   display: grid;
   grid-column-gap: 0.5rem;
@@ -104,8 +103,6 @@ const ProjectCardStyles = styled.article<ProjectCardStyleProps>`
         reversed ? `var(--white)` : `var(--dpm-black)`};
     }
   }
-
-
 `;
 interface ExtendedProjectType extends SanityProject {
   excerpt?: string;

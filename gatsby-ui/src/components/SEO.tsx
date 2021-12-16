@@ -1,12 +1,16 @@
 import { ReactElement } from 'react';
 import { Helmet } from 'react-helmet';
+import { Maybe } from '../../graphql-types';
 
 interface SEOProps {
-  title: string;
+  title: Maybe<string> | undefined;
   location: string;
 }
 
-function SEO({ title, location }: SEOProps): ReactElement {
+function SEO({
+  title = 'Dauntless Pursuit Media',
+  location,
+}: SEOProps): ReactElement {
   console.log(location);
   return (
     <Helmet

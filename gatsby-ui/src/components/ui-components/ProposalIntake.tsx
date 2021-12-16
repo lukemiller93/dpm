@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ReactElement } from 'react';
-import { useForm } from 'react-hook-form';
+import { navigate } from 'gatsby';
+import { ReactElement, useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { device } from '../../styles/theme';
+import { encodeFormData } from '../../utils/encodeFormData';
 import Input from '../forms/Input';
 import RadioGroup from '../forms/RadioGroup';
 import { FormStyles } from './ContactForm';
@@ -70,7 +72,14 @@ export default function ProposalIntake(): ReactElement {
     register,
     watch,
     handleSubmit,
-    formState: { errors, isValid, isSubmitting },
+    reset,
+    formState: {
+      errors,
+      isValid,
+      isSubmitting,
+      isSubmitted,
+      isSubmitSuccessful,
+    },
   } = useForm<ProposalData>({
     resolver: yupResolver(schema),
     mode: 'onTouched',
@@ -80,11 +89,37 @@ export default function ProposalIntake(): ReactElement {
     },
   });
 
-  const onSubmit = (data: ProposalData) => console.log(data);
+  useEffect(() => {
+    if (isSubmitted && isSubmitSuccessful && typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [isSubmitted, isSubmitSuccessful]);
+
+  const onSubmit: SubmitHandler<ProposalData> = (data) => {
+    // async
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encodeFormData({ 'form-name': 'proposal-intake', ...data }),
+    })
+      .then(() => {
+        navigate('/thankYou/');
+      })
+      .catch((error) =>
+        alert(
+          `Oops... something went wrong. Please contact us with this error message: ${error}`
+        )
+      );
+    reset();
+  };
   return (
     <ProposalIntakeStyles
       className="container"
       onSubmit={handleSubmit(onSubmit)}
+      name="proposal-intake"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      method="POST"
     >
       <Input
         hasData={watch('name', false)}
@@ -193,6 +228,12 @@ export default function ProposalIntake(): ReactElement {
         register={register}
         errors={errors?.timeline}
       />
+      <p className="hidden">
+        <label>
+          Don't fill this out if you're human:{' '}
+          <input tabIndex={-1} name="bot-field" />
+        </label>
+      </p>
       <div className="buttons">
         <button disabled={!isValid || isSubmitting} type="submit">
           Submit

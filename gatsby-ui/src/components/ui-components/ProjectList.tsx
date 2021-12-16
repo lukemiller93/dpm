@@ -2,12 +2,14 @@ import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import { ReactElement, useState } from 'react';
 import type { WindowLocation } from '@reach/router';
+import { AnimatePresence } from 'framer-motion';
 import { CategoriesQuery } from '../../../graphql-types';
 import { device } from '../../styles/theme';
 import { useProject } from '../../hooks/useProject';
 import { useProjects } from '../../hooks/useProjects';
 import ProjectCard from '../ProjectCard';
 import Tag from '../Tag';
+import ProjectCardSkeleton from '../ProjectCardSkeleton';
 
 const ProjectListStyles = styled.section`
   margin-top: var(--grid-gap-md);
@@ -64,6 +66,12 @@ const ProjectListStyles = styled.section`
       grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
     } */
   }
+`;
+
+const ProjectListingList = styled.div`
+  display: grid;
+  gap: var(--grid-gap-lg);
+  margin: var(--grid-gap-lg) auto;
 `;
 
 function FilteredProjects({ refId }: { refId: string }) {
@@ -126,34 +134,21 @@ export default function ProjectList({
   const currentTag =
     nodes?.filter(({ _id }) => _id === refId).map(({ title }) => title) || '';
 
-  if (isLoading) return <p>Loading projects...</p>;
+  if (isLoading)
+    return (
+      <div className="container">
+        <ProjectListingList>
+          <AnimatePresence>
+            <ProjectCardSkeleton key={1} reversed={false} />
+            <ProjectCardSkeleton key={2} reversed />
+          </AnimatePresence>
+        </ProjectListingList>
+      </div>
+    );
   if (isError) return <span>Error: {error?.message}</span>;
   return (
     <ProjectListStyles className="container">
-      {/* <div className="tag-list">
-        <header className="">
-          <h5>Filter projects by:</h5>
-          {currentTag.length > 0 && (
-            <button
-              type="button"
-              onClick={() => setRefId('')}
-              className="current-filter"
-            >
-              {currentTag}
-            </button>
-          )}
-        </header>
-
-        {nodes
-          ?.filter((v) => distinct.includes(v?.title))
-          .map((tag) => (
-            <Tag setRefId={setRefId} key={tag?._id} tag={tag} />
-          ))}
-      </div> */}
-      {/* {refId?.length > 0 ? (
-        <FilteredProjects refId={refId} />
-      ) : ( */}
-      <div className="project-listings">
+      <ProjectListingList>
         {data?.map((project, index) => (
           <ProjectCard
             key={project?._id}
@@ -161,7 +156,7 @@ export default function ProjectList({
             cardData={project}
           />
         ))}
-      </div>
+      </ProjectListingList>
       {/* )} */}
     </ProjectListStyles>
   );
