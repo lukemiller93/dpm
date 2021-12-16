@@ -144,8 +144,6 @@ export default function ProjectCard({
     threshold: 0.5,
   });
 
-  console.log({ imageRef, imageCtrls, tagsCtrls, tagsRef });
-
   return (
     <UniversalLink
       style={{ textDecoration: `none` }}

@@ -101,7 +101,7 @@ export default function ProjectCardSkeleton({
           <div className="skeleton skeleton-text" />
           <div className="skeleton skeleton-text" />
         </h3>
-        <motion.p
+        <motion.div
         // ref={introRef}
         // initial="hidden"
         // animate={introCtrls}
@@ -110,7 +110,7 @@ export default function ProjectCardSkeleton({
           <div className="skeleton skeleton-text" />
           <div className="skeleton skeleton-text" />
           <div className="skeleton skeleton-text" />
-        </motion.p>
+        </motion.div>
       </div>
 
       <motion.div className="tags">
