@@ -42,7 +42,6 @@
     "gatsby-source-filesystem": "^4.1.2",
     "gatsby-source-sanity": "^7.1.0",
     "gatsby-transformer-sharp": "^4.1.0",
-    "googleapis": "^92.0.0",
     "graphql": "^15.7.2",
     "graphql-request": "^3.6.1",
     "just-pascal-case": "^3.0.1",
