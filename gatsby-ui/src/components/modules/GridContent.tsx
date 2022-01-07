@@ -15,20 +15,19 @@ const GridContentStyles = styled.section`
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   margin-bottom: var(--grid-gap-xl);
   margin-top: 0;
-  padding: 1vw;
+  /* padding: 1vw; */
 
   &:not(:first-of-type) {
     margin: var(--grid-gap-xl) auto;
   }
   &.service-grid {
-    padding: 1vw;
-    margin-top: 0;
     margin-top: var(--grid-gap-md);
     margin-bottom: var(--grid-gap-xl);
-    grid-template-columns: var(--cards-grid);
     gap: var(--grid-gap-sm);
+    margin-top: 0;
 
     @media screen and (min-width: 576px) {
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
       padding: 0;
     }
   }
@@ -57,6 +56,7 @@ const GridContentStyles = styled.section`
     display: grid;
     align-items: stretch;
     align-self: stretch;
+    width: 100%;
   }
   .illustration {
     align-self: center;
