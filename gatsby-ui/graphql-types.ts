@@ -243,6 +243,8 @@ export type DirectoryCtimeArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
+  port?: Maybe<Scalars['Int']>;
+  host?: Maybe<Scalars['String']>;
   jsxRuntime?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
@@ -1813,6 +1815,8 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: InputMaybe<DateQueryOperatorInput>;
   siteMetadata?: InputMaybe<SiteSiteMetadataFilterInput>;
+  port?: InputMaybe<IntQueryOperatorInput>;
+  host?: InputMaybe<StringQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
   polyfill?: InputMaybe<BooleanQueryOperatorInput>;
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
@@ -3138,6 +3142,8 @@ export type SiteFieldsEnum =
   | 'siteMetadata___description'
   | 'siteMetadata___siteUrl'
   | 'siteMetadata___author'
+  | 'port'
+  | 'host'
   | 'jsxRuntime'
   | 'polyfill'
   | 'pathPrefix'
@@ -3272,6 +3278,8 @@ export type SiteGroupConnectionGroupArgs = {
 export type SiteFilterInput = {
   buildTime?: InputMaybe<DateQueryOperatorInput>;
   siteMetadata?: InputMaybe<SiteSiteMetadataFilterInput>;
+  port?: InputMaybe<IntQueryOperatorInput>;
+  host?: InputMaybe<StringQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
   polyfill?: InputMaybe<BooleanQueryOperatorInput>;
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
@@ -8106,7 +8114,12 @@ export type SiteSettingsQuery = { site?: { buildTime?: any | null | undefined, s
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CategoriesQuery = { allSanityProject: { distinct: Array<string> }, allSanityCategory: { totalCount: number, nodes: Array<{ title?: string | null | undefined, _id?: string | null | undefined, icon?: { asset?: { id: string, gatsbyImageData: any } | null | undefined } | null | undefined }> } };
+export type CategoriesQuery = { allSanityProject: { nodes: Array<{ id: string, title?: string | null | undefined, _id?: string | null | undefined, mainImage?: { alt?: string | null | undefined, asset?: { gatsbyImageData: any, altText?: string | null | undefined } | null | undefined } | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, author?: { name?: string | null | undefined } | null | undefined, categories?: Array<{ title?: string | null | undefined, description?: string | null | undefined } | null | undefined> | null | undefined }> } };
+
+export type Recent_ProjectsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Recent_ProjectsQuery = { allSanityProject: { nodes: Array<{ id: string, title?: string | null | undefined, _id?: string | null | undefined, mainImage?: { alt?: string | null | undefined, asset?: { gatsbyImageData: any, altText?: string | null | undefined } | null | undefined } | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, author?: { name?: string | null | undefined } | null | undefined, categories?: Array<{ title?: string | null | undefined, description?: string | null | undefined } | null | undefined> | null | undefined }> } };
 
 export type SanityMainImageFragment = { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined };
 

@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import { ReactElement } from 'react';
 import { SanityProject } from '../../graphql-types';
 import useAnimateIn from '../hooks/useAnimateIn';
@@ -112,7 +114,7 @@ export default function ProjectCard({
   reversed,
   cardData,
 }: {
-  cardData: ExtendedProjectType;
+  cardData: ExtendedProjectType | SanityProject;
   reversed: boolean;
 }): ReactElement {
   const { title, mainImage, slug, excerpt, categories } = cardData;
@@ -158,8 +160,8 @@ export default function ProjectCard({
           className="image-container"
         >
           {mainImage && (
-            <img
-              src={urlFor(mainImage).width(600).url() || ''}
+            <GatsbyImage
+              image={mainImage?.asset?.gatsbyImageData}
               alt={mainImage?.alt || ''}
             />
           )}

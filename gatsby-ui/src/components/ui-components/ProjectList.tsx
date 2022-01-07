@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import { ReactElement, useState } from 'react';
 import type { WindowLocation } from '@reach/router';
 import { AnimatePresence } from 'framer-motion';
-import { CategoriesQuery } from '../../../graphql-types';
+import { CategoriesQuery, SanityProject } from '../../../graphql-types';
 import { device } from '../../styles/theme';
 import { useProject } from '../../hooks/useProject';
 import { useProjects } from '../../hooks/useProjects';
@@ -97,61 +98,50 @@ export default function ProjectList({
     };
   };
 }): ReactElement {
-  const { data, isError, error, isLoading } = useProjects();
+  // const { data, isError, error, isLoading } = useProjects();
 
   const {
-    allSanityCategory: { nodes },
-    allSanityProject: { distinct },
-  } = useStaticQuery<CategoriesQuery>(graphql`
+    // allSanityCategory: { nodes },
+    allSanityProject: { nodes: projectNodes },
+  } = useStaticQuery<{ allSanityProject: { nodes: SanityProject[] } }>(graphql`
     query CATEGORIES {
       allSanityProject {
-        distinct(field: categories___title)
-      }
-      allSanityCategory {
-        totalCount
         nodes {
+          id
           title
-          icon {
-            asset {
-              id
-              gatsbyImageData(
-                formats: AUTO
-                layout: FIXED
-                placeholder: DOMINANT_COLOR
-                height: 32
-              )
-            }
-          }
           _id
+          mainImage {
+            asset {
+              gatsbyImageData(
+                fit: CROP
+                layout: FULL_WIDTH
+                placeholder: BLURRED
+              )
+              altText
+            }
+            alt
+          }
+          slug {
+            current
+          }
+          author {
+            name
+          }
+          categories {
+            title
+            description
+          }
         }
       }
     }
   `);
-  const [refId, setRefId] = useState<string | undefined>(
-    location?.state?.filter || ''
-  );
 
-  const currentTag =
-    nodes?.filter(({ _id }) => _id === refId).map(({ title }) => title) || '';
-
-  if (isLoading)
-    return (
-      <div className="container">
-        <ProjectListingList>
-          <AnimatePresence>
-            <ProjectCardSkeleton key={1} reversed={false} />
-            <ProjectCardSkeleton key={2} reversed />
-          </AnimatePresence>
-        </ProjectListingList>
-      </div>
-    );
-  if (isError) return <span>Error: {error?.message}</span>;
   return (
     <ProjectListStyles className="container">
       <ProjectListingList>
-        {data?.map((project, index) => (
+        {projectNodes?.map((project, index) => (
           <ProjectCard
-            key={project?._id}
+            key={project?.id}
             reversed={!!(index % 2)}
             cardData={project}
           />

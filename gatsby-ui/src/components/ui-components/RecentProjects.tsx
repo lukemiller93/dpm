@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
+import { graphql, useStaticQuery } from 'gatsby';
 import { ReactElement } from 'react';
+import { SanityProject } from '../../../graphql-types';
 import { useProjects } from '../../hooks/useProjects';
 import ProjectCard from '../ProjectCard';
 import ProjectCardSkeleton from '../ProjectCardSkeleton';
@@ -18,21 +20,55 @@ const RecentProjectsStyles = styled.section`
   }
 `;
 export default function RecentProjects(): ReactElement {
-  const { isLoading, isError, data, error } = useProjects();
+  // const { isLoading, isError, data, error } = useProjects();
 
-  if (isLoading)
-    return (
-      <RecentProjectsStyles className="container">
-        <ProjectCardSkeleton reversed={false} />
-        <ProjectCardSkeleton reversed />
-      </RecentProjectsStyles>
-    );
-  if (isError) return <span>Error: {error?.message}</span>;
+  const { allSanityProject } = useStaticQuery<{
+    allSanityProject: { nodes: SanityProject[] };
+  }>(graphql`
+    query RECENT_PROJECTS {
+      allSanityProject(sort: { order: ASC, fields: _createdAt }) {
+        nodes {
+          id
+          title
+          _id
+          mainImage {
+            asset {
+              gatsbyImageData(
+                fit: CROP
+                layout: FULL_WIDTH
+                placeholder: BLURRED
+              )
+              altText
+            }
+            alt
+          }
+          slug {
+            current
+          }
+          author {
+            name
+          }
+          categories {
+            title
+            description
+          }
+        }
+      }
+    }
+  `);
+  // if (isLoading)
+  //   return (
+  //     <RecentProjectsStyles className="container">
+  //       <ProjectCardSkeleton reversed={false} />
+  //       <ProjectCardSkeleton reversed />
+  //     </RecentProjectsStyles>
+  //   );
+  // if (isError) return <span>Error: {error?.message}</span>;
   return (
     <RecentProjectsStyles className="recent-projects container">
-      {data?.map((project, index) => (
+      {allSanityProject?.nodes?.map((project, index) => (
         <ProjectCard
-          key={project._id}
+          key={project.id}
           reversed={!!(index % 2)}
           cardData={project}
         />
