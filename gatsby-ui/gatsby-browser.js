@@ -3,12 +3,13 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import Layout from './src/components/Layout';
 import '@fontsource/inter/variable-full.css';
 import '@fontsource/nunito/400.css';
+import { MenuStateProvider } from './src/contexts/menuStateContext';
 
 export const wrapRootElement = ({ element }) => {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      {element}
+      <MenuStateProvider>{element}</MenuStateProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
 import React, { Fragment, ReactElement, useEffect } from 'react';
-import { navigate } from '@gatsbyjs/reach-router';
 import { useInView } from 'react-intersection-observer';
 import { Nav_ItemsQuery, SanityRoute } from '../../graphql-types';
 import { UniversalLink } from './UniversalLink';
+import PrimaryMenu from './menus/PrimaryMenu.js';
 
 type HeaderStyleProps = {
   footerVisible: boolean;
@@ -132,7 +132,7 @@ export default function Header({
             />
           </UniversalLink>
           <ul className="navigation-items">
-            {allSanityRoute?.nodes.map((node) => {
+            {/* {allSanityRoute?.nodes.map((node) => {
               const isHomePage = node?.slug?.current === 'home';
               return (
                 <UniversalLink
@@ -144,7 +144,8 @@ export default function Header({
                   {node?.page?.title}
                 </UniversalLink>
               );
-            })}
+            })} */}
+            <PrimaryMenu items={allSanityRoute?.nodes} />
             <UniversalLink to="#contact" hashLink className="nav-item">
               Contact
             </UniversalLink>
