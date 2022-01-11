@@ -127,6 +127,7 @@ export default function ProjectList({
           author {
             name
           }
+          excerpt
           categories {
             title
             description

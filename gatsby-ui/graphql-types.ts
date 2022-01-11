@@ -8114,12 +8114,12 @@ export type SiteSettingsQuery = { site?: { buildTime?: any | null | undefined, s
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CategoriesQuery = { allSanityProject: { nodes: Array<{ id: string, title?: string | null | undefined, _id?: string | null | undefined, mainImage?: { alt?: string | null | undefined, asset?: { gatsbyImageData: any, altText?: string | null | undefined } | null | undefined } | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, author?: { name?: string | null | undefined } | null | undefined, categories?: Array<{ title?: string | null | undefined, description?: string | null | undefined } | null | undefined> | null | undefined }> } };
+export type CategoriesQuery = { allSanityProject: { nodes: Array<{ id: string, title?: string | null | undefined, _id?: string | null | undefined, excerpt?: string | null | undefined, mainImage?: { alt?: string | null | undefined, asset?: { gatsbyImageData: any, altText?: string | null | undefined } | null | undefined } | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, author?: { name?: string | null | undefined } | null | undefined, categories?: Array<{ title?: string | null | undefined, description?: string | null | undefined } | null | undefined> | null | undefined }> } };
 
 export type Recent_ProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Recent_ProjectsQuery = { allSanityProject: { nodes: Array<{ id: string, title?: string | null | undefined, _id?: string | null | undefined, mainImage?: { alt?: string | null | undefined, asset?: { gatsbyImageData: any, altText?: string | null | undefined } | null | undefined } | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, author?: { name?: string | null | undefined } | null | undefined, categories?: Array<{ title?: string | null | undefined, description?: string | null | undefined } | null | undefined> | null | undefined }> } };
+export type Recent_ProjectsQuery = { allSanityProject: { nodes: Array<{ id: string, title?: string | null | undefined, _id?: string | null | undefined, excerpt?: string | null | undefined, mainImage?: { alt?: string | null | undefined, asset?: { gatsbyImageData: any, altText?: string | null | undefined } | null | undefined } | null | undefined, slug?: { current?: string | null | undefined } | null | undefined, author?: { name?: string | null | undefined } | null | undefined, categories?: Array<{ title?: string | null | undefined, description?: string | null | undefined } | null | undefined> | null | undefined }> } };
 
 export type SanityMainImageFragment = { _key?: string | null | undefined, alt?: string | null | undefined, asset?: { _id?: string | null | undefined, gatsbyImageData: any } | null | undefined };
 

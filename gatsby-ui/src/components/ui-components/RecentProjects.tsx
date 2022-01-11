@@ -45,6 +45,7 @@ export default function RecentProjects(): ReactElement {
           slug {
             current
           }
+          excerpt
           author {
             name
           }

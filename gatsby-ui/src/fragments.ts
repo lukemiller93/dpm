@@ -118,6 +118,7 @@ export const fragments = graphql`
   # Project Queries
   fragment SharedProjectFields on SanityProject {
     _id
+    excerpt
     mainImage {
       ...SanityMainImage
     }
