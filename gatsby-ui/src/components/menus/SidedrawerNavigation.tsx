@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
 import { motion, useCycle } from 'framer-motion';
-import { graphql, useStaticQuery } from 'gatsby';
-import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
-import React, { useRef } from 'react';
+import { StaticImage } from 'gatsby-plugin-image';
+import React, { ReactElement, useRef } from 'react';
+import { SanityRoute } from '../../../graphql-types';
 import { useDimensions } from '../../hooks/useDimensions';
+import { UniversalLink } from '../UniversalLink';
 import MenuItem from './MenuItem';
 import { MenuToggle } from './MenuToggle';
 
@@ -12,11 +13,11 @@ const Sidedrawer = styled(motion.nav)`
   top: 0;
   left: 0;
   height: 100%;
-  width: 32rem;
+  width: max-content;
+  padding: 0 2rem;
   z-index: calc(var(--z-index-floating) * 4);
 
   .logo {
-    margin: 2rem auto;
     display: flex;
   }
   .gatsby-image-wrapper {
@@ -35,42 +36,20 @@ const Sidedrawer = styled(motion.nav)`
   }
 
   > ul {
-    padding: 2.5rem;
+    padding: 0;
     /* z-index: 400; */
     z-index: calc(var(--z-index-floating) * 2);
     position: absolute;
     top: 15rem;
     list-style: none;
-    width: 100%;
-    max-width: 32rem;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
     li {
       margin-bottom: 2rem;
       position: relative;
-      flex-wrap: wrap;
-      flex-direction: row;
-      justify-content: space-between;
-      a {
-        text-decoration: none;
-        color: var(--cbc-blue);
-        &:hover {
-          color: var(--cbc-red);
-        }
-
-        &.primary-navigation--active {
-          color: var(--cbc-red);
-          font-weight: 600;
-        }
-      }
-
-      > ul {
-        position: relative;
-        margin: 0;
-        padding: 0;
-        top: 0;
-        width: 100%;
-        box-shadow: none;
-        background: rgba(232, 232, 232, 0.5);
-      }
     }
   }
 `;
@@ -87,7 +66,7 @@ const sidebar = {
   closed: {
     clipPath: 'circle(0px at 20px 20px)',
     transition: {
-      delay: 0.5,
+      delay: 0.25,
       type: 'spring',
       stiffness: 400,
       damping: 40,
@@ -122,11 +101,14 @@ const liVariants = {
     },
   },
 };
-export const SidedrawerNavigation = ({ items }) => {
+export const SidedrawerNavigation = ({
+  items,
+}: {
+  items: SanityRoute[];
+}): ReactElement => {
   const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
-
   return (
     <>
       <Sidedrawer
@@ -162,9 +144,18 @@ export const SidedrawerNavigation = ({ items }) => {
         <motion.ul variants={ulVariants}>
           {items.map((menuItem) => (
             <motion.li key={menuItem.id} variants={liVariants}>
-              <MenuItem toggleOpen={toggleOpen} menuItem={menuItem} />
+              <MenuItem
+                toggleOpen={toggleOpen}
+                className="nav-item"
+                menuItem={menuItem}
+              />
             </motion.li>
           ))}
+          <motion.li key="contact-link" variants={liVariants}>
+            <UniversalLink to="#contact" className="nav-item">
+              Contact
+            </UniversalLink>
+          </motion.li>
         </motion.ul>
       </Sidedrawer>
       <MenuToggle toggle={() => toggleOpen()} />

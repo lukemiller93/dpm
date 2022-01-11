@@ -21,5 +21,6 @@
   },
   "include": [
     "./src/**/*"
-, "gatsby-ssr.js"  ]
+, "gatsby-ssr.js"  ],
+  "exclude": ["./graphql-types.ts"]
 }

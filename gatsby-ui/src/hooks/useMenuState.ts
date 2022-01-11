@@ -1,27 +1,21 @@
 import { useContext, useLayoutEffect, useState } from 'react';
 import { MenuStateContext } from '../contexts/menuStateContext';
 
-const useMenuState = () => {
-  const [state, setState] = useContext(MenuStateContext);
+const useMenuState = (): {
+  toggleMenu: () => void;
+  closeMenu: () => void;
+  isMenuOpen: boolean;
+  browserWidth: number;
+  browserHeight: number;
+} => {
+  const { state, setState } = useContext(MenuStateContext);
   // toggle menu visibility
   function toggleMenu() {
-    setState((state) => ({ ...state, isMenuOpen: !state.isMenuOpen }));
+    setState((prevState) => ({ ...prevState, isMenuOpen: !state.isMenuOpen }));
   }
 
   function closeMenu() {
-    setState((state) => ({ ...state, isMenuOpen: false }));
-  }
-  // toggle dropdown menu visiblity
-  function toggleDropdown(id) {
-    const storedIndex = state.dropdownIndex;
-    setState((state) => ({
-      ...state,
-      isDropdownOpen: storedIndex === id ? !state.isDropdownOpen : true,
-      dropdownIndex: id,
-    }));
-  }
-  function closeDropdown() {
-    setState((state) => ({ ...state, isDropdownOpen: false }));
+    setState((prevState) => ({ ...prevState, isMenuOpen: false }));
   }
 
   // Get current size of browser
@@ -38,7 +32,7 @@ const useMenuState = () => {
     const [windowSize, setWindowSize] = useState(getSize);
 
     useLayoutEffect(() => {
-      if (!isClient) return false;
+      if (!isClient) return;
 
       function handleResize() {
         setWindowSize(getSize());
@@ -53,14 +47,10 @@ const useMenuState = () => {
   return {
     toggleMenu,
     closeMenu,
-    toggleDropdown,
-    closeDropdown,
-    dropdownIndex: state.dropdownIndex,
     isMenuOpen: state.isMenuOpen,
-    isDropdownOpen: state.isDropdownOpen,
-    browserWidth: useWindowSize().width,
-    browserHeight: useWindowSize().height,
-  };
+    browserWidth: useWindowSize().width || 0,
+    browserHeight: useWindowSize().height || 0,
+  } as const;
 };
 
 export default useMenuState;

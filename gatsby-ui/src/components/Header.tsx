@@ -1,16 +1,19 @@
+/* eslint-disable camelcase */
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import { StaticImage } from 'gatsby-plugin-image';
-import React, { Fragment, ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Nav_ItemsQuery, SanityRoute } from '../../graphql-types';
 import { UniversalLink } from './UniversalLink';
-import PrimaryMenu from './menus/PrimaryMenu.js';
+import PrimaryMenu from './menus/PrimaryMenu';
+import useMenuState from '../hooks/useMenuState';
 
 type HeaderStyleProps = {
   footerVisible: boolean;
   isHomePage: boolean;
   pastHero: boolean;
+  browserWidth: boolean;
   isProposalIntakePage: boolean;
 };
 const HeaderStyles = styled.header<HeaderStyleProps>`
@@ -30,7 +33,7 @@ const HeaderStyles = styled.header<HeaderStyleProps>`
     max-width: 200px;
   }
   ul {
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     flex: 1;
     display: flex;
     justify-content: end;
@@ -40,11 +43,17 @@ const HeaderStyles = styled.header<HeaderStyleProps>`
 
   .nav-item {
     margin-right: 2rem;
-    color: ${({ footerVisible, pastHero, isHomePage, isProposalIntakePage }) =>
+    color: ${({
+      footerVisible,
+      pastHero,
+      isHomePage,
+      isProposalIntakePage,
+      browserWidth,
+    }) =>
       // eslint-disable-next-line no-nested-ternary
       footerVisible || isProposalIntakePage
         ? `var(--link-color)`
-        : pastHero || !isHomePage
+        : pastHero || !isHomePage || (isHomePage && browserWidth)
         ? `var(--dpm-black)`
         : `var(--link-color)`};
 
@@ -107,10 +116,14 @@ export default function Header({
     threshold: 0.99,
     initialInView: true,
   });
+  const { browserWidth } = useMenuState();
+
+  useEffect(() => {}, [browserWidth]);
 
   return (
     <>
       <HeaderStyles
+        browserWidth={browserWidth < 750}
         isProposalIntakePage={isProposalIntakePage}
         pastHero={!inView}
         isHomePage={isHomePage}
@@ -145,10 +158,10 @@ export default function Header({
                 </UniversalLink>
               );
             })} */}
-            <PrimaryMenu items={allSanityRoute?.nodes} />
-            <UniversalLink to="#contact" hashLink className="nav-item">
-              Contact
-            </UniversalLink>
+            <PrimaryMenu
+              itemClassName="nav-item"
+              items={allSanityRoute?.nodes as SanityRoute[]}
+            />
           </ul>
         </div>
       </HeaderStyles>

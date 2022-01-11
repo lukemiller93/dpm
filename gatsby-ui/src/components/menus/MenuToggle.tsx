@@ -1,15 +1,15 @@
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
-import React from 'react';
+import React, { ReactElement } from 'react';
 import useMenuState from '../../hooks/useMenuState';
 
 const StyledToggle = styled(motion.button)`
   display: flex;
   cursor: pointer;
-  height: 4rem;
-  position: fixed;
+  /* height: 4rem; */
+  /* position: fixed; */
   right: 1rem;
-  top: 3rem;
+  top: 1rem;
   text-transform: uppercase;
   align-items: center;
   gap: 4px;
@@ -29,13 +29,17 @@ const StyledToggle = styled(motion.button)`
     flex-shrink: 1;
   }
 `;
-export const MenuToggle = ({ toggle }) => {
+export const MenuToggle = ({
+  toggle,
+}: {
+  toggle: () => void;
+}): ReactElement => {
   const { browserWidth } = useMenuState();
 
   if (browserWidth < 750) {
     return (
       <StyledToggle
-        whileHover={{ scale: 1.1, duration: 0.25 }}
+        whileHover={{ scale: 1.1, transition: { duration: 0.25 } }}
         whileTap={{ scale: 0.95 }}
         onClick={toggle}
         aria-label="Toggle Menu"
@@ -59,5 +63,5 @@ export const MenuToggle = ({ toggle }) => {
       </StyledToggle>
     );
   }
-  return null;
+  return <></>;
 };
