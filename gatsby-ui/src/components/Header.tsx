@@ -118,10 +118,6 @@ export default function Header({
   });
   const { isMenuOpen } = useMenuState();
 
-  // useEffect(() => {
-  //   console.log(isMenuOpen);
-  // }, [isMenuOpen]);
-  console.log(isMenuOpen);
   return (
     <>
       <HeaderStyles

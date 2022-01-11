@@ -2,18 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React from 'react';
-import {
-  graphql,
-  PageProps,
-  PageRendererProps,
-  StaticQueryDocument,
-} from 'gatsby';
+import { graphql, PageProps, StaticQueryDocument } from 'gatsby';
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import styled from '@emotion/styled';
-import {
-  SanityProject as SanityProjectType,
-  SingleProjectQuery,
-} from '../../../graphql-types';
+import { SanityProject as SanityProjectType } from '../../../graphql-types';
 import { device } from '../../styles/theme';
 import PageUnderConstruction from '../../components/PageUnderConstruction';
 import SEO from '../../components/SEO';
@@ -111,9 +103,8 @@ const SanityProject = (props: PageProps<SanityProjectType>) => {
     sanityProject?.mainImage?.asset?.gatsbyImageData;
 
   const liveSiteLink: string = sanityProject?._rawBody
-    ?.filter((block) => block?.markDefs.length > 0)
-    .map((b) => b.markDefs.map((m) => m.href))[0][0];
-  console.log(liveSiteLink);
+    ?.filter((block) => block?.markDefs?.length > 0)
+    .map((b) => b.markDefs.map((m) => m?.href))[0][0];
   return (
     <>
       <SEO title={sanityProject?.title} location={location.pathname} />
