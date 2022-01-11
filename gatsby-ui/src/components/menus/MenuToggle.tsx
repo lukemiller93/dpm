@@ -34,14 +34,17 @@ export const MenuToggle = ({
 }: {
   toggle: () => void;
 }): ReactElement => {
-  const { browserWidth } = useMenuState();
+  const { browserWidth, toggleMenu } = useMenuState();
 
   if (browserWidth < 750) {
     return (
       <StyledToggle
         whileHover={{ scale: 1.1, transition: { duration: 0.25 } }}
         whileTap={{ scale: 0.95 }}
-        onClick={toggle}
+        onClick={() => {
+          toggle();
+          toggleMenu();
+        }}
         aria-label="Toggle Menu"
         type="button"
       >

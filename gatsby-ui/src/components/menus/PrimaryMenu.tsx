@@ -28,7 +28,15 @@ export default function PrimaryMenu({
             menuItem={menuItem}
           />
         ))}
-        <UniversalLink to="#contact" hashLink className="nav-item">
+        <UniversalLink
+          to="#contact"
+          onClick={() => {
+            closeMenu();
+
+          }}
+          hashLink
+          className="nav-item"
+        >
           Contact
         </UniversalLink>
       </>

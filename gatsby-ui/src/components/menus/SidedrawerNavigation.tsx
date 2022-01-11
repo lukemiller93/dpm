@@ -4,6 +4,7 @@ import { StaticImage } from 'gatsby-plugin-image';
 import React, { ReactElement, useRef } from 'react';
 import { SanityRoute } from '../../../graphql-types';
 import { useDimensions } from '../../hooks/useDimensions';
+import useMenuState from '../../hooks/useMenuState';
 import { UniversalLink } from '../UniversalLink';
 import MenuItem from './MenuItem';
 import { MenuToggle } from './MenuToggle';
@@ -109,6 +110,7 @@ export const SidedrawerNavigation = ({
   const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
+  const { isMenuOpen, closeMenu } = useMenuState();
   return (
     <>
       <Sidedrawer
@@ -152,7 +154,15 @@ export const SidedrawerNavigation = ({
             </motion.li>
           ))}
           <motion.li key="contact-link" variants={liVariants}>
-            <UniversalLink to="#contact" className="nav-item">
+            <UniversalLink
+              to="#contact"
+              onClick={() => {
+                closeMenu();
+                toggleOpen();
+              }}
+              hashLink
+              className="nav-item"
+            >
               Contact
             </UniversalLink>
           </motion.li>

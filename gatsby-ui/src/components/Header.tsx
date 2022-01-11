@@ -13,7 +13,7 @@ type HeaderStyleProps = {
   footerVisible: boolean;
   isHomePage: boolean;
   pastHero: boolean;
-  browserWidth: boolean;
+  isMenuOpen: boolean;
   isProposalIntakePage: boolean;
 };
 const HeaderStyles = styled.header<HeaderStyleProps>`
@@ -48,12 +48,12 @@ const HeaderStyles = styled.header<HeaderStyleProps>`
       pastHero,
       isHomePage,
       isProposalIntakePage,
-      browserWidth,
+      isMenuOpen,
     }) =>
       // eslint-disable-next-line no-nested-ternary
-      footerVisible || isProposalIntakePage
+      (footerVisible && !isMenuOpen) || (isProposalIntakePage && !isMenuOpen)
         ? `var(--link-color)`
-        : pastHero || !isHomePage || (isHomePage && browserWidth)
+        : isMenuOpen || (pastHero && isMenuOpen) || (!isHomePage && isMenuOpen)
         ? `var(--dpm-black)`
         : `var(--link-color)`};
 
@@ -116,14 +116,16 @@ export default function Header({
     threshold: 0.99,
     initialInView: true,
   });
-  const { browserWidth } = useMenuState();
+  const { isMenuOpen } = useMenuState();
 
-  useEffect(() => {}, [browserWidth]);
-
+  // useEffect(() => {
+  //   console.log(isMenuOpen);
+  // }, [isMenuOpen]);
+  console.log(isMenuOpen);
   return (
     <>
       <HeaderStyles
-        browserWidth={browserWidth < 750}
+        isMenuOpen={isMenuOpen}
         isProposalIntakePage={isProposalIntakePage}
         pastHero={!inView}
         isHomePage={isHomePage}

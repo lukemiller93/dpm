@@ -50,7 +50,7 @@ const useMenuState = (): {
     isMenuOpen: state.isMenuOpen,
     browserWidth: useWindowSize().width || 0,
     browserHeight: useWindowSize().height || 0,
-  } as const;
+  };
 };
 
 export default useMenuState;
