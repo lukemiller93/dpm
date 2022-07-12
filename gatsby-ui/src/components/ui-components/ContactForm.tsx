@@ -1,8 +1,11 @@
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import styled from '@emotion/styled';
+import { navigate } from 'gatsby';
+import { useEffect } from 'react';
 import Input from '../forms/Input';
+import { encodeFormData } from '../../utils/encodeFormData';
 
 const schema = yup.object({
   name: yup
@@ -12,8 +15,10 @@ const schema = yup.object({
   email: yup.string().email().required('Please enter a valid email.'),
   phone: yup
     .string()
-    .min(10, 'Please enter a valid U.S. phone number.')
-    .max(10),
+    .matches(
+      /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+      'Please enter a valid U.S. phone number.'
+    ),
   message: yup.string().required('Message not long enough.').min(15),
 });
 
@@ -28,18 +33,11 @@ export const FormStyles = styled.form`
   display: grid;
   gap: 2rem;
   box-sizing: border-box;
-  /* width: 100%; */
+  width: 100%;
   padding: 4px;
   max-width: 600px;
   margin: 0 auto;
   border-radius: var(--border-radius-sm);
-
-  &:focus-within {
-    box-shadow: var(--bs);
-    background: black;
-    color: white;
-    padding: var(--spacing-xs);
-  }
 
   h2 {
     text-align: center;
@@ -60,9 +58,36 @@ export const FormStyles = styled.form`
     font-family: var(--font-stack-body);
   }
 
+  [disabled=''] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
   [type='submit'] {
-    background-color: black;
-    color: white;
+    background-color: var(--accent-color);
+    color: var(--black, black);
+
+    &:focus {
+      outline-style: solid;
+      outline-color: var(--accent-color);
+      outline-offset: 4px;
+    }
+  }
+
+  .hidden {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 0;
+    z-index: -1;
+    input {
+      width: 1px;
+      z-index: -1;
+      border: none;
+      background-color: transparent;
+    }
   }
 
   @media screen and (min-width: 576px) {
@@ -75,18 +100,57 @@ export default function ContactForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    watch,
+    reset,
+    formState: {
+      errors,
+      isSubmitting,
+      isValid,
+      isSubmitted,
+      isSubmitSuccessful,
+    },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
+    mode: 'onTouched',
   });
 
-  const onSubmit = (data: FormData) => console.log(data);
+  useEffect(() => {
+    if (isSubmitted && isSubmitSuccessful && typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [isSubmitted, isSubmitSuccessful]);
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    // async
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encodeFormData({ 'form-name': 'contact-form', ...data }),
+    })
+      .then(() => {
+        navigate('/thankYou/');
+      })
+      .catch((error) =>
+        alert(
+          `Oops... something went wrong. Please contact us with this error message: ${error}`
+        )
+      );
+    reset();
+  };
+
   return (
-    <FormStyles onSubmit={handleSubmit(onSubmit)}>
+    <FormStyles
+      onSubmit={handleSubmit(onSubmit)}
+      name="contact-form"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      method="POST"
+    >
       <Input
         name="name"
         labelText="Name"
         type="text"
+        hasData={watch('name', false)}
         register={register}
         errors={errors?.name}
       />
@@ -96,6 +160,7 @@ export default function ContactForm() {
         type="email"
         register={register}
         errors={errors?.email}
+        hasData={watch('email', false)}
       />
       <Input
         name="phone"
@@ -103,6 +168,7 @@ export default function ContactForm() {
         type="tel"
         register={register}
         errors={errors?.phone}
+        hasData={watch('phone', false)}
       />
       <Input
         name="message"
@@ -110,9 +176,18 @@ export default function ContactForm() {
         type="textarea"
         register={register}
         errors={errors?.message}
+        hasData={watch('message', false)}
       />
+      <p className="hidden">
+        <label>
+          Don't fill this out if you're human:{' '}
+          <input tabIndex={-1} name="bot-field" />
+        </label>
+      </p>
       <div className="buttons">
-        <button type="submit">Send a Message</button>
+        <button disabled={!isValid || isSubmitting} type="submit">
+          Send a Message
+        </button>
       </div>
     </FormStyles>
   );

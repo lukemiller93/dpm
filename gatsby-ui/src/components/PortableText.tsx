@@ -5,6 +5,7 @@ import CallToAction from './CallToAction';
 import { UniversalLink } from './UniversalLink';
 
 const serializers = {
+  container: ({ children }) => children,
   linkCreator: (props: SanityLinkCreator): ReactElement<SanityLinkCreator> => (
     <CallToAction cta={props} />
   ),

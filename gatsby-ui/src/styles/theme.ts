@@ -16,10 +16,18 @@ export const device = Object.keys(sizes).reduce((acc, curr) => {
 
 export const theme = css`
   :root {
+    /* Colors */
+    --dpm-black: hsla(300, 11%, 4%, 1);
+    --dpm-black-semi: hsla(300, 11%, 4%, 0.45);
+    --dpm-red: hsla(0, 100%, 32%, 1);
+    --accent-color: hsla(39, 96%, 69%, 1);
+    --link-color: hsla(39, 6%, 99%, 1);
+    --white: #fff;
+    --light-gray: #f5f5f5;
+    --light-grey: #f5f5f5;
+
     --button-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
     --bs: 0px 4px 8px rgba(0, 0, 0, 0.125);
-    --light-gray: #eee;
-    --light-grey: #eee;
     --spacing-xs: 1rem;
     --spacing-sm: 2rem;
     --spacing-md: calc(var(--spacing-sm) * 1.5);
@@ -40,6 +48,10 @@ export const theme = css`
     --font-stack-body: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI',
       Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
       sans-serif;
+
+    --z-index-default: 100;
+    --z-index-elevated: 200;
+    --z-index-floating: 300;
   }
   .container {
     margin: 0 auto;
@@ -48,6 +60,7 @@ export const theme = css`
   }
   html {
     font-size: 112.5%; /*18px*/
+    scroll-behavior: smooth;
   }
 
   * {
@@ -62,7 +75,8 @@ export const theme = css`
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
     line-height: 1.75;
-    color: #000000;
+    color: var(--dpm-black);
+    background-color: var(--light-gray);
   }
   h1,
   h2,
@@ -161,8 +175,13 @@ export const theme = css`
       }
 
       &.bg--black {
-        background-color: var(--black, black);
+        background-color: var(--dpm-black, black);
       }
     }
+  }
+
+  .proposal-intake {
+    background-color: var(--dpm-black);
+    color: var(--white);
   }
 `;

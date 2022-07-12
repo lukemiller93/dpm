@@ -1,13 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import styled from '@emotion/styled';
 import { graphql, useStaticQuery } from 'gatsby';
 import { ReactElement, useState } from 'react';
 import type { WindowLocation } from '@reach/router';
-import { CategoriesQuery } from '../../../graphql-types';
+import { AnimatePresence } from 'framer-motion';
+import { CategoriesQuery, SanityProject } from '../../../graphql-types';
 import { device } from '../../styles/theme';
-import { useProject } from '../../utils/useProject';
-import { useProjects } from '../../utils/useProjects';
+import { useProject } from '../../hooks/useProject';
+import { useProjects } from '../../hooks/useProjects';
 import ProjectCard from '../ProjectCard';
 import Tag from '../Tag';
+import ProjectCardSkeleton from '../ProjectCardSkeleton';
 
 const ProjectListStyles = styled.section`
   margin-top: var(--grid-gap-md);
@@ -57,13 +60,19 @@ const ProjectListStyles = styled.section`
   }
   .project-listings {
     display: grid;
-    gap: var(--spacing-md);
-    margin: var(--spacing-md) auto;
+    gap: var(--grid-gap-lg);
+    margin: var(--grid-gap-lg) auto;
 
-    @media screen and ${device.md} {
+    /* @media screen and ${device.md} {
       grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
-    }
+    } */
   }
+`;
+
+const ProjectListingList = styled.div`
+  display: grid;
+  gap: var(--grid-gap-lg);
+  margin: var(--grid-gap-lg) auto;
 `;
 
 function FilteredProjects({ refId }: { refId: string }) {
@@ -89,76 +98,57 @@ export default function ProjectList({
     };
   };
 }): ReactElement {
-  const { data, isError, error, isLoading } = useProjects();
+  // const { data, isError, error, isLoading } = useProjects();
 
   const {
-    allSanityCategory: { nodes },
-    allSanityProject: { distinct },
-  } = useStaticQuery<CategoriesQuery>(graphql`
+    // allSanityCategory: { nodes },
+    allSanityProject: { nodes: projectNodes },
+  } = useStaticQuery<{ allSanityProject: { nodes: SanityProject[] } }>(graphql`
     query CATEGORIES {
       allSanityProject {
-        distinct(field: categories___title)
-      }
-      allSanityCategory {
-        totalCount
         nodes {
+          id
           title
-          icon {
-            asset {
-              id
-              gatsbyImageData(
-                formats: AUTO
-                layout: FIXED
-                placeholder: DOMINANT_COLOR
-                height: 32
-              )
-            }
-          }
           _id
+          mainImage {
+            asset {
+              gatsbyImageData(
+                fit: CROP
+                layout: FULL_WIDTH
+                placeholder: BLURRED
+              )
+              altText
+            }
+            alt
+          }
+          slug {
+            current
+          }
+          author {
+            name
+          }
+          excerpt
+          categories {
+            title
+            description
+          }
         }
       }
     }
   `);
-  const [refId, setRefId] = useState<string | undefined>(
-    location?.state?.filter || ''
-  );
 
-  const currentTag =
-    nodes?.filter(({ _id }) => _id === refId).map(({ title }) => title) || '';
-
-  if (isLoading) return <p>Loading projects...</p>;
-  if (isError) return <span>Error: {error?.message}</span>;
   return (
     <ProjectListStyles className="container">
-      <div className="tag-list">
-        <header className="">
-          <h5>Filter projects by:</h5>
-          {currentTag.length > 0 && (
-            <button
-              type="button"
-              onClick={() => setRefId('')}
-              className="current-filter"
-            >
-              {currentTag}
-            </button>
-          )}
-        </header>
-
-        {nodes
-          ?.filter((v) => distinct.includes(v?.title))
-          .map((tag) => (
-            <Tag setRefId={setRefId} key={tag?._id} tag={tag} />
-          ))}
-      </div>
-      {refId?.length > 0 ? (
-        <FilteredProjects refId={refId} />
-      ) : (
-        <div className="project-listings">
-          {data?.map((project) => (
-            <ProjectCard key={project?._id} cardData={project} />
-          ))}
-        </div>
-      )}
+      <ProjectListingList>
+        {projectNodes?.map((project, index) => (
+          <ProjectCard
+            key={project?.id}
+            reversed={!!(index % 2)}
+            cardData={project}
+          />
+        ))}
+      </ProjectListingList>
+      {/* )} */}
     </ProjectListStyles>
   );
 }

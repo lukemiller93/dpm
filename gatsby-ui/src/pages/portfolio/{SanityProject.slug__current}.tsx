@@ -5,54 +5,67 @@ import React from 'react';
 import { graphql, PageProps, StaticQueryDocument } from 'gatsby';
 import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image';
 import styled from '@emotion/styled';
-import BlockContent from '../../components/PortableText';
-import { UniversalLink } from '../../components/UniversalLink';
-import {
-  SanityProject as SanityProjectType,
-  SingleProjectQuery,
-} from '../../../graphql-types';
-import Lightbox from '../../components/Lightbox';
+import { SanityProject as SanityProjectType } from '../../../graphql-types';
+import { device } from '../../styles/theme';
+import PageUnderConstruction from '../../components/PageUnderConstruction';
+import SEO from '../../components/SEO';
 
-const ProjectHeaderStyles = styled.header`
-  position: relative;
+const ProjectIntroStyles = styled.header`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: auto;
-  place-items: center;
-  .gatsby-image-wrapper {
+  grid-template-columns: repeat(24, 1fr);
+  width: 100%;
+  max-width: 100ch;
+  margin: var(--grid-gap-lg) auto;
+  h1 {
     grid-column: 1/-1;
-    grid-row: 1/2;
-    width: 100%;
-  }
 
-  .hero-image {
-    filter: grayscale(50%);
-    transition: filter 200ms ease;
-    &:hover {
-      filter: grayscale(0);
+    @media screen and ${device.md} {
+      margin-bottom: var(--spacing-lg);
+      grid-column: 1/18;
     }
   }
 
-  .overlay {
+  .intro-description {
+    grid-row-start: 2;
     grid-column: 1/-1;
-    grid-row: 1/2;
-    z-index: 2000;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: var(--spacing-xs);
-    h1 {
-      color: var(--white, white);
-      margin: 0;
+    display: flex;
+    position: relative;
+    gap: var(--spacing-md);
+    justify-content: center;
+
+    p {
+      margin-top: 0;
+      max-width: 80ch;
+    }
+
+    @media screen and ${device.md} {
+      grid-column: 8/-4;
     }
   }
 
-  /* display: grid;
-  place-items: center;
-  max-height: clamp(450px, 50vh, 600px);
+  .tags {
+    display: flex;
+    flex-direction: column;
+    font-size: calc(var(--font-size-default) / 1.5);
+    font-variation-settings: 'wght' 400;
+    /* position: absolute; */
+    font-family: 'InterVariable', sans-serif;
+    left: 0;
+    top: 0;
+    width: 1rem;
+  }
 
-
-  > * {
-    grid-area: 1/2;
-  } */
+  .tag {
+    background-color: var(--dpm-red);
+    color: var(--link-color);
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    text-transform: uppercase;
+    transition: background-color 200ms ease;
+    writing-mode: vertical-rl;
+  }
 `;
 
 const ProjectBodyStyles = styled.section`
@@ -69,43 +82,53 @@ const ProjectBodyStyles = styled.section`
     /* align-items: center; */
   }
 
-  .project-body {
-  }
-
-  h4 {
-    margin-top: 0;
-  }
-
+  /*
   @media screen and (min-width: 576px) {
     grid-template-columns: 3fr 1fr;
-  }
+  } */
 `;
+// {
+//   data: { sanityProject },
+//   location: WindowLocation,
+// }: {
+//   data: { sanityProject: SanityProjectType };
+// }
 
-const SanityProject: React.FC<PageProps<SingleProjectQuery>> = ({
-  data: { sanityProject },
-}: {
-  data: { sanityProject: SanityProjectType };
-}) => {
+const SanityProject = (props: PageProps<SanityProjectType>) => {
+  const {
+    data: { sanityProject },
+    location,
+  } = props;
   const mainImage: IGatsbyImageData =
     sanityProject?.mainImage?.asset?.gatsbyImageData;
+
+  const liveSiteLink: string = sanityProject?._rawBody
+    ?.filter((block) => block?.markDefs?.length > 0)
+    .map((b) => b.markDefs.map((m) => m?.href))[0][0];
   return (
     <>
-      <ProjectHeaderStyles className="project-header">
-        <GatsbyImage
-          imgClassName="hero-image"
-          loading="eager"
-          image={mainImage}
-          alt={sanityProject?.mainImage?.alt || ''}
-        />
-        <div className="overlay">
+      <SEO title={sanityProject?.title} location={location.pathname} />
+      <section className="container">
+        <ProjectIntroStyles>
           <h1>{sanityProject?.title}</h1>
-        </div>
-      </ProjectHeaderStyles>
-      <ProjectBodyStyles className="container">
-        <article className="project-body">
-          <BlockContent block={sanityProject?._rawBody} />
-        </article>
-        <aside className="project-meta">
+          <div className="intro-description">
+            <div className="tags">
+              {sanityProject?.categories?.map((tag) => (
+                <span className="tag" key={tag?._id}>
+                  {tag?.title}
+                </span>
+              ))}
+            </div>
+            <p>{sanityProject?.excerpt}</p>
+          </div>
+        </ProjectIntroStyles>
+
+        <ProjectBodyStyles className="container">
+          <article className="project-body">
+            <PageUnderConstruction liveSite={liveSiteLink} />
+            {/* <BlockContent block={sanityProject?._rawBody} /> */}
+          </article>
+          {/* <aside className="project-meta">
           <h4>Project Tags</h4>
           {sanityProject?.categories?.map((category) => (
             <div className="tag" key={category?.title}>
@@ -118,14 +141,15 @@ const SanityProject: React.FC<PageProps<SingleProjectQuery>> = ({
               </UniversalLink>
             </div>
           ))}
-        </aside>
-      </ProjectBodyStyles>
-      {sanityProject?.projectGallery?.gallery?.length > 0 && (
+        </aside> */}
+        </ProjectBodyStyles>
+        {/* {sanityProject?.projectGallery?.gallery?.length > 0 && (
         <section className=" container">
           <h2>Project Screenshots</h2>
           <Lightbox gallery={sanityProject?.projectGallery?.gallery} />
         </section>
-      )}
+      )} */}
+      </section>
     </>
   );
 };

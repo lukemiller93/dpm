@@ -1,15 +1,17 @@
 import styled from '@emotion/styled';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { ReactElement } from 'react';
-import { useForm } from 'react-hook-form';
+import { navigate } from 'gatsby';
+import { ReactElement, useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { device } from '../../styles/theme';
+import { encodeFormData } from '../../utils/encodeFormData';
 import Input from '../forms/Input';
 import RadioGroup from '../forms/RadioGroup';
 import { FormStyles } from './ContactForm';
 
 const schema = yup.object({
-  name: yup.string().required().min(3),
+  name: yup.string().required('Name is required.').min(3),
   email: yup.string().email().required('Please enter a valid email.'),
   phone: yup.string().min(10, 'Please enter a valid U.S. phone number').max(10),
   companyName: yup.string(),
@@ -18,8 +20,8 @@ const schema = yup.object({
     .url(
       'Please enter a valid website url including either (http:// | https://),'
     ),
-  hasDomain: yup.bool(),
-  hasHosting: yup.bool(),
+  hasDomain: yup.string().oneOf(['Yes', 'No']).required('Field is required.'),
+  hasHosting: yup.string().oneOf(['Yes', 'No']).required('Field is required.'),
   projectDetails: yup
     .string()
     .required('This field is required.')
@@ -48,6 +50,17 @@ const ProposalIntakeStyles = styled(FormStyles)`
   grid-auto-flow: dense;
   place-items: start;
   max-width: var(--max-width);
+  margin: var(--grid-gap-lg) auto;
+  .form-group {
+    width: 100%;
+    /*
+    input,
+    textarea,
+    label {
+      background-color: transparent;
+      color: var(--dpm-black);
+    } */
+  }
 
   @media ${device.md} {
     grid-template-columns: 1fr 1fr;
@@ -57,19 +70,59 @@ const ProposalIntakeStyles = styled(FormStyles)`
 export default function ProposalIntake(): ReactElement {
   const {
     register,
+    watch,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: {
+      errors,
+      isValid,
+      isSubmitting,
+      isSubmitted,
+      isSubmitSuccessful,
+    },
   } = useForm<ProposalData>({
     resolver: yupResolver(schema),
+    mode: 'onTouched',
+    defaultValues: {
+      hasDomain: 'No',
+      hasHosting: 'No',
+    },
   });
 
-  const onSubmit = (data: ProposalData) => console.log(data);
+  useEffect(() => {
+    if (isSubmitted && isSubmitSuccessful && typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [isSubmitted, isSubmitSuccessful]);
+
+  const onSubmit: SubmitHandler<ProposalData> = (data) => {
+    // async
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encodeFormData({ 'form-name': 'proposal-intake', ...data }),
+    })
+      .then(() => {
+        navigate('/thankYou/');
+      })
+      .catch((error) =>
+        alert(
+          `Oops... something went wrong. Please contact us with this error message: ${error}`
+        )
+      );
+    reset();
+  };
   return (
     <ProposalIntakeStyles
       className="container"
       onSubmit={handleSubmit(onSubmit)}
+      name="proposal-intake"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      method="POST"
     >
       <Input
+        hasData={watch('name', false)}
         name="name"
         labelText="Name"
         type="text"
@@ -77,6 +130,7 @@ export default function ProposalIntake(): ReactElement {
         errors={errors?.name}
       />
       <Input
+        hasData={watch('email', false)}
         name="email"
         labelText="Email"
         type="email"
@@ -84,6 +138,7 @@ export default function ProposalIntake(): ReactElement {
         errors={errors?.email}
       />
       <Input
+        hasData={watch('phone', false)}
         name="phone"
         labelText="Phone"
         type="tel"
@@ -91,6 +146,7 @@ export default function ProposalIntake(): ReactElement {
         errors={errors?.phone}
       />
       <Input
+        hasData={watch('companyName', false)}
         name="companyName"
         labelText="Company Name"
         type="text"
@@ -98,6 +154,7 @@ export default function ProposalIntake(): ReactElement {
         errors={errors?.companyName}
       />
       <Input
+        hasData={watch('currentWebsite', false)}
         name="currentWebsite"
         labelText="Current Website"
         type="url"
@@ -106,6 +163,7 @@ export default function ProposalIntake(): ReactElement {
         errors={errors?.currentWebsite}
       />
       <Input
+        hasData={watch('projectBudget', false)}
         name="projectBudget"
         labelText="Project Budget"
         description="Please enter your ideal project budget."
@@ -123,16 +181,11 @@ export default function ProposalIntake(): ReactElement {
       >
         <label htmlFor="yes">
           Yes
-          <input
-            type="radio"
-            id="yes"
-            value="Yes"
-            {...register('hasHosting')}
-          />
+          <input type="radio" id="yes" value="Yes" {...register('hasDomain')} />
         </label>
         <label htmlFor="no">
           No
-          <input type="radio" id="no" value="No" {...register('hasHosting')} />
+          <input type="radio" id="no" value="No" {...register('hasDomain')} />
         </label>
       </RadioGroup>
       <RadioGroup
@@ -157,6 +210,7 @@ export default function ProposalIntake(): ReactElement {
         </label>
       </RadioGroup>
       <Input
+        hasData={watch('projectDetails', false)}
         name="projectDetails"
         labelText="Project Details"
         description="Please write a detailed description of the scope of your project and your ideal clients as well as any features you'll need in a website. What are your goals?"
@@ -166,6 +220,7 @@ export default function ProposalIntake(): ReactElement {
         errors={errors?.projectDetails}
       />
       <Input
+        hasData={watch('timeline', false)}
         name="timeline"
         description="Are you flexible on the timeframe, or does this project need to be completed by a deadline?"
         labelText="Project Timeline"
@@ -173,8 +228,16 @@ export default function ProposalIntake(): ReactElement {
         register={register}
         errors={errors?.timeline}
       />
+      <p className="hidden">
+        <label>
+          Don't fill this out if you're human:{' '}
+          <input tabIndex={-1} name="bot-field" />
+        </label>
+      </p>
       <div className="buttons">
-        <button type="submit">Submit</button>
+        <button disabled={!isValid || isSubmitting} type="submit">
+          Submit
+        </button>
       </div>
     </ProposalIntakeStyles>
   );
