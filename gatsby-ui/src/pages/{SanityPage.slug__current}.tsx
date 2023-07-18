@@ -1,4 +1,4 @@
-import { graphql, PageProps, StaticQueryDocument } from 'gatsby';
+import { graphql, PageProps, Script, StaticQueryDocument } from 'gatsby';
 import React from 'react';
 import loadable from '@loadable/component';
 import type { SinglePageQuery } from '../../graphql-types';
@@ -27,6 +27,11 @@ const SanityPage: React.FC<PageProps<SinglePageQuery>> = ({
         />
       );
     })}
+    <Script  src="https://js.stripe.com/v3/pricing-table.js" />
+    <stripe-pricing-table
+      pricing-table-id="prctbl_1MWoJfAeQQ1pM0eHn99x2K3T"
+      publishable-key="pk_live_51IMfrgAeQQ1pM0eHaTRZeDFCcYWJRAONH1kyOQxtZPIGKFtHzUEKFU5FDwo6xhZIFvTu3JrjcQ81br6fekCokT4B00PhYsTi6Z"
+    />
   </>
 );
 export default SanityPage;
