@@ -17,7 +17,7 @@ export const device = Object.keys(sizes).reduce((acc, curr) => {
 export const theme = css`
   :root {
     /* Colors */
-    --dpm-black: hsla(300, 11%, 4%, 1);
+    --dpm-black: hasla(300, 11%, 4%, 1);
     --dpm-black-semi: hsla(300, 11%, 4%, 0.45);
     --dpm-red: hsla(0, 100%, 32%, 1);
     --accent-color: hsla(39, 96%, 69%, 1);

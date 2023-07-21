@@ -1,13 +1,32 @@
+const { fontFamily } = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./app/**/*.{ts,tsx,jsx,js}"],
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      fontFamily: {
+        sans: [
+          "var(--font-inter)", ...fontFamily.sans
+        ],
+				logo: ["var(--font-logo)"],
+				body: ["var(--font-nunito)", ...fontFamily.serif]
+      },
+
+    },
   },
   plugins: [
-     require('@tailwindcss/line-clamp'),
-      require('@tailwindcss/forms'),
-      require('@tailwindcss/aspect-ratio'),
-      require('@tailwindcss/typography'),
-  ],
-}
+		require('@tailwindcss/typography'),
+		require('@tailwindcss/forms'),
+		require("@tailwindcss/container-queries")
+	],
+};
