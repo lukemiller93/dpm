@@ -1,29 +1,37 @@
-"use client"
-import { client } from "@/sanity/sanity.client";
-import { imagePropsZ } from "@/types/shared";
-import { useNextSanityImage } from "next-sanity-image";
-import Image from "next/image"
-import { z } from "zod";
+import React from "react";
+import urlBuilder from "@sanity/image-url";
+import { getImageDimensions } from "@sanity/asset-utils";
+import type { SanityImageSource } from "@sanity/asset-utils";
+import type { PortableTextComponentProps } from "@portabletext/react";
+import { projectDetails } from "sanity/projectDetails";
 
-export const SanityImage = ({image, alt, className, title="", width, height, loading}: {
-	image: z.infer<typeof imagePropsZ>;
-	alt?: string;
-	className?: string;
-	title?: string;
-	width?: number;
-	height?: number;
-	loading?: "lazy" | "eager";
-}) => {
-	const imageProps = useNextSanityImage(client, (image || {}));
-	return (
-    <Image
-			title={title }
-      {...imageProps}
-      className={className}
-			loading={loading || "lazy"}
-      alt={alt || ""}
-      sizes="(max-width: 800px) 100vw, 800px"
-			width={width || 800}
+type SanityImageAssetWithAlt = SanityImageSource & { alt?: string };
+
+export function SanityImage(
+  props: PortableTextComponentProps<SanityImageAssetWithAlt> & { width: number ; className?:string;}
+) {
+  const { value, isInline } = props;
+  const { width, height } = getImageDimensions(value);
+
+  return (
+    <img
+      className={`not-prose h-auto w-full ${props.className}`}
+      src={urlBuilder(projectDetails())
+        .image(value)
+        .width(isInline ? 100 : props?.width ?? 800)
+        .fit("max")
+        .auto("format")
+        .quality(60)
+        .url()}
+      alt={value.alt || ""}
+      loading="lazy"
+      style={{
+        // Display alongside text if image appears inside a block text span
+        display: isInline ? "inline-block" : "block",
+
+        // Avoid jumping around with aspect-ratio CSS property
+        aspectRatio: width / height
+      }}
     />
   );
 }

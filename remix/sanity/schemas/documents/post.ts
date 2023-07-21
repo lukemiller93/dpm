@@ -1,5 +1,5 @@
 // define a sanity v3 schema for a blog post
-import { BellRingIcon, FileBadgeIcon } from 'lucide-react'
+import { BellRingIcon } from 'lucide-react'
 import { defineType, defineField } from 'sanity'
 export const post = defineType({
 	name: 'post',

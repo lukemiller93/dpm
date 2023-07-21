@@ -1,8 +1,8 @@
-import { PortableTextZ, imagePropsZ } from "@/types/shared";
+import { PortableTextZ, imagePropsZ } from "types/shared";
 import { PortableText } from "@portabletext/react";
-import { groq } from "next-sanity";
 import { z } from "zod"
 import { SanityImage } from "../SanityImage";
+import groq from "groq";
 
 export const textWithImagePropsZ = z.object({
 	_type: z.literal("textWithImage"),

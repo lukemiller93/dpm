@@ -1,7 +1,7 @@
-import { PortableTextZ } from "@/types/shared";
+import { PortableTextZ } from "types/shared";
 import { PortableText } from "@portabletext/react";
-import { groq } from "next-sanity";
 import { z } from "zod"
+import groq from "groq";
 
 export const richTextPropsZ = z.object({
 	_type: z.literal("richText"),

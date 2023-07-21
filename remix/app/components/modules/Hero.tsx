@@ -1,12 +1,12 @@
 "use client"
-import { normalizePath } from "@/lib/getUrlPath";
+import { normalizePath } from "~/lib/getUrlPath";
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
+
 import { useState } from "react";
-import { z } from "zod";
+import type { z } from "zod";
 import { SanityImage } from "../SanityImage";
-import { heroPropsZ } from "@/types/shared";
-import { usePathname } from "next/navigation";
+import type { heroPropsZ } from "types/shared";
+import { Link, useLocation } from "@remix-run/react";
 
 export const directionOffset = 800;
 export const variants = {
@@ -27,7 +27,7 @@ export const variants = {
 };
 export type HeroProps = z.infer<typeof heroPropsZ>;
 export const HeroSection = ({ _key, _type, heros }: HeroProps) => {
-	  const pathname = usePathname()
+	  const {pathname} = useLocation()
     const [[page, direction], setPage] = useState([0, 0]);
     const [running, setRunning] = useState<boolean>(true);
     const index = Math.min(Math.max(page, 0), heros?.length || 0);
@@ -71,7 +71,7 @@ export const HeroSection = ({ _key, _type, heros }: HeroProps) => {
             {heros?.[index]?.action && (
               <Link
                 className="px-6 py-2 rounded-full bg-sky-600 text-white border-gray-200 border-2 hover:bg-blue-400 transition-colors duration-200 focus:bg-blue-400"
-                href={normalizePath(heros?.[index]?.action?.route?.slug || "/")}
+                to={normalizePath(heros?.[index]?.action?.route?.slug || "/")}
                 aria-label={heros?.[index]?.action?.route?.title}
               >
                 {heros?.[index]?.action?.actionTitle}

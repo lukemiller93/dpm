@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 
 import { Component, Contact, Newspaper, Quote } from "lucide-react";
-import { toTitleCase } from "@/lib/toTitleCase";
+import { toTitleCase } from "~/lib/toTitleCase";
 export const uiComponentRef = defineType({
   type: "object",
   name: "uiComponentRef",

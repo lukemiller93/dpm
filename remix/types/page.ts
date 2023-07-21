@@ -1,11 +1,11 @@
-import { cardSectionPropsZ } from "@/components/modules/CardSection";
+import { cardSectionPropsZ } from "~/components/modules/CardSection";
 import { heroPropsZ, routeStubZ } from "./shared";
 import { z } from "zod";
-import { uiComponentRefPropsZ } from "@/components/modules/UiComponentRef";
-import { ctaSectionPropsZ } from "@/components/modules/CtaSection";
-import { columnsPropsZ } from "@/components/modules/Columns";
-import { textWithImagePropsZ } from "@/components/modules/TextWithImage";
-import { richTextPropsZ } from "@/components/modules/RichText";
+import { uiComponentRefPropsZ } from "~/components/modules/UiComponentRef";
+import { ctaSectionPropsZ } from "~/components/modules/CtaSection";
+import { columnsPropsZ } from "~/components/modules/Columns";
+import { textWithImagePropsZ } from "~/components/modules/TextWithImage";
+import { richTextPropsZ } from "~/components/modules/RichText";
 
 
 export const pageZ = z.object({

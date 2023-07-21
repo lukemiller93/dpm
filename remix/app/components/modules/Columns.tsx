@@ -1,4 +1,5 @@
-import { groq } from "next-sanity";
+
+import groq from "groq";
 import { z } from "zod"
 
 export const columnsPropsZ = z.object({

@@ -1,9 +1,10 @@
-import { normalizePath } from "@/lib/getUrlPath";
-import { PortableTextZ, ctaZ } from "@/types/shared";
+import { normalizePath } from "~/lib/getUrlPath";
 import { PortableText } from "@portabletext/react";
-import { groq } from "next-sanity";
-import Link from "next/link";
+
 import { z } from "zod";
+import { PortableTextZ, ctaZ } from "types/shared";
+import groq from "groq";
+import { Link } from "@remix-run/react";
 
 export const ctaSectionPropsZ = z.object({
   _type: z.literal("ctaSection"),
@@ -51,7 +52,7 @@ export const CtaSection = ({ _key, _type, backgroundColor, body, cta }: CTASecti
             className={` px-8 py-4 text-black ${
               brandColors[cta?.buttonColor as keyof typeof brandColors]
             }`}
-            href={normalizePath(cta.route?.slug ?? cta?.link ?? "")}
+            to={normalizePath(cta.route?.slug ?? cta?.link ?? "")}
           >
             {cta?.title}
           </Link>

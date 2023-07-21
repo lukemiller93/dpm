@@ -1,18 +1,20 @@
-import { postZ } from "@/types/post";
-import { projectZ } from "@/types/project";
-import { serviceZ } from "@/types/service";
-import { ctaZ } from "@/types/shared";
+
 import { PortableText } from "@portabletext/react";
-import { groq } from "next-sanity";
-import Link from "next/link";
 import { z } from "zod";
+import {  postZ} from "types/post";
+import { ctaZ } from "types/shared";
+import { projectZ } from "types/project";
+import { serviceZ } from "types/service";
+import groq from "groq";
+import { Link } from "@remix-run/react";
+import { JsonPreview } from "../JsonPreview";
 
 export const cardSectionPropsZ = z.object({
   _type: z.literal("cardSection"),
   _key: z.string(),
   heading: z.string().nullish(),
   tagline: z.array(z.any()).nullish(),
-  cards: z.array(z.discriminatedUnion("_type", [projectZ, postZ, serviceZ])),
+  cards: z.array(z.discriminatedUnion("_type", [projectZ, serviceZ, postZ])),
   ctas: z.array(ctaZ).nullish(),
 });
 
@@ -63,7 +65,7 @@ export const CardSection = (props: CardSectionProps) => {
 								<div>
 									<h3 className="font-semibold">{card.title}</h3>
 									<p className="max-w-prose">{card?.excerpt}</p>
-									<Link href={`/projects/${card.slug}/`}>Learn More</Link>
+									<Link to={`/projects/${card.slug}/`}>Learn More</Link>
 								</div>
 							)}
 							{card._type === "post" && (
@@ -82,7 +84,7 @@ export const CardSection = (props: CardSectionProps) => {
 					);
 				})}
 			</div>
-      {/* <pre>{JSON.stringify(props, null, 2)}</pre> */}
+			{/* <JsonPreview {...props} /> */}
     </section>
   );
 };

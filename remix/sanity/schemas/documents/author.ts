@@ -36,4 +36,16 @@ export const author = defineType({
       },
     }),
   ],
+	preview: {
+		select: {
+			title: "name",
+			media: "image",
+		},
+		prepare({ title, media }) {
+			return {
+				title,
+				media
+			}
+		}
+	}
 });

@@ -1,5 +1,5 @@
+import type {Config} from 'tailwindcss'
 const { fontFamily } = require("tailwindcss/defaultTheme");
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -29,4 +29,4 @@ module.exports = {
 		require('@tailwindcss/forms'),
 		require("@tailwindcss/container-queries")
 	],
-};
+} satisfies Config

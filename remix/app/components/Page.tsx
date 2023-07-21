@@ -1,13 +1,15 @@
-import { PageDoc } from "@/types/page";
-import { groq } from "next-sanity";
+import type { PageDoc } from "types/page";
+
 // import {  HeroSectionQuery } from "./modules/Hero";
-import {  CardSectionQuery } from "./modules/CardSection";
+import { CardSectionQuery } from "./modules/CardSection";
 import { ColumnsQuery } from "./modules/Columns";
-import {  CtaSectionQuery } from "./modules/CtaSection";
-import {  RichTextQuery } from "./modules/RichText";
+import { CtaSectionQuery } from "./modules/CtaSection";
+import { RichTextQuery } from "./modules/RichText";
 import { TextWithImageQuery } from "./modules/TextWithImage";
 import { UiComponentQuery } from "./modules/UiComponentRef";
-import dynamic from "next/dynamic";
+import groq from "groq";
+import { JsonPreview } from "./JsonPreview";
+import React, { Suspense } from "react";
 
 export const HeroSectionQuery = groq`
 	_type == "hero" => {
@@ -42,7 +44,7 @@ export const HeroSectionQuery = groq`
 
 // type guard function to check for _key
 function hasKey(module: unknown): module is PageDoc["modules"][0] {
-	return (
+  return (
     Boolean(module) &&
     typeof module === "object" &&
     typeof (module as PageDoc["modules"][0])._type === "string" &&
@@ -73,34 +75,80 @@ export const PageQuery = groq`
 `;
 
 const lookup = {
-  hero: dynamic(async () =>{
-    const {HeroSection: Component} = await import("@/components/modules/Hero")
-		return {
-			default: Component
-		}
-	}
-  ),
-  cardSection: dynamic(() =>import("@/components/modules/CardSection").then((mod) => mod.CardSection)),
-  columns: dynamic(() =>import("@/components/modules/Columns").then((mod) => mod.ColumnsSection)),
-  ctaSection: dynamic(() =>import("@/components/modules/CtaSection").then((mod) => mod.CtaSection)),
-  richText: dynamic(() =>import("@/components/modules/RichText").then((mod) => mod.RichText)),
-  textWithImage: dynamic(() =>import("@/components/modules/TextWithImage").then((mod) => mod.TextWithImage)),
-  uiComponentRef: dynamic(() =>import("@/components/modules/UiComponentRef").then((mod) => mod.UiComponentRef)),
-} as const ;
+  hero: React.lazy(async () => {
+    const { HeroSection: Component } = await import(
+      "~/components/modules/Hero"
+    );
+    return {
+      default: Component,
+    };
+  }),
+  cardSection: React.lazy(async () => {
+    const { CardSection: Component } = await import(
+      "~/components/modules/CardSection"
+    );
+    return {
+      default: Component,
+    };
+  }),
+  columns: React.lazy(async () => {
+    const { ColumnsSection: Component } = await import(
+      "~/components/modules/Columns"
+    );
+    return {
+      default: Component,
+    };
+  }),
+  ctaSection: React.lazy(async () => {
+    const { CtaSection: Component } = await import(
+      "~/components/modules/CtaSection"
+    );
+    return {
+      default: Component,
+    };
+  }),
+  richText: React.lazy(async () => {
+    const { RichText: Component } = await import(
+      "~/components/modules/RichText"
+    );
+    return {
+      default: Component,
+    };
+  }),
+  textWithImage: React.lazy(async () => {
+    const { TextWithImage: Component } = await import(
+      "~/components/modules/TextWithImage"
+    );
+    return {
+      default: Component,
+    };
+  }),
+  uiComponentRef: React.lazy(async () => {
+    const { UiComponentRef: Component } = await import(
+      "~/components/modules/UiComponentRef"
+    );
+    return {
+      default: Component,
+    };
+  }),
+} as const;
 
 export const Page = ({ modules }: { modules: PageDoc["modules"] }) => {
+  return (
+    <>
+      {modules?.map((module, idx) => {
+        const Component = lookup[module._type];
 
+        if (hasKey(module)) {
+          return (
+            <Suspense key={module._key} fallback={<div>Loading...</div>}>
+              <Component  {...module} />
+            </Suspense>
+          );
+        }
 
-  return <>
-		{modules?.map((module, idx) => {
-			const Component = lookup[module._type];
-
-			if (hasKey(module)) {
-				return <Component key={module._key } {...module} />
-			}
-
-				return null
-
-		})}
-	</>
+        return null;
+      })}
+    </>
+  );
 };

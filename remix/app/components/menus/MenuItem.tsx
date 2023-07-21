@@ -1,9 +1,7 @@
-"use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, useLocation } from "@remix-run/react";
 import { DropdownMenu } from "./DropdownMenu";
 import type { DropdownState, MenuItems } from "./Menu";
-import { normalizePath } from "@/lib/getUrlPath";
+import { normalizePath } from "~/lib/getUrlPath";
 
 export const MenuItem = ({
   navItem,
@@ -12,7 +10,7 @@ export const MenuItem = ({
   navItem: MenuItems[0];
   isActive: boolean;
 }) => {
-  const pathname = usePathname();
+  const {pathname} = useLocation();
   const { itemName, externalLink, item, _key, nestedRoutes } = navItem;
 
   return (
@@ -27,7 +25,7 @@ export const MenuItem = ({
       ) : (
         <Link
           className={isActive ? "text-red-400" : ""}
-          href={normalizePath(navItem.item?.slug || "")}
+          to={normalizePath(navItem.item?.slug || "")}
         >
           {itemName && itemName !== "" ? itemName : item?.title}
         </Link>
